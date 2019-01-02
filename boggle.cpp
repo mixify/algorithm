@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <iostream>
+#include <vector>
 
 #define X 0
 #define Y 1
@@ -30,18 +31,20 @@ void solve_problem(int case_num)
         }
     }
     cin>>word_count;
-    string word[word_count];
+    vector<string> word;
     getchar();
     for (int i = 0; i < word_count; ++i) {
-        getline(cin,word[i]);
+        string str;
+        getline(cin,str);
+        word.push_back(str);
     }
     for (int i = 0; i < word_count; ++i) {
         found = false;
         for (int x = 0; x < 5; ++x) {
             for (int y = 0; y < 5; ++y) {
-                if(has_word(x,y,word[i], 0))
+                if(has_word(x,y,word.at(i), 0))
                 {
-                    cout<<word[i]<<" "<<"YES"<<endl;
+                    cout<<word.at(i)<<" "<<"YES"<<endl;
                     x = 1818;
                     y = 1818;
                     found=true;
@@ -49,7 +52,7 @@ void solve_problem(int case_num)
             }
         }
         if(!found)
-            cout<<word[i]<<" "<<"NO"<<endl;
+            cout<<word.at(i)<<" "<<"NO"<<endl;
     }
 }
 bool out_of_boundary(int x,int y)
