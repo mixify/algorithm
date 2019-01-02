@@ -4,3 +4,11 @@
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
 !_TAG_PROGRAM_VERSION	5.8	//
+X	boggle.cpp	3;"	d	file:
+Y	boggle.cpp	4;"	d	file:
+adjacent_num	boggle.cpp	/^const int adjacent_num[8][2] = {{-1,-1},{-1,0},{-1,1},{0,1},{1,1},{1,0},{1,-1},{0,-1}};$/;"	v
+board	boggle.cpp	/^int board[5][5];$/;"	v
+has_word	boggle.cpp	/^bool has_word(int x,int y, string word)$/;"	f
+launch_watchman	hooks/fsmonitor-watchman.sample	/^sub launch_watchman {$/;"	s
+main	boggle.cpp	/^int main(int argc, char *argv[])$/;"	f
+solve_problem	boggle.cpp	/^void solve_problem(int case_num)$/;"	f
