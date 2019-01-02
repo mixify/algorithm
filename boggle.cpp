@@ -15,7 +15,6 @@ int main(int argc, char *argv[])
 {
     int cases;
     cin>>cases;
-    cout<<cases<<endl;
     for (int i = 0; i <cases; ++i) {
         solve_problem(i);
     }
