@@ -15,6 +15,7 @@ int main(int argc, char *argv[])
 {
     int cases;
     cin>>cases;
+    cout<<cases<<endl;
     for (int i = 0; i <cases; ++i) {
         solve_problem(i);
     }
@@ -67,7 +68,10 @@ bool has_word(int x,int y, string word, int count)
     if(count == 0)
     {
         if(board[x][y] == word.at(count))
-            return has_word(x,y,word,count+1);
+            if(word.length()-1 == count)
+                return true;
+            else
+                return has_word(x,y,word,count+1);
         else
             return false;
     }
