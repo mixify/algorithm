@@ -15,7 +15,6 @@ const int switches[10][5] = {{0,1,2,-1,-1}, {3,7,9,11,-1}, {4,10,14,15,-1}, {0,4
     {6,7,8,10,12}, {0,2,14,15,-1}, {3,14,15,-1,-1}, {4,5,7,14,15}, {1,2,3,4,5}, {3,4,5,9,13}};
 
 void solve_problem(int case_num);
-// int walkSAT(vector <int> clock);
 void recursive_clock(vector <int> clock, vector <int> switch_count, int switch_index);
 int main(int argc, char *argv[])
 {
@@ -44,14 +43,16 @@ void solve_problem(int case_num)
         switch_count.push_back(0);
     }
     recursive_clock(clock, switch_count, 0);
+    if(minimum == 9999)
+        minimum = -1;
     printf("%d\n", minimum);
 }
 
-void press_switch(vector <int>* clock, int switch_index)
+void press_switch(vector <int>* clock, int switch_index, int count)
 {
     for (int i = 0; i < 5; ++i) {
         if(switches[switch_index][i]!=-1)
-            clock->at(switches[switch_index][i]) = (clock->at(switches[switch_index][i]) + 3) % 12;
+            clock->at(switches[switch_index][i]) = (clock->at(switches[switch_index][i]) + 3 * count) % 12;
     }
 }
 
@@ -77,79 +78,11 @@ void recursive_clock(vector <int> clock, vector <int> switch_count, int switch_i
         return;
     }
 
-    for (int i = 0; i < 4; ++i) {
+    for (int i = 0; i < 4; ++i)
+    {
         vector <int> switch_clock(clock);
         switch_count[switch_index]=i;
-        for (int j = 0; j < i; ++j) {
-            press_switch(&switch_clock, switch_index);
-        }
+        press_switch(&switch_clock, switch_index, i);
         recursive_clock(switch_clock, switch_count, switch_index + 1);//include
     }
 }
-
-// int walkSAT(vector <int> clock)
-// {
-//     int maxflips = 100;
-//     double p = 0.5;
-//     for (int i = 0; i < maxflips; ++i) {
-//         // printf("before : ");
-//         // for (int j = 0; j < clock.size(); ++j) {
-//         //     printf("%d ", clock[j]);
-//         // }
-//         // printf("\n");
-//         vector <int> violated;
-//         for (int j = 0; j < clock.size(); ++j) {
-//             if(clock.at(j) != 12)
-//                 violated.push_back(clock.at(j));
-//         }
-//         if(violated.size() == 0)//solved
-//             return i;
-//         // retmin;
-//         int random_unsat_clock = rand()%violated.size();
-//         double f = (double)rand() / RAND_MAX;
-//         int selected;
-//         if(f>p)
-//         {
-//             vector <int> random_including_switch; for (int j = 0; j < SWITCHES; ++j) {
-//                 for (int k = 0; k < 5; ++k) {
-//                     if(switches[j][k] == random_unsat_clock)
-//                     {
-//                         random_including_switch.push_back(j);
-//                         break;
-//                     }
-//                 }
-//             }
-//             selected = random_including_switch.at(rand()%random_including_switch.size());
-//             press_switch(&clock, selected);
-//         }
-//         else
-//         {
-//             int max= -1;
-//             int max_index;
-//             for (int j = 0; j < SWITCHES; ++j) {
-//                 int count = 0;
-//                 for (int k = 0; k < 5; ++k) {
-//                     if(switches[j][k] != -1)
-//                         if(clock.at(switches[j][k])+3 == 12)
-//                             count++;
-//                 }
-//                 if(count > max)
-//                 {
-//                     max_index = j;
-//                     max = count;
-//                 }
-//             }
-//             selected = max_index;
-//             // printf("p < 50 : %d selected\n", selected);
-//             press_switch(&clock, max_index);
-//         }
-//         printf("after :  ");
-//         for (int j = 0; j < clock.size(); ++j) {
-//             printf("%d ", clock[j]);
-//         }
-//         printf("\n");
-//         printf("------------------------------\n");
-//     }
-//     return -1;
-//
-// }
