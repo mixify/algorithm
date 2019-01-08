@@ -54,7 +54,7 @@ class QuadTree{
                 else
                 {
                     printf("x");
-                    if(quadrant[reversed_iterate[i]].color!=-1)
+                    // if(quadrant[reversed_iterate[i]].color!=-1)
                         quadrant[reversed_iterate[i]].divided->get_reverse_quadrant();
                 }
             }
@@ -68,7 +68,6 @@ int main(int argc, char *argv[])
 {
     int cases;
     cin>>cases;
-    getchar();
     for (int i = 0; i < cases; ++i) {
         solve_problem(i);
     }
@@ -77,7 +76,7 @@ int main(int argc, char *argv[])
 
 void solve_problem(int case_num)
 {
-    char quadtree[1000];
+    char quadtree[1001];
 
     // getline(cin,quadtree);
     scanf("%s",quadtree);
