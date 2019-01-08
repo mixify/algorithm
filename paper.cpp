@@ -28,22 +28,25 @@ int main(int argc, char *argv[])
         }
     }
     cut_paper(0,0, N,paper);
+    printf("%d\n%d\n%d\n",minus_count, zero_count, plus_count);
 }
 
 void cut_paper(int x, int y, int size, vector<vector <int> > paper)
 {
-    int init = paper[x][y];
     bool same = true;
-    for (int i = 0; i < size; ++i) {
-        for (int j = 0; j < size; ++j) {
-            if(init!=paper[i][j])//divide by 9
+    for (int i = x; i < x+size; ++i) {
+        for (int j = y; j < y+size; ++j) {
+            if(paper[x][y]!=paper[i][j])//divide by 9
             {
                 same = false;
+                i =9999999;
+                    break;
             }
         }
     }
     if(same)
     {
+        int init = paper[x][y];
         if(init == -1)
             minus_count++;
         else if(init == 0)
