@@ -105,7 +105,7 @@ void solve_problem(int case_num)
             trees.push(qt);
             qt = new_qt;
         }
-        if(qt->get_quadrant_count() == NUM_QUADRANT)
+        while(qt->get_quadrant_count() == NUM_QUADRANT)
         {
             qt = trees.top();
             trees.pop();
