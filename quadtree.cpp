@@ -62,7 +62,7 @@ class QuadTree{
 };
 
 void solve_problem(int case_num);
-void print_tree(QuadTree *qt);
+void free_tree(QuadTree *qt);
 QuadTree* reverse_tree(QuadTree *qt);
 int main(int argc, char *argv[])
 {
@@ -115,20 +115,18 @@ void solve_problem(int case_num)
 
     printf("x");
     first_qt->get_reverse_quadrant();
-    // print_tree(reverse_qt);
+    free_tree(first_qt);
     printf("\n");
 
 }
 
-void print_tree(QuadTree *qt)
+void free_tree(QuadTree *qt)
 {
     for (int i = 0; i < NUM_QUADRANT; ++i) {
         if(qt->quadrant[i].color == 'w' || qt->quadrant[i].color == 'b')
-            printf("%c", qt->quadrant[i].color);
+            ;
         else
-        {
-            printf("x");
-            print_tree(qt->quadrant[i].divided);
-        }
+            free_tree(qt->quadrant[i].divided);
     }
+    delete[] qt;
 }
