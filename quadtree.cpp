@@ -76,7 +76,7 @@ int main(int argc, char *argv[])
 
 void solve_problem(int case_num)
 {
-    char quadtree[1001];
+    char quadtree[1001] = {0,};
 
     // getline(cin,quadtree);
     scanf("%s",quadtree);
