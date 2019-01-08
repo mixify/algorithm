@@ -54,7 +54,8 @@ class QuadTree{
                 else
                 {
                     printf("x");
-                    quadrant[reversed_iterate[i]].divided->get_reverse_quadrant();
+                    if(quadrant[reversed_iterate[i]].color!=-1)
+                        quadrant[reversed_iterate[i]].divided->get_reverse_quadrant();
                 }
             }
         }
