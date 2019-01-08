@@ -117,7 +117,6 @@ void solve_problem(int case_num)
     first_qt->get_reverse_quadrant();
     free_tree(first_qt);
     printf("\n");
-
 }
 
 void free_tree(QuadTree *qt)
