@@ -13,7 +13,7 @@ typedef union SQU{
     int color;
     QuadTree *divided;
 }square;
-
+const int reversed_iterate[4] = {2,3,0,1};
 class QuadTree{
     private:
         int quadrant_count;
@@ -50,20 +50,23 @@ class QuadTree{
         {
             return quadrant_count;
         }
-        QuadTree* get_reverse_quadrant()
+        void get_reverse_quadrant()
         {
-            QuadTree* qt = new QuadTree();
-            qt->set_quadrant(quadrant[2]);
-            qt->set_quadrant(quadrant[3]);
-            qt->set_quadrant(quadrant[0]);
-            qt->set_quadrant(quadrant[1]);
+            // QuadTree* qt = new QuadTree();
+            // QuadTree* qt = new QuadTree();
+            // qt->set_quadrant(quadrant[2]);
+            // qt->set_quadrant(quadrant[3]);
+            // qt->set_quadrant(quadrant[0]);
+            // qt->set_quadrant(quadrant[1]);
             for (int i = 0; i < NUM_QUADRANT; ++i) {
-                if(qt->quadrant[i].color == 'w' || qt->quadrant[i].color == 'b')
-                    ;
+                if(quadrant[reversed_iterate[i]].color == 'w' || quadrant[reversed_iterate[i]].color == 'b')
+                    printf("%c",quadrant[reversed_iterate[i]].color);
                 else
-                    qt->set_quadrant(qt->quadrant[i].divided->get_reverse_quadrant(),i);
+                {
+                    printf("x");
+                    quadrant[reversed_iterate[i]].divided->get_reverse_quadrant();
+                }
             }
-            return qt;
         }
 };
 
@@ -130,9 +133,9 @@ void solve_problem(int case_num)
     // print_tree(first_qt);
     // printf("\n");
 
-    QuadTree *reverse_qt = first_qt->get_reverse_quadrant();
     printf("x");
-    print_tree(reverse_qt);
+    first_qt->get_reverse_quadrant();
+    // print_tree(reverse_qt);
     printf("\n");
 
     // for (int i = 0; i < NUM_QUADRANT; ++i) {
@@ -148,18 +151,7 @@ void solve_problem(int case_num)
     //         printf("divided\n");
     // }
 }
-QuadTree* reverse_tree(QuadTree *qt)
-{
-    QuadTree *reverse_qt = qt->get_reverse_quadrant();
-    for (int i = 0; i < NUM_QUADRANT; ++i)
-    {
-        if(reverse_qt->quadrant[i].color == 'w' || reverse_qt->quadrant[i].color == 'b')
-            ;
-        else
-            reverse_tree(reverse_qt->quadrant[i].divided);
-    }
-    return reverse_qt;
-}
+
 void print_tree(QuadTree *qt)
 {
     for (int i = 0; i < NUM_QUADRANT; ++i) {
