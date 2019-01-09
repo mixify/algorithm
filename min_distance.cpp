@@ -34,6 +34,8 @@ int solve(int left, int right)
 {
     if(left-right ==1 || right-left == 1)
         return distance(left,right);
+    else if(left == right)
+        return 1000000000;
 
     int mid = (left+right) / 2;
     int ret = min(solve(left,mid), solve(mid+1,right));
@@ -63,6 +65,7 @@ int solve(int left, int right)
     return ret;
 }
 int distance(int i1, int i2)
+
 {
     pair<int,int> d1 = dots[i1];
     pair<int,int> d2 = dots[i2];
