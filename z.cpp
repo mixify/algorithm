@@ -24,21 +24,32 @@ int main(int argc, char *argv[])
     return 0;
 }
 
-void Z(int x,int y, int N)
+void Z(int x,int y, int N)//2, 0, 2  3 1
 {
-    if(N==1)
+    if(x==row && y==col)
     {
-        if(x==row && y==col)
-        {
-            printf("%d\n", order);
-            exit(0);
-        }
-        order++;
-        return;
+        printf("%d\n", order);
+        exit(0);
     }
-    N/=2;
-    Z(x,y,N);
-    Z(x,y+N,N);
-    Z(x+N,y,N);
-    Z(x+N,y+N,N);
+    int half = N/2;
+    if(row<x+half && col<y+half)
+    {
+        Z(x,y,half);
+    }
+    else if(row<x+half && col>=y+half)
+    {
+        order+=half*half;
+        Z(x,y+half,half);
+    }
+    else if(row>=x+half && col<y+half)
+    {
+        order+=half*half*2;
+        Z(x+half,y,half);
+    }
+    else
+    {
+        order+=half*half*3;
+        Z(x+half,y+half,half);
+    }
 }
+//N=16 =>64 = 8*8 씩,N=8 => 16 => 4*4씩 , N=4 => 4=>2*2씩, N=2 => 1=>1*1씩
