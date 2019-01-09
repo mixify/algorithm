@@ -11,7 +11,6 @@ using namespace std;
 void Z(int x,int y, int N);
 int row,col;
 int order = 0;
-int val = 0;
 int main(int argc, char *argv[])
 {
     int N;
@@ -22,7 +21,6 @@ int main(int argc, char *argv[])
         size*=2;
     }
     Z(0,0,size);
-    printf("%d\n", val) ;
     return 0;
 }
 
@@ -31,7 +29,10 @@ void Z(int x,int y, int N)
     if(N==1)
     {
         if(x==row && y==col)
-            val = order;
+        {
+            printf("%d\n", order);
+            exit(0);
+        }
         order++;
         return;
     }
