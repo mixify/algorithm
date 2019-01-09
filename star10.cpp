@@ -18,7 +18,6 @@ int main(int argc, char *argv[])
         for (int j = 0; j < N; ++j) {
             stars[i][j] = ' ';
         }
-        printf("\n");
     }
     set_star(0,0,N);
 
