@@ -36,11 +36,11 @@ int solve(int left, int right)
         return distance(left,right);
 
     int mid = (left+right) / 2;
-    int ret = min(solve(left,mid), solve(right,mid+1));
+    int ret = min(solve(left,mid), solve(mid+1,right));
 
-    int lo = mid, hi = mid+1;
+    int lo = mid, hi = mid;
 
-    ret = min(ret, distance(lo,hi));
+    // ret = min(ret, distance(lo,hi));
 
     // int max_y,min_y;
     // int max_y = min_y = dots[mid].second;
