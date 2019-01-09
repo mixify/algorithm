@@ -25,7 +25,8 @@ int main(int argc, char *argv[])
         for (int j = 0; j < N; ++j) {
             printf("%c",stars[i][j]);
         }
-        printf("\n");
+        if(i!=N-1)
+            printf("\n");
     }
     return 0;
 }
