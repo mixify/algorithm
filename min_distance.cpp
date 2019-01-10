@@ -25,7 +25,7 @@ int main(int argc, char *argv[])
         dots.push_back(make_pair(x,y));
     }
 
-    // sort(dots.begin(), dots.end(),compare_x);
+    sort(dots.begin(), dots.end(),compare_x);
     printf("%d\n", solve(0, dots.size()-1));
     return 0;
 }
@@ -46,20 +46,32 @@ int solve(int left, int right)
 
     // ret = min(ret, distance(lo,hi));
 
-    // int max_y,min_y;
-    // int max_y = min_y = dots[mid].second;
+    int max_y,min_y;
+    max_y = min_y = dots[mid].second;
 
     while(left < lo || hi < right)
     {
-        if(hi < right && (lo == left || distance(mid,lo-1) > distance(mid,hi+1)))
-        // if(hi < right && (lo == left || max_y-dots[] > ))
+        // if(hi < right && (lo == left || distance(mid,lo-1) > distance(mid,hi+1)))
+        int left_diff = abs(max_y - dots[lo-1].second) < abs(min_y - dots[lo-1].second) ? abs(max_y - dots[lo-1].second) : abs(min_y - dots[lo-1].second);
+        int right_diff = abs(max_y - dots[hi+1].second) < abs(min_y - dots[hi+1].second) ? abs(max_y - dots[hi+1].second) : abs(min_y - dots[hi+1].second);
+        if(hi < right && (lo == left || left_diff > right_diff ))
         {
             ++hi;
+            if(max_y < dots[hi].second)
+                max_y = dots[hi].second;
+            else if(min_y > dots[hi].second)
+                min_y = dots[hi].second;
+
             ret = min(ret, distance(mid,hi));
         }
         else
         {
             --lo;
+            if(max_y < dots[lo].second)
+                max_y = dots[lo].second;
+            else if(min_y > dots[lo].second)
+                min_y = dots[lo].second;
+
             ret = min(ret, distance(mid,lo));
         }
     }
