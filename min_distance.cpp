@@ -34,11 +34,13 @@ int solve(int left, int right)
 {
     if(left-right ==1 || right-left == 1)
         return distance(left,right);
-    else if(left == right)
-        return 1000000000;
 
     int mid = (left+right) / 2;
-    int ret = min(solve(left,mid), solve(mid+1,right));
+    int ret;
+    if(mid+1 == right)
+        ret = solve(left,mid);
+    else
+        ret = min(solve(left,mid), solve(mid+1,right));
 
     int lo = mid, hi = mid;
 
@@ -49,8 +51,8 @@ int solve(int left, int right)
 
     while(left < lo || hi < right)
     {
-        // if(hi < right && (lo == left || max_y-dots[] > )))
         if(hi < right && (lo == left || distance(mid,lo-1) > distance(mid,hi+1)))
+        // if(hi < right && (lo == left || max_y-dots[] > ))
         {
             ++hi;
             ret = min(ret, distance(mid,hi));
