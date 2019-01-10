@@ -19,14 +19,12 @@ bool compare_x(pair <int,int> p1, pair <int,int> p2)
 
 int brute()
 {
-    int min = 99999999;
+    int min = 999999999;
     for (int i = 0; i < dots.size()-1; ++i) {
         for (int j = i+1; j < dots.size(); ++j) {
             int dis = distance(i,j);
             if(dis < min)
-            {
                 min = dis;
-            }
         }
     }
     return min;
@@ -43,12 +41,13 @@ int main(int argc, char *argv[])
 
     clock_t begin,end;
     begin = clock();
-    printf("%d", brute());
+    // printf("answer = %d\n", brute());
     end = clock();
     // cout<<"time = "<<end-begin<<endl;
     begin = clock();
     sort(dots.begin(), dots.end(),compare_x);
     // printf("my_algo = %d\n", solve(0, dots.size()-1));
+    printf("%d\n", solve(0, dots.size()));
     end = clock();
     // cout<<"time = "<<end-begin<<endl;
     return 0;
