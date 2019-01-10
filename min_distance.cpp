@@ -43,13 +43,12 @@ int main(int argc, char *argv[])
 
     clock_t begin,end;
     begin = clock();
-    // printf("answer = %d\n", brute());
+    printf("%d", brute());
     end = clock();
     // cout<<"time = "<<end-begin<<endl;
     begin = clock();
     sort(dots.begin(), dots.end(),compare_x);
     // printf("my_algo = %d\n", solve(0, dots.size()-1));
-    printf("%d", solve(0, dots.size()-1));
     end = clock();
     // cout<<"time = "<<end-begin<<endl;
     return 0;
@@ -104,7 +103,6 @@ int solve(int left, int right)
     return ret;
 }
 int distance(int i1, int i2)
-
 {
     pair<int,int> d1 = dots[i1];
     pair<int,int> d2 = dots[i2];
