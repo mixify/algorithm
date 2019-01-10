@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <time.h>
 #include <iostream>
 #include <algorithm>
 #include <vector>
@@ -15,6 +16,21 @@ bool compare_x(pair <int,int> p1, pair <int,int> p2)
 {
     return p1.first<p2.first;
 }
+
+int brute()
+{
+    int min = 99999999;
+    for (int i = 0; i < dots.size()-1; ++i) {
+        for (int j = i+1; j < dots.size(); ++j) {
+            int dis = distance(i,j);
+            if(dis < min)
+            {
+                min = dis;
+            }
+        }
+    }
+    return min;
+}
 int main(int argc, char *argv[])
 {
     int num_dots;
@@ -25,8 +41,17 @@ int main(int argc, char *argv[])
         dots.push_back(make_pair(x,y));
     }
 
+    clock_t begin,end;
+    begin = clock();
+    // printf("answer = %d\n", brute());
+    end = clock();
+    // cout<<"time = "<<end-begin<<endl;
+    begin = clock();
     sort(dots.begin(), dots.end(),compare_x);
-    printf("%d\n", solve(0, dots.size()-1));
+    // printf("my_algo = %d\n", solve(0, dots.size()-1));
+    printf("%d", solve(0, dots.size()-1));
+    end = clock();
+    // cout<<"time = "<<end-begin<<endl;
     return 0;
 }
 
