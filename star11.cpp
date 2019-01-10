@@ -56,15 +56,7 @@ void set_star(int x, int y, int H)
         }
         return;
     }
-    // if(W%2!=0)
-    // {
-    //     W/=5;
-    //     H/=3;
-    // }
-    // else
-    // {
     H/=2;
-    // }
     set_star(x+H,y,H);
     set_star(x,y+H,H);
     set_star(x+H,y+H*2,H);
