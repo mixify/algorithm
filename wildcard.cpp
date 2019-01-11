@@ -45,6 +45,8 @@ void solve_problem(int case_num)
     sort(valid_filename.begin(), valid_filename.end());
     for (int i = 0; i < valid_filename.size(); ++i) {
         cout<<valid_filename[i]<<endl;
+        if(i==valid_filename.size()-1)
+        cout<<valid_filename[i];
     }
 }
 
