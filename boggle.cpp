@@ -67,16 +67,18 @@ bool in_of_boundary(int x,int y)
 bool has_word(int x, int y, string word, int count)
 {
     int &ret = cache[x][y][count];
-    if(ret!=-1) return ret;
+    if(ret!=-1){
+        return ret;
+    }
     if(count == word.length()-1)
         if(word[count] == board[x][y])
             return true;
     if(board[x][y] != word[count])
-        return 0;
+        return ret = 0;
     for (int i = 0; i < 8; ++i) {
         if(in_of_boundary(x+adjacent_num[i][X],y+adjacent_num[i][Y]))
             if(has_word(x+adjacent_num[i][X], y+adjacent_num[i][Y], word, count+1))
                 return ret = 1;
     }
-    return 0;
+    return ret = 0;
 }
