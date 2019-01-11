@@ -9,7 +9,7 @@
 
 using namespace std;
 
-int cache[100][100];
+int cache[101][101];
 void solve_problem(int case_num);
 // int valid(string wildcard, string filename, int pos_wildcard, int pos_filename);
 int valid(string wildcard, string filename, int pos_wildcard, int pos_filename, int star_count);
@@ -50,6 +50,9 @@ void solve_problem(int case_num)
 
 int valid(string wildcard, string filename, int pos_wildcard, int pos_filename, int star_count)
 {
+    int &ret = cache[pos_wildcard][pos_filename];
+    if(ret!=-1)
+        return ret;
     // if(pos_wildcard==-1)
     //     return 1;
     // else if(pos_wildcard == wildcard.length())
@@ -73,19 +76,13 @@ int valid(string wildcard, string filename, int pos_wildcard, int pos_filename, 
     //     return pos_filename == filename.length();
     if(wildcard[pos_wildcard] == '*')
     {
-        for (int i = 0; i <= filename.length()-pos_filename; ++i) {
-            int &ret = cache[pos_wildcard+i][star_count];
-            if(ret == -1)
-            {
-                if(ret = valid(wildcard,filename,pos_wildcard+1,pos_filename+i,star_count+1))
-                    return ret = 1;
-            }
-            else
-                return ret = 0;
+        for (int i = 0; i+pos_filename <= filename.length(); ++i) {
+            if(valid(wildcard,filename,pos_wildcard+1,pos_filename+i,star_count+1))
+                return ret = 1;
         }
     }
     else
-        return 0;
+        return ret = 0;
 }
 // int valid(string wildcard, string filename, int pos_wildcard, int pos_filename) brute force...
 // {
