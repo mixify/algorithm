@@ -9,9 +9,10 @@
 
 using namespace std;
 
-char cache[100];
+int cache[100][100];
 void solve_problem(int case_num);
-int valid(string wildcard, string filename, int pos_wildcard, int pos_filename);
+// int valid(string wildcard, string filename, int pos_wildcard, int pos_filename);
+int valid(string wildcard, string filename, int pos_wildcard, int pos_filename, int star_count);
 int main(int argc, char *argv[])
 {
     int cases;
@@ -38,58 +39,97 @@ void solve_problem(int case_num)
     vector<string> valid_filename;
     for (int i = 0; i < num_files; ++i) {
         memset(cache,-1,sizeof(cache));
-        if(valid(wildcard,filename[i],0,0))
+        if(valid(wildcard,filename[i],0,0,0))
             valid_filename.push_back(filename[i]);
     }
     sort(valid_filename.begin(), valid_filename.end());
     for (int i = 0; i < valid_filename.size(); ++i) {
         cout<<valid_filename[i]<<endl;
     }
-    // printf("----------------------\n");
 }
-int valid(string wildcard, string filename, int pos_wildcard, int pos_filename)
+
+int valid(string wildcard, string filename, int pos_wildcard, int pos_filename, int star_count)
 {
-    int offset = 0;
-    int v;
-    if(pos_wildcard == wildcard.length())
+    // if(pos_wildcard==-1)
+    //     return 1;
+    // else if(pos_wildcard == wildcard.length())
+    //     return 1;
+    while(pos_wildcard < wildcard.length() && pos_filename < filename.length() && (wildcard[pos_wildcard] == '?' || wildcard[pos_wildcard] == filename[pos_filename]))
     {
-        if(pos_filename < filename.length())
-            return 0;
+        pos_wildcard++;
+        pos_filename++;
+    }
+    if(pos_wildcard == wildcard.length())
+        return pos_filename == filename.length();
+    else if(pos_filename == filename.length())
+    {
+        for (int i = pos_wildcard; i < wildcard.length(); ++i) {
+            if(wildcard[i] != '*')
+                return 0;
+        }
         return 1;
     }
-    // if()
-    //     return 0;
-
-
-    offset = pos_filename+1;
-    if(wildcard[pos_wildcard] == '?' )
+    // if(pos_wildcard == wildcard.length())
+    //     return pos_filename == filename.length();
+    if(wildcard[pos_wildcard] == '*')
     {
-        if(pos_filename >= filename.length())
-            v = 0;
-        else
-            v = 1;
-    }
-    else if(wildcard[pos_wildcard] == '*')
-    {
-        if(pos_wildcard + 1 == wildcard.length())
-            return 1;
-        // else if(wildcard[pos_wildcard+1] == '?')
-        // {
-        //     // if(pos_filename == filename.length())
-        //     //     v = 0;
-        //     // else
-        //     v = 1;
-        //     offset = pos_filename;
-        //     // pos_wildcard++;
-        // }
-        else
-        {
-            offset = filename.find(wildcard[pos_wildcard+1],pos_filename);
-            if(offset == string::npos)
-                v = 0;
+        for (int i = 0; i <= filename.length()-pos_filename; ++i) {
+            int &ret = cache[pos_wildcard+i][star_count];
+            if(ret == -1)
+            {
+                if(ret = valid(wildcard,filename,pos_wildcard+1,pos_filename+i,star_count+1))
+                    return ret = 1;
+            }
+            else
+                return ret;
         }
     }
     else
-        v = (filename[pos_filename] == wildcard[pos_wildcard]);
-    return v && valid(wildcard,filename,pos_wildcard + 1, offset);
+        return 0;
 }
+// int valid(string wildcard, string filename, int pos_wildcard, int pos_filename) brute force...
+// {
+//     int offset = 0;
+//     int v;
+//     if(pos_wildcard == wildcard.length())
+//     {
+//         if(pos_filename < filename.length())
+//             return 0;
+//         return 1;
+//     }
+//     // if()
+//     //     return 0;
+//
+//
+//     offset = pos_filename+1;
+//     if(wildcard[pos_wildcard] == '?' )
+//     {
+//         if(pos_filename >= filename.length())
+//             v = 0;
+//         else
+//             v = 1;
+//     }
+//     else if(wildcard[pos_wildcard] == '*')
+//     {
+//         if(pos_wildcard + 1 == wildcard.length())
+//             return 1;
+//         else if(wildcard[pos_wildcard+1] == '?')
+//         {
+//             if(pos_filename < filename.length())
+//                 v = 1;
+//             // else
+//             v = 1;
+//             offset = pos_filename;
+//             // pos_wildcard++;
+//         }
+//         else
+//         {
+//             offset = filename.find(wildcard[pos_wildcard+1],pos_filename);
+//             if(offset == string::npos)
+//                 v = 0;
+//         }
+//     }
+//     else
+//         v = (filename[pos_filename] == wildcard[pos_wildcard]);
+//     return v && valid(wildcard,filename,pos_wildcard + 1, offset);
+// }
