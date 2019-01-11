@@ -10,7 +10,7 @@
 
 using namespace std;
 
-int cache[100][100];
+int cache[101][101];
 void solve_problem(int case_num);
 int max_triangle(vector<vector <int> > v, int x, int y);
     int size;
