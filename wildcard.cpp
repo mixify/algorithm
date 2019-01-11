@@ -35,11 +35,17 @@ void solve_problem(int case_num)
         filename.push_back(str);
     }
 
+    vector<string> valid_filename;
     for (int i = 0; i < num_files; ++i) {
         memset(cache,-1,sizeof(cache));
         if(valid(wildcard,filename[i],0,0))
-            cout<<filename[i]<<endl;
+            valid_filename.push_back(filename[i]);
     }
+    sort(valid_filename.begin(), valid_filename.end());
+    for (int i = 0; i < valid_filename.size(); ++i) {
+        cout<<valid_filename[i]<<endl;
+    }
+    // printf("----------------------\n");
 }
 int valid(string wildcard, string filename, int pos_wildcard, int pos_filename)
 {
@@ -65,12 +71,23 @@ int valid(string wildcard, string filename, int pos_wildcard, int pos_filename)
     }
     else if(wildcard[pos_wildcard] == '*')
     {
-        v = 1;
         if(pos_wildcard + 1 == wildcard.length())
             return 1;
-        offset = filename.find(wildcard[pos_wildcard+1],pos_filename);
-        if(offset == string::npos)
-            v = 0;
+        // else if(wildcard[pos_wildcard+1] == '?')
+        // {
+        //     // if(pos_filename == filename.length())
+        //     //     v = 0;
+        //     // else
+        //     v = 1;
+        //     offset = pos_filename;
+        //     // pos_wildcard++;
+        // }
+        else
+        {
+            offset = filename.find(wildcard[pos_wildcard+1],pos_filename);
+            if(offset == string::npos)
+                v = 0;
+        }
     }
     else
         v = (filename[pos_filename] == wildcard[pos_wildcard]);
