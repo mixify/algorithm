@@ -81,7 +81,7 @@ int valid(string wildcard, string filename, int pos_wildcard, int pos_filename, 
                     return ret = 1;
             }
             else
-                return ret;
+                return ret = 0;
         }
     }
     else
