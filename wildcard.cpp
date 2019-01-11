@@ -61,14 +61,14 @@ int valid(string wildcard, string filename, int pos_wildcard, int pos_filename, 
     }
     if(pos_wildcard == wildcard.length())
         return pos_filename == filename.length();
-    else if(pos_filename == filename.length())
-    {
-        for (int i = pos_wildcard; i < wildcard.length(); ++i) {
-            if(wildcard[i] != '*')
-                return 0;
-        }
-        return 1;
-    }
+    // else if(pos_filename == filename.length())
+    // {
+    //     for (int i = pos_wildcard; i < wildcard.length(); ++i) {
+    //         if(wildcard[i] != '*')
+    //             return 0;
+    //     }
+    //     return 1;
+    // }
     // if(pos_wildcard == wildcard.length())
     //     return pos_filename == filename.length();
     if(wildcard[pos_wildcard] == '*')
