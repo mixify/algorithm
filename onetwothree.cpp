@@ -34,7 +34,11 @@ void solve_problem(int case_num)
 int onetwothree(int n, int one, int two, int three)
 {
     int &ret = cache[one][two][three];
-    if(ret!=-1) return ret;
+    if(ret!=-1)
+    {
+        printf("sibal\n");
+        return ret;
+    }
 
     if(one + 2*two + 3*three == n)
         return 1;
