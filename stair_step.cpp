@@ -46,7 +46,7 @@ int climb(vector<int> stair, int n, int jump_type)
     if(jump_type == 1)
     {
         if(n==1)
-            return ret = -1;
+            return ret = val;
         return ret = val + climb(stair, n-2, 0);
     }
     return ret = val + max(climb(stair, n-1, 1), climb(stair, n-2, 0));
