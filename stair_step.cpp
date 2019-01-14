@@ -31,15 +31,19 @@ int main(int argc, char *argv[])
 
 int climb(vector<int> stair, int n, int adjacent_count)
 {
+    if(n < 0)
+        return -1;
     int &ret = cache[n];
     if(ret!=-1) return ret;
 
     int val = stair[n];
     if(n == 0)
         return ret = val;
-    else if(n < 0)
-        return -1;
     if(adjacent_count == 1)
-        return climb(stair, n-2, 0);
+    {
+        if(n==1)
+            return -1;
+        return ret = val + climb(stair, n-2, 0);
+    }
     return ret = val + max(climb(stair, n-1, adjacent_count+1), climb(stair, n-2, 0));
 }
