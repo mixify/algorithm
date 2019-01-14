@@ -24,7 +24,10 @@ int main(int argc, char *argv[])
         stair.push_back(input);
     }
     memset(cache, -1, sizeof(cache));
-        printf("%d\n", climb(stair, stair_num-1, 0));
+    // for (int i = stair_num-1; i >= 0; --i) {
+    //     printf("%d = %d\n", i,climb(stair, i, 0));
+    // }
+    printf("%d\n", climb(stair, stair_num-1, 0));
     return 0;
 }
 
@@ -42,6 +45,8 @@ int climb(vector<int> stair, int n, int adjacent_count)
         return ret = val;
     if(adjacent_count == 1)
     {
+        if(n==1)
+            return -1;
         return val + climb(stair, n-2, 0);
     }
     return ret = val + max(climb(stair, n-1, adjacent_count+1), climb(stair, n-2, 0));
