@@ -1,0 +1,49 @@
+# Created by newuser for 5.6.2
+
+# for theme
+autoload -U promptinit; promptinit
+prompt pure
+
+# directory aliases
+alias ..='cd ..'
+alias ...='cd ../../'
+alias ....='cd ../../../'
+alias .....='cd ../../../../'
+alias dl='cd /home/mixify/다운로드'
+
+# package manager
+alias install='sudo dnf install'
+alias remove='sudo dnf remove'
+alias search='sudo dnf search'
+alias update='sudo dnf update'
+
+# ls options
+alias ls='ls -h --color'
+alias lx='ls -x'
+alias lxb='ls -lXB' # sort by extension
+alias lk='ls -lSr' # sort by size
+alias ltr='ls -ltr' # sort by date
+
+alias mkdir='mkdir -p'
+
+# load plugins
+source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+source /home/mixify/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source /home/mixify/zsh-history-substring-search/zsh-history-substring-search.zsh
+
+# fpath=("$HOME/.zfunctions" $fpath )
+
+
+# for studying algorithm
+algo () {
+    echo "add, commit, and push to algorithm git"
+    git add ~/algorithm
+    git commit -m "$@ algorithm solve"
+    git push origin master
+}
+
+solve () {
+    echo "cp and vi"
+    cp ~/algorithm/cp.cpp ~/algorithm/$@.cpp
+    vi ~/algorithm/$@.cpp
+}
