@@ -10,7 +10,7 @@
 
 using namespace std;
 
-pair<int,int> cache[40];
+pair<int,int> cache[41];
 pair<int,int> fibonacci(int n);
 void solve_problem(int case_num);
 int main(int argc, char *argv[])
