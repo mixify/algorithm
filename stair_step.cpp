@@ -10,7 +10,7 @@
 
 using namespace std;
 
-int cache[301];
+int cache[302];
 int climb(vector<int> stair, int n, int adjacent_count);
 
 int main(int argc, char *argv[])
@@ -24,8 +24,7 @@ int main(int argc, char *argv[])
         stair.push_back(input);
     }
     memset(cache, -1, sizeof(cache));
-    printf("%d\n",climb(stair,stair.size()-1, 0));
-    // printf("%d\n", cache[stair.size()-1]);
+        printf("%d\n", climb(stair, stair_num-1, 0));
     return 0;
 }
 
@@ -33,18 +32,17 @@ int climb(vector<int> stair, int n, int adjacent_count)
 {
     if(n < 0)
         return -1;
-    int ret;
-    // int &ret = cache[n];
-    // if(ret!=-1) return ret;
+    // int ret;
+    int &ret = cache[n];
+    if(ret!=-1)
+        return ret;
 
     int val = stair[n];
     if(n == 0)
         return ret = val;
     if(adjacent_count == 1)
     {
-        if(n==1)
-            return -1;
-        return ret = val + climb(stair, n-2, 0);
+        return val + climb(stair, n-2, 0);
     }
     return ret = val + max(climb(stair, n-1, adjacent_count+1), climb(stair, n-2, 0));
 }
