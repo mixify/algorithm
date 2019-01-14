@@ -10,7 +10,7 @@
 
 using namespace std;
 
-int cache[302];
+int cache[302][2];
 int climb(vector<int> stair, int n, int adjacent_count);
 
 int main(int argc, char *argv[])
@@ -31,23 +31,23 @@ int main(int argc, char *argv[])
     return 0;
 }
 
-int climb(vector<int> stair, int n, int adjacent_count)
+int climb(vector<int> stair, int n, int jump_type)
 {
     if(n < 0)
         return -1;
     // int ret;
-    int &ret = cache[n];
+    int &ret = cache[n][jump_type];
     if(ret!=-1)
         return ret;
 
     int val = stair[n];
     if(n == 0)
         return ret = val;
-    if(adjacent_count == 1)
+    if(jump_type == 1)
     {
         if(n==1)
-            return -1;
-        return val + climb(stair, n-2, 0);
+            return ret = -1;
+        return ret = val + climb(stair, n-2, 0);
     }
-    return ret = val + max(climb(stair, n-1, adjacent_count+1), climb(stair, n-2, 0));
+    return ret = val + max(climb(stair, n-1, 1), climb(stair, n-2, 0));
 }
