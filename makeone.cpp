@@ -12,7 +12,7 @@
 using namespace std;
 
 int num;
-int cache[1000001];
+int cache[101][101][1000];
 int solve(int num, int d3_count, int d2_count, int m_count);
 int main(int argc, char *argv[])
 {
@@ -24,8 +24,9 @@ int main(int argc, char *argv[])
 
 int solve(int n, int d3_count, int d2_count, int m_count)
 {
-    int &ret = cache[n];
+    int &ret = cache[d3_count][d2_count][m_count];
     if(ret!=-1) return ret;
+    // int ret;
     if(n < 1)
         return ret = 1000000;
     if(n == 1)
