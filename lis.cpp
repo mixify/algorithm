@@ -23,7 +23,7 @@ int main(int argc, char *argv[])
     }
     return 0;
 }
-int brute(vector<int> sequence, int idx);
+int brute(vector<int> &sequence, int idx);
 
 void solve_problem(int case_num)
 {
@@ -42,13 +42,11 @@ void solve_problem(int case_num)
     printf("%d\n", mx);
     // find_lis(sequence, 0);
 }
-int brute(vector<int> sequence, int idx)
+int brute(vector<int> &sequence, int idx)
 {
     int &ret = cache[idx];
     if(ret != -1)
-    {
         return ret;
-    }
     if(idx == sequence.size()-1)
         return ret = 1;
     int mx = -1;
