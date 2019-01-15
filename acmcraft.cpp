@@ -51,7 +51,7 @@ public:
     }
 };
 void solve_problem(int case_num);
-int build_solve(vector<building> builds, int building_num, int building_time);
+int build_solve(vector<building> &builds, int building_num);
 int main(int argc, char *argv[])
 {
     int cases;
@@ -78,40 +78,36 @@ void solve_problem(int case_num)
     cin>>goal_building;
     memset(cache, -1, sizeof(cache));
     // build_solve(builds,1,builds[1].building_time);
-    build_solve(builds,goal_building,0);
+    build_solve(builds,goal_building);
     printf("%d\n", cache[goal_building]);
 }
 
-int build_solve(vector<building> builds, int building_num, int building_time)
+int build_solve(vector<building> &builds, int building_num)
 {
     // builds[building_num].considered = true;
     int &ret = cache[building_num];
-    building_time+=builds[building_num].building_time;
+    // building_time+=builds[building_num].building_time;
 
-
+    if(ret!= -1)
+    {
+        // if(ret < building_time)
+        //     return ret = building_time;
+        // else
+        return ret;
+    }
 
     // if(building_num == goal_building)
     //     return builds[building_num].building_time;
     if(builds[building_num].is_independent())
-        return ret = building_time;
+        return ret = builds[building_num].building_time;
     int total = -1;
     for (int i = 0; i < builds[building_num].constraint.size(); ++i) {
         int &cons = builds[building_num].constraint[i];
-        int result = -1;
-        if(cache[cons]!= -1)
-        {
-            if(cache[cons] < building_time + builds[cons].building_time)
-                result = building_time + builds[cons].building_time;
-            else
-                result = cache[cons];
-        }
-        else
-            result = build_solve(builds,cons, building_time);
-        total = max(result, total);
+        total = max(build_solve(builds,cons), total);
         // printf("%d %d\n", total, build_solve(builds,cons, building_time));
     }
 
-    return ret = total;
+    return ret = builds[building_num].building_time + total;
 }
 // int build_solve(vector<building> builds, int building_num, int building_time)
 // {
