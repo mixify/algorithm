@@ -38,7 +38,7 @@ source /home/mixify/zsh-history-substring-search/zsh-history-substring-search.zs
 algo () {
     echo "add, commit, and push to algorithm git"
     git add ~/algorithm
-    git commit -m "$@ algorithm solve"
+    git commit -m "$1 algorithm solve comment : $2"
     git push origin master
 }
 

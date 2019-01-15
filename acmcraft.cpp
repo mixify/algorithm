@@ -88,10 +88,19 @@ int build_solve(vector<building> builds, int building_num, int building_time)
     int &ret = cache[building_num];
     building_time+=builds[building_num].building_time;
 
-    if(ret < building_time)
-        ret = building_time;
-    else
-        return ret;
+    if(ret!= -1)
+    {
+        if(ret < building_time)
+        {
+            // printf("%d vs %d\n",ret,building_time);
+            return ret = building_time;
+        }
+        else
+        {
+            return ret;
+        }
+    }
+
     // if(building_num == goal_building)
     //     return builds[building_num].building_time;
     if(builds[building_num].is_independent())
