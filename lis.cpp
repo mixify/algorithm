@@ -34,8 +34,9 @@ void solve_problem(int case_num)
         int in; cin>>in;
         sequence.push_back(in);
     }
-    int mx=-1;
-    for (int i = 0; i < n; ++i) {
+    int mx=0;
+    for (int i = 0; i < n; ++i)
+    {
         memset(cache, -1 , sizeof(cache));
         mx = max(mx,brute(sequence, i));
     }
@@ -49,7 +50,7 @@ int brute(vector<int> &sequence, int idx)
         return ret;
     if(idx == sequence.size()-1)
         return ret = 1;
-    int mx = -1;
+    int mx = 1;
     for (int i = idx+1; i < sequence.size(); ++i)
     {
         if(sequence[i] > sequence[idx])
