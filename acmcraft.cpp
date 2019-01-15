@@ -14,7 +14,7 @@ int num_building;
 int num_constarint;
 int goal_building;
 
-int cache[10000];
+int cache[1001];
 class building
 {
 private:
@@ -88,35 +88,30 @@ int build_solve(vector<building> builds, int building_num, int building_time)
     int &ret = cache[building_num];
     building_time+=builds[building_num].building_time;
 
-    if(ret!= -1)
-    {
-        if(ret < building_time)
-        {
-            // printf("%d vs %d\n",ret,building_time);
-            return ret = building_time;
-        }
-        else
-        {
-            return ret;
-        }
-    }
+
 
     // if(building_num == goal_building)
     //     return builds[building_num].building_time;
     if(builds[building_num].is_independent())
         return ret = building_time;
-    int total = 0;
+    int total = -1;
     for (int i = 0; i < builds[building_num].constraint.size(); ++i) {
         int &cons = builds[building_num].constraint[i];
-        total = max(build_solve(builds,cons, building_time), total);
+        int result = -1;
+        if(cache[cons]!= -1)
+        {
+            if(cache[cons] < building_time + builds[cons].building_time)
+                result = building_time + builds[cons].building_time;
+            else
+                result = cache[cons];
+        }
+        else
+            result = build_solve(builds,cons, building_time);
+        total = max(result, total);
         // printf("%d %d\n", total, build_solve(builds,cons, building_time));
     }
 
     return ret = total;
-    // for (int i = 1; i <= num_building; ++i) {
-    //     if(!builds[i].considered)
-    //         build_solve(builds,i,builds[i].building_time);
-    // }
 }
 // int build_solve(vector<building> builds, int building_num, int building_time)
 // {
