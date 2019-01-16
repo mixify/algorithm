@@ -13,7 +13,7 @@ using namespace std;
 int N,M;
 int cache[101][101];
 vector<int> solve_by_lower_bound(vector<int> seq1, vector<int> seq2);
-int solve(vector<int> &seq1,vector<int> &seq2, int idx1, int idx2, int last_elem);
+int solve(vector<long long> &seq1,vector<long long> &seq2, int idx1, int idx2, long long last_elem);
 void solve_problem(int case_num);
 int main(int argc, char *argv[])
 {
@@ -29,9 +29,9 @@ void solve_problem(int case_num)
 {
     cin>>N>>M;
 
-    vector<int> seq1;
-    vector<int> seq2;
-    int num;
+    vector<long long> seq1;
+    vector<long long> seq2;
+    long long num;
     for (int i = 0; i < N; ++i) {
         cin>>num;
         seq1.push_back(num);
@@ -57,7 +57,7 @@ void solve_problem(int case_num)
     // }
     // printf("\n");
 }
-int solve(vector<int> &seq1,vector<int> &seq2, int idx1, int idx2, int last_elem)
+int solve(vector<long long> &seq1,vector<long long> &seq2, int idx1, int idx2, long long last_elem)
 {
     int &ret = cache[idx1][idx2];
     if(ret != -1)
