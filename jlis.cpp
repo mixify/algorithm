@@ -45,7 +45,7 @@ void solve_problem(int case_num)
     memset(cache, -1, sizeof(cache));
     for (int i = 0; i < N; ++i) {
        for (int j = 0; j < M; ++j) {
-           mx = max(solve(seq1,seq2,i,j,-1), mx);
+           mx = max(solve(seq1,seq2,i,j,LLONG_MIN), mx);
        }
     }
     if(mx == 1)
