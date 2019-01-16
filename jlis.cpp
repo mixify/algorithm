@@ -43,11 +43,8 @@ void solve_problem(int case_num)
 
     int mx = 1;
     memset(cache, -1, sizeof(cache));
-    mx = max(solve(seq1,seq2,0,0,LLONG_MIN), mx);
-    if(mx == 1)
-        printf("%d\n",1);
-    else
-        printf("%d\n", mx-1);
+    mx = max(solve(seq1,seq2,0,0,LLONG_MIN)-1, mx);
+    printf("%d\n", mx);
     // for (int i = 1; i < JLIS.size(); ++i) {
     //     printf("%d ", JLIS[i]);
     // }
