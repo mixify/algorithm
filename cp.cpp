@@ -9,6 +9,7 @@
 #include <map>
 
 using namespace std;
+int N, M;
 
 void solve_problem(int case_num);
 int main(int argc, char *argv[])
