@@ -57,19 +57,15 @@ int solve(vector<int> &seq1,vector<int> &seq2, int idx1, int idx2)
         return ret;
 
     ret = 2;
-    long long a = (idx1==-1 ? NEGINF : seq1[idx1] );
-    long long b = (idx2==-1 ? NEGINF : seq2[idx2] );
+    long long a = (idx1==-1 ? NEGINF : seq1[idx1]);
+    long long b = (idx2==-1 ? NEGINF : seq2[idx2]);
     long long last_elem = max(a,b);
     // printf("%lld\n", last_elem);
     for (int i = idx1+1; i < N; ++i)
-    {
         if(seq1[i] > last_elem)
             ret = max(ret, solve(seq1,seq2,i,idx2)+1);
-    }
     for (int j = idx2+1; j < M; ++j)
-    {
         if(seq2[j] > last_elem)
             ret = max(ret, solve(seq1,seq2,idx1,j)+1);
-    }
     return ret;
 }
