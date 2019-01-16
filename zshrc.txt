@@ -44,6 +44,10 @@ algo () {
     git push origin master
 }
 
+cpcode() {
+    cat $1 | xclip -sel clip
+}
+
 solve () {
     echo "cp and vi"
     cp ~/algorithm/cp.cpp ~/algorithm/$@.cpp
