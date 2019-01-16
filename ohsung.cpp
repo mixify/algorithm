@@ -1,181 +1,67 @@
 #include <stdio.h>
+#include <string.h>
 
-#include <cstring>
+char map[5][5];
+char word[10][11];
+int cache[5][5][11];
 
-#include <utility>
+int word_num, k;
 
-using namespace std;
+int solve(int x, int y, int cnt) {
+	if (x >= 5 || y >= 5 || x < 0 || y < 0 || cnt >= 11) return 0;
+	if (map[y][x] != word[k][cnt]) return 0;
+	if (map[y][x] == word[k][cnt] && word[k][cnt + 1] == '\0') return 1;
 
+	int &ret = cache[y][x][cnt];
+	if (ret != -1) return ret;
 
-
-int word_num; bool flag;
-
-char map[5][5], word[10][11];
-
-pair<int, int> next[5][5][8];
-
-int dx[8] = { 1, -1, 0, 0, 1, 1, -1, -1 };
-
-int dy[8] = { 0, 0, 1, -1, 1, -1, 1, -1 };
-
-
-
-bool is_range(int x, int y) {
-
-	if (x < 0 || y < 0 || x >= 5 || y >= 5)
-
-		return false;
-
-	return true;
-
+	return ret = (solve(x + 1, y, cnt + 1) ||
+				  solve(x - 1, y, cnt + 1) ||
+				  solve(x, y + 1, cnt + 1) ||
+				  solve(x, y - 1, cnt + 1) ||
+				  solve(x + 1, y + 1, cnt + 1) ||
+				  solve(x + 1, y - 1, cnt + 1) ||
+				  solve(x - 1, y + 1, cnt + 1) ||
+				  solve(x - 1, y - 1, cnt + 1));
 }
-
-
-
-void find_word(int x, int y, int cnt) {
-
-	for (int i = 0; i < 8; i++) {
-
-		if (flag)
-
-			return;
-
-
-
-		if (next[y][x][i].first == 10 && next[y][x][i].second == 10)
-
-			continue;
-
-
-
-		if (word[word_num][cnt + 1] == '\0' && !flag) {
-
-			printf("%s YES\n", word[word_num]);
-
-			flag = true;
-
-			return;
-
-		}
-
-
-
-		if (next[y][x][i].first != -1 && next[y][x][i].second != -1) {
-
-			if (word[word_num][cnt + 1] == map[next[y][x][i].second][next[y][x][i].first]) {
-
-				find_word(next[y][x][i].first, next[y][x][i].second, cnt + 1);
-
-				return;
-
-			}
-
-		}
-
-
-
-		int next_x = x + dx[i];
-
-		int next_y = y + dy[i];
-
-
-
-		if (!is_range(next_x, next_y)) {
-
-			next[y][x][i] = make_pair(10, 10);
-
-			continue;
-
-		}
-
-		next[y][x][i] = make_pair(next_x, next_y);
-
-
-
-		if (map[next_y][next_x] == word[word_num][cnt + 1])
-
-			find_word(next_x, next_y, cnt + 1);
-
-	}
-
-	return;
-
-}
-
-
 
 int main() {
-
 	int T;
 
-
-
 	scanf("%d", &T);
-
 	while (T--) {
-
-		int n, x = -1, y = -1;
-
+		int res = -1;
 		memset(map, 0, sizeof(map));
+		memset(word, 0, sizeof(word));
+		memset(cache, -1, sizeof(cache));
 
-		memset(next, -1, sizeof(next));
-
-
-
-		for (int i = 0; i < 5; i++)
-
+		for (int i = 0; i < 5; i++) {
 			for (int j = 0; j < 5; j++)
-
 				scanf(" %1c", &map[i][j]);
-
-
-
-		scanf("%d", &n);
-
-		for (int i = 0; i < n; i++)
-
+		}
+		scanf("%d", &word_num);
+		for (int i = 0; i < word_num; i++)
 			scanf("%s", word[i]);
 
-
-
-		for (word_num = 0; word_num < n; word_num++) {
-
-			flag = false;
-
+		for (k = 0; k < word_num; k++) {
+			res = -1;
+			memset(cache, -1, sizeof(cache));
 			for (int i = 0; i < 5; i++) {
-
+				if (res == 1)
+					break;
 				for (int j = 0; j < 5; j++) {
-
-					if (flag)
-
-						goto finish;
-
-					if (map[i][j] == word[word_num][0]) {
-
-
-
-						x = j, y = i;
-
-						find_word(x, y, 0);
-
+					if (res == 1)
+						break;
+					if (map[i][j] == word[k][0]) {
+						res = solve(j, i, 0);
+						memset(cache, -1, sizeof(cache));
 					}
-
-					if (i == 4 && j == 4 && !flag) {
-
-						flag = true;
-
-						printf("%s NO\n", word[word_num]);
-
-					}
-
 				}
-
 			}
-
-		finish:;
-
+			if (res == 1)
+				printf("%s YES\n", word[k]);
+			else if (res == 0 || res == -1)
+				printf("%s NO\n", word[k]);
 		}
-
 	}
-
 }
