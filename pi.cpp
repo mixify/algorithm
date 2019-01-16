@@ -30,7 +30,7 @@ void solve_problem(int case_num)
     printf("%d\n", min_score(pi, 0));
 }
 
-int check_score(vector <int> segment)
+int check_score(vector <int> &segment)
 {
     if(segment.size() < 3)
         return 1000000;
@@ -71,11 +71,12 @@ int min_score(string &pi, int pos)
 {
     int &ret = cache[pos];
     vector<int> v;
-    if(ret != -1) return ret;
+    if(ret != -1)
+        return ret;
     if(pos >= pi.length())
-        return 0;
-    ret = 10000;
-    for (int i = pos; i < pi.length(); ++i) {
+        return ret = 0;
+    ret = 1000000;
+    for (int i = pos; i < pi.length() && v.size() < 6; ++i) {
         v.push_back(pi[i]);
         if(v.size()>=3 && v.size()<=5)
             ret = min(min_score(pi,i+1) + check_score(v), ret);
