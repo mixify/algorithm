@@ -48,7 +48,10 @@ void solve_problem(int case_num)
            mx = max(solve(seq1,seq2,i,j,-1), mx);
        }
     }
-    printf("%d\n", mx-1);
+    if(mx == 1)
+        printf("1\n");
+    else
+        printf("%d\n", mx-1);
     // for (int i = 1; i < JLIS.size(); ++i) {
     //     printf("%d ", JLIS[i]);
     // }
@@ -61,7 +64,7 @@ int solve(vector<int> &seq1,vector<int> &seq2, int idx1, int idx2, int last_elem
         return ret;
     if(idx1 == N-1 && idx2 == M-1)
         return ret = 1;
-    int mx = 0;
+    int mx = 1;
     for (int i = idx1; i < N; ++i)
     {
         if(seq1[i] > last_elem)
