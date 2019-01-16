@@ -44,7 +44,7 @@ int group_value(vector <int> group)
     int avg = sum/group.size();
 
     // printf("avg = %d\n", avg);
-    int val = 100000000;
+    int val = 1000000000;
     for (int i = avg-11; i < avg+11; ++i) {
         sum = 0;
         for (int j = 0; j < group.size(); ++j) {
@@ -60,11 +60,11 @@ int quantize(vector <int> &sequence, int pos, int groups)
     int &ret = cache[pos][groups];
     if(ret!=-1) return ret;
     //lets divide seqence S groups
-    ret = 100000000;
+    ret = 1000000000;
     if(groups == S)
     {
         if(pos < N)
-            return ret = 200000000;
+            return ret = 2000000000;
         else
             return ret = 0;
     }
