@@ -13,7 +13,7 @@ using namespace std;
 const double p_s = 0.25;
 const double p_r = 0.75;
 int N, M;
-double cache[1001][1001];
+double cache[2002][1001];
 void solve_problem(int case_num);
 int main(int argc, char *argv[])
 {
@@ -25,10 +25,11 @@ int main(int argc, char *argv[])
     return 0;
 }
 
-double escape_from_reality(int depth, int day)
+double escape(int depth, int day)
 {
     double &ret = cache[depth][day];
-    if(ret >= 0) return ret;
+    if(ret >= 0)
+        return ret;
     if(depth >= N)
         return ret = 1;
     if(day == M)
@@ -37,8 +38,9 @@ double escape_from_reality(int depth, int day)
     if((M-day) * 2 + depth < N)
         return ret = 0;
 
-    return ret = p_s*escape_from_reality(depth+1,day+1) + p_r*escape_from_reality(depth+2, day+1);
+    return ret = p_s*escape(depth+1,day+1) + p_r*escape(depth+2, day+1);
 }
+
 
 void solve_problem(int case_num)
 {
@@ -47,6 +49,6 @@ void solve_problem(int case_num)
     // memset(&a, -1, sizeof(a));
     // printf("%lf\n", a);
     memset(cache, -1, sizeof(cache));
-    printf("%.7lf\n",escape_from_reality(0,0));
+    printf("%.7lf\n",escape(0,0));
 }
 
