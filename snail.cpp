@@ -10,9 +10,7 @@
 #include <map>
 
 using namespace std;
-const int sunshine = 0;
 const double p_s = 0.25;
-const int raining  = 1;
 const double p_r = 0.75;
 int N, M;
 double cache[1001][1001];
@@ -35,11 +33,10 @@ double escape_from_reality(int depth, int day)
         return ret = 1;
     if(day == M)
         return ret = 0;
-    double p;
-    // if(weather == sunshine)
-    //     p = p_s;
-    // else if(weather == raining)
-    //     p = p_r;
+
+    if((M-day) * 2 + depth < N)
+        return ret = 0;
+
     return ret = p_s*escape_from_reality(depth+1,day+1) + p_r*escape_from_reality(depth+2, day+1);
 }
 
