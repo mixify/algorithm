@@ -49,6 +49,6 @@ void solve_problem(int case_num)
     // memset(&a, -1, sizeof(a));
     // printf("%lf\n", a);
     memset(cache, -1, sizeof(cache));
-    printf("%.7lf\n",escape(0,0));
+    printf("%.10lf\n",escape(0,0));
 }
 
