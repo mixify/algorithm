@@ -30,7 +30,7 @@ int main(int argc, char *argv[])
 double escape_from_reality(int depth, int day)
 {
     double &ret = cache[depth][day];
-    if(!isnan(ret)) return ret;
+    if(ret >= 0) return ret;
     if(depth >= N)
         return ret = 1;
     if(day == M)
