@@ -12,41 +12,76 @@
 using namespace std;
 int N;
 
-long long cache[102][101];
+int cache[11][11];
+int result[11][11][101];
 
-long long stair_num(vector<int> v, int size)
+// long long stair_num(int start, int end, int size)
+// {
+//     // long long &ret = cache[start][end];
+//     int ret;
+//     if(ret!=-1)
+//         return ret;
+//
+//     if(size==N)
+//         return ret = start-end+1;
+//
+//     if(end == 9)
+//     {
+//         //up delete 1
+//         end--;
+//         // stair_num(start,8,size+1);
+//     }
+//     if(start == 0)
+//     {
+//         start++;
+//         //down delete 1
+//     }
+//     // ret = v_up.size() + v_down.size();
+//     // ret = stair_num(,size+1) + stair_num(v_down,size+1);
+//     ret %= 1000000000;
+//     return ret;
+// }
+int solve(int start, int end, int size)
 {
-    long long &ret = cache[size][v.size()];
+    int& ret = result[start][end][size];
     if(ret!=-1) return ret;
-
-    if(size==N)
-        return v.size();
-    vector<int> v_up = v;
-    vector<int> v_down = v;
-
-    for (int i = 0; i < v.size(); ++i) {
-        if(v[i] < 9)
-            v_up[i] = v[i] +1;
-        else
-            v_up.pop_back();
-    }
-    for (int i = v.size()-1 ; i >= 0; --i) {
-        if(v[i] > 0)
-            v_down[i] = v[i] -1;
-        else
-            v_down.erase(v_down.begin());
-    }
-    ret = stair_num(v_up,size+1) + stair_num(v_down,size+1);
+    if(size == N-1)
+        return cache[start][end];
+    // int ret;
+    int ue,ds;
+    ue = end==9?end:end+1;
+    ds = start==0?start:start-1;
+    if(cache[start][end] == 0)
+        return ret = 0;
+    ret = /* cache[start][end] +  */solve(start+1,ue,size+1) + solve(ds,end-1,size+1);
     ret %= 1000000000;
     return ret;
 }
 int main(int argc, char *argv[])
 {
     cin>>N;
-    vector<int> v;
-    for (int i = 1; i <= 9; ++i)
-        v.push_back(i);
+    // vector<int> v;
+    // for (int i = 1; i <= 9; ++i)
+    //     v.push_back(i);
 
-    memset(cache, -1, sizeof(cache));
-    printf("%lld\n", stair_num(v,1));
+    for (int i = 0; i < 10; ++i) {
+        for (int j = 0; j < 10; ++j) {
+            cache[i][j] = (j-i+1)*2;
+            if(i==0 || i == 9)
+                cache[i][j]--;
+            if(j==0 || j == 9)
+                cache[i][j]--;
+            if(j < i)
+                cache[i][j] = 0;
+        }
+    }
+    // printf("%d\n", cache[1][8]);
+    // printf("%d\n", cache[1][9]);
+    memset(result, -1, sizeof(result));
+    int start = 1, end = 9;
+    printf("%d\n",solve(start,end,1));
+    // for (int i = 1; i < N; ++i) {
+    //     cache[start][end];
+    // }
+    // printf("%lld\n", stair_num(1,9,1));
 }
