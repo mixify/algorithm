@@ -44,15 +44,39 @@ int result[11][11][101];
 int solve(int start, int end, int size)
 {
     int& ret = result[start][end][size];
-    if(ret!=-1) return ret;
+    if(ret!=-1)
+        return ret;
     if(size == N-1)
-        return cache[start][end];
+        return ret = cache[start][end];
     // int ret;
     int ue,ds;
     ue = end==9?end:end+1;
     ds = start==0?start:start-1;
+    // printf("%s\n", );
+    if(start==10)
+        return ret = 0;
     if(cache[start][end] == 0)
         return ret = 0;
+    if(start==9)
+    {
+        if(end==9)
+        {
+            ret = solve(ds,end-1,size+1);
+            ret %= 1000000000;
+            return ret;
+        }
+        start--;
+    }
+    if(end==0)
+    {
+        if(start==0)
+        {
+            ret = solve(start+1,ue,size+1);
+            ret %= 1000000000;
+            return ret;
+        }
+        end++;
+    }
     ret = /* cache[start][end] +  */solve(start+1,ue,size+1) + solve(ds,end-1,size+1);
     ret %= 1000000000;
     return ret;
@@ -71,10 +95,12 @@ int main(int argc, char *argv[])
                 cache[i][j]--;
             if(j==0 || j == 9)
                 cache[i][j]--;
-            if(j < i)
-                cache[i][j] = 0;
+            if(i==j)
+                cache[i][j] = 2;
         }
     }
+    cache[0][0] = 1;
+    cache[9][9] = 1;
     // printf("%d\n", cache[1][8]);
     // printf("%d\n", cache[1][9]);
     memset(result, -1, sizeof(result));
