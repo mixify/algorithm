@@ -79,7 +79,10 @@ int main(int argc, char *argv[])
     // printf("%d\n", cache[1][9]);
     memset(result, -1, sizeof(result));
     int start = 1, end = 9;
-    printf("%d\n",solve(start,end,1));
+    if(N==1)
+        printf("9\n");
+    else
+        printf("%d\n",solve(start,end,1));
     // for (int i = 1; i < N; ++i) {
     //     cache[start][end];
     // }
