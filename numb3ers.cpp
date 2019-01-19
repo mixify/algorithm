@@ -13,7 +13,7 @@ using namespace std;
 int N, D, prison;
 int T;
 
-pair<vector<int>,vector<double> > cache[51][101];
+pair<vector<int>,vector<double> > cache[51][101][101];
 void solve_problem(int case_num);
 
 class village
@@ -51,15 +51,17 @@ int main(int argc, char *argv[])
     }
     return 0;
 }
-void check_all_village(vector<village> &villages,int village_num, int day, double p, vector<int> trace)
+void check_all_village(vector<village> &villages,int village_num, int day, double p, vector<int> &trace)
 {
     village &current_village = villages[village_num];
-    pair<vector<int>,vector<double> > &ret = cache[village_num][day];
-    if(ret.first.size() > 0) {
+    pair<vector<int>,vector<double> > &ret = cache[village_num][day][trace.size()];
+    if(ret.first.size() > 0) {//not ended guys could just end here
+        // printf("at %d, %d\n", village_num, day);
         for (int i = 0; i < ret.first.size(); ++i) {
+            // printf("add %d p %lf\n",ret.first[i], ret.second[i]);
             villages[ret.first[i]].set_res(ret.second[i]);
         }
-        printf("sibal\n");
+        // printf("sibal\n");
         return;
     }
     // if(ret>= 0)
@@ -71,10 +73,11 @@ void check_all_village(vector<village> &villages,int village_num, int day, doubl
 
     if(day == D)
     {
+        // printf("at %d, %d\n", village_num, day);
         for (int i = 0; i < day; ++i) {
-            cache[trace[i]][i].first.push_back(village_num);
-            cache[trace[i]][i].second.push_back(p);
-            printf("setting %d , %d\n",trace[i], i);
+            cache[trace[i]][i][trace.size()].first.push_back(village_num);
+            cache[trace[i]][i][trace.size()].second.push_back(p);
+            // printf("setting %d , %d\n",trace[i], i);
         }
         current_village.set_res(p);//should set
         return;
@@ -88,8 +91,9 @@ void check_all_village(vector<village> &villages,int village_num, int day, doubl
 
     for (int i = 0; i < current_village.road_count; ++i) {
         trace.push_back(current_village.dest[i]);
-        // current_village.dest[i]
         check_all_village(villages,current_village.dest[i],day+1, go_p,trace);
+        trace.pop_back();
+        // trace.pop_back();
     }
 
     // if(ret>=0) return ret;
@@ -115,6 +119,7 @@ void solve_problem(int case_num)
     vector<int> v;
     v.push_back(prison);
     check_all_village(villages, prison, 0,0,v);
+    v.pop_back();
     for (int i = 0; i < T; ++i)
         printf("%lf ", villages[suspect[i]].res);
     printf("\n");
