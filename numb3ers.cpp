@@ -13,7 +13,7 @@ using namespace std;
 int N, D, prison;
 int T;
 
-pair<int,double> cache[51][101];
+pair<vector<int>,vector<double> > cache[51][101];
 void solve_problem(int case_num);
 
 class village
@@ -54,9 +54,12 @@ int main(int argc, char *argv[])
 void check_all_village(vector<village> &villages,int village_num, int day, double p, vector<int> trace)
 {
     village &current_village = villages[village_num];
-    pair<int,double> &ret = cache[village_num][day];
-    if(ret.first != -1) {
-        villages[ret.first].set_res(ret.second);
+    pair<vector<int>,vector<double> > &ret = cache[village_num][day];
+    if(ret.first.size() > 0) {
+        for (int i = 0; i < ret.first.size(); ++i) {
+            villages[ret.first[i]].set_res(ret.second[i]);
+        }
+        printf("sibal\n");
         return;
     }
     // if(ret>= 0)
@@ -69,8 +72,9 @@ void check_all_village(vector<village> &villages,int village_num, int day, doubl
     if(day == D)
     {
         for (int i = 0; i < day; ++i) {
-            cache[trace[i]][i].first = village_num;
-            cache[trace[i]][i].second = p;
+            cache[trace[i]][i].first.push_back(village_num);
+            cache[trace[i]][i].second.push_back(p);
+            printf("setting %d , %d\n",trace[i], i);
         }
         current_village.set_res(p);//should set
         return;
@@ -107,7 +111,7 @@ void solve_problem(int case_num)
     for (int i = 0; i < T; ++i) {
         int in; cin>>in; suspect.push_back(in);
     }
-    memset(cache, -1, sizeof(cache));
+    // memset(cache, -1, sizeof(cache));
     vector<int> v;
     v.push_back(prison);
     check_all_village(villages, prison, 0,0,v);
