@@ -107,19 +107,21 @@ void check_all_village(vector<village> &villages,int village_num, int day, doubl
 void solve_problem(int case_num)
 {
     vector<village> villages;
-    cin>>N>>D>>prison;
+    // cin>>N>>D>>prison;
+    scanf("%d %d %d", &N, &D, &prison);
     for (int i = 0; i < N; ++i) {
         villages.push_back(village());
         for (int j = 0; j < N; ++j) {
-            int in; cin>>in;
+            int in; scanf("%d", &in);
             if(in==1)
                 villages[i].add_road(j);
         }
     }
-    cin>>T;
+    // cin>>T;
+    scanf("%d", &T);
     vector<int> suspect;
     for (int i = 0; i < T; ++i) {
-        int in; cin>>in; suspect.push_back(in);
+        int in; scanf("%d", &in); suspect.push_back(in);
     }
     // memset(cache, -1, sizeof(cache));
     vector<int> v;
