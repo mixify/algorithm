@@ -16,7 +16,7 @@ int N, M;
 
 int solve_problem(int idx,int cnt)
 {
-    if(cnt>=3) return 0;
+    if(cnt>=3) return -1;
     if(idx>=N) return 0;
     if(idx==N-1) return wine[idx];
     int &ret = cache[idx][cnt];
