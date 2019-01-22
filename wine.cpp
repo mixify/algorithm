@@ -32,7 +32,7 @@ int main(int argc, char *argv[])
         int in; cin>>in; wine.push_back(in);
     }
     memset(cache,-1,sizeof(cache));
-    printf("%d\n",solve_problem(0,1));
+    printf("%d\n",solve_problem(-1,0));
     return 0;
 }
 
