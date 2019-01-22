@@ -57,14 +57,15 @@ void check_all_village(vector<village> &villages,int village_num, int day, doubl
     pair<vector<int>,vector<double> > &ret = cache[village_num][day];// [trace.size()];
 
     // printf("trace : ");
-    // for (int i = 0; i < trace.size(); ++i) {
-    //     printf("%d ", trace[i]);
-    // }
-    // printf("\n");
+    for (int i = 0; i < trace.size(); ++i) {
+        printf("%d ", trace[i]);
+    }
+    printf("\n");
     if(day == D)
     {
         // printf("at %d, %d\n", village_num, day);
-        for (int i = 0; i <= day; ++i) {
+        for (int i = 0; i <= day; ++i)
+        {
             cache[trace[i]][i].first.push_back(village_num);
             cache[trace[i]][i].second.push_back(p);
             // printf("setting %d , %d\n",trace[i], i);
@@ -79,6 +80,7 @@ void check_all_village(vector<village> &villages,int village_num, int day, doubl
             // printf("add %d p %lf\n",ret.first[i], ret.second[i]);
             villages[ret.first[i]].set_res(ret.second[i]);
         }
+        printf("sibal\n");
         return;
     }
     // if(ret>= 0)

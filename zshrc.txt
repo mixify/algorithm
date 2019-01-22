@@ -24,9 +24,6 @@ alias lxb='ls -lXB' # sort by extension
 alias lk='ls -lSr' # sort by size
 alias ltr='ls -ltr' # sort by date
 
-# ls options
-alias m='make'
-alias mr='make run'
 
 alias mkdir='mkdir -p'
 
@@ -58,8 +55,14 @@ cpcode() {
 
 solve () {
     echo "making makefile sibal...."
-    printf 'a.out :'$@'.cpp \n	g++ -g '$@'.cpp\n''run : a.out\n	./a.out < input' > Makefile
+    printf 'a.out :'$@'.cpp \n	g++ -g '$@'.cpp\n''run : a.out\n	./a.out < input\n''gdb : a.out\n	gdb a.out' > Makefile
     echo "init code and edit file"
     cp ~/algorithm/cp.cpp ~/algorithm/$@.cpp
-    vi ~/algorithm/$@.cpp
+    vim -c "vsplit input" -c 'vertical resize 30' ~/algorithm/$@.cpp
 }
+
+# make commands for algorithm
+alias m='make'
+alias mr='make run'
+alias mg='make gdb'
+
