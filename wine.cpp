@@ -22,7 +22,7 @@ int solve_problem(int idx,int cnt)
     int &ret = cache[idx][cnt];
     if(ret!=-1) return ret;
     // ret = 0;
-    return ret = wine[idx] + max(solve_problem(idx+1,cnt+1), solve_problem(idx+2,1));
+    return ret = wine[idx] + max(max(solve_problem(idx+1,cnt+1), solve_problem(idx+2,1)),solve_problem(idx+3,1));
 }
 int main(int argc, char *argv[])
 {
