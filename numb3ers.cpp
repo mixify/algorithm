@@ -56,11 +56,11 @@ void check_all_village(vector<village> &villages,int village_num, int day, doubl
     village &current_village = villages[village_num];
     pair<vector<int>,vector<double> > &ret = cache[village_num][day];// [trace.size()];
 
-    printf("trace : ");
-    for (int i = 0; i < trace.size(); ++i) {
-        printf("%d ", trace[i]);
-    }
-    printf("\n");
+    // printf("trace : ");
+    // for (int i = 0; i < trace.size(); ++i) {
+    //     printf("%d ", trace[i]);
+    // }
+    // printf("\n");
     if(day == D)
     {
         // printf("at %d, %d\n", village_num, day);
@@ -73,9 +73,10 @@ void check_all_village(vector<village> &villages,int village_num, int day, doubl
         return;
     }
     if(ret.first.size() > 0) {//not ended guys could just end here
-        printf("at %d, %d\n", village_num, day);
-        for (int i = 0; i < ret.first.size(); ++i) {
-            printf("add %d p %lf\n",ret.first[i], ret.second[i]);
+        // printf("at %d, %d\n", village_num, day);
+        for (int i = 0; i < ret.first.size(); ++i)
+        {
+            // printf("add %d p %lf\n",ret.first[i], ret.second[i]);
             villages[ret.first[i]].set_res(ret.second[i]);
         }
         return;
@@ -135,6 +136,6 @@ void solve_problem(int case_num)
         }
     }
     for (int i = 0; i < T; ++i)
-        printf("%lf ", villages[suspect[i]].res);
+        printf("%.8lf ", villages[suspect[i]].res);
     printf("\n");
 }

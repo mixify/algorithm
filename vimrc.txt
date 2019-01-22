@@ -407,6 +407,8 @@ set shell=/usr/bin/bash
                     \ StripTrailingWhitespace()
             augroup END
         """ }}}
+
+
     """ }}}
     """ Plugins {{{
         " Toggle tagbar (definitions, functions etc.)

@@ -24,6 +24,10 @@ alias lxb='ls -lXB' # sort by extension
 alias lk='ls -lSr' # sort by size
 alias ltr='ls -ltr' # sort by date
 
+# ls options
+alias m='make'
+alias mr='make run'
+
 alias mkdir='mkdir -p'
 
 # load plugins
@@ -53,7 +57,9 @@ cpcode() {
 }
 
 solve () {
-    echo "cp and vi"
+    echo "making makefile sibal...."
+    printf 'a.out :'$@'.cpp \n	g++ -g '$@'.cpp\n''run : a.out\n	./a.out < input' > Makefile
+    echo "init code and edit file"
     cp ~/algorithm/cp.cpp ~/algorithm/$@.cpp
     vi ~/algorithm/$@.cpp
 }
