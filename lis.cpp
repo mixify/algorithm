@@ -50,7 +50,7 @@ int brute(vector<int> &sequence, int idx)
         return ret;
     if(idx == sequence.size()-1)
         return ret = 1;
-    int mx = 1;
+    int mx = 0;
     for (int i = idx+1; i < sequence.size(); ++i)
     {
         if(sequence[i] > sequence[idx])
