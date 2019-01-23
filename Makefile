@@ -1,5 +1,5 @@
-a.out :a.cpp 
-	g++ -g a.cpp
+a.out :downhill.cpp 
+	g++ -g downhill.cpp
 run : a.out
 	./a.out < input
 gdb : a.out
