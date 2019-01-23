@@ -48,7 +48,10 @@ int solve(string &seq1,string &seq2, int idx1, int idx2)
     {
         for (int j = idx2; j < M; ++j)
             if (seq1[i] == seq2[j])
+            {
                 ret = max(ret, solve(seq1,seq2,i+1,j+1)+1);
+                break;
+            }
     }
     // ret = max(ret, solve(seq1,seq2,i,idx2,seq1[i])+1);
     // bool first = false;
