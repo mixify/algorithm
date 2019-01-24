@@ -1,8 +1,8 @@
-a.out :sequence_sum.cpp 
-	g++ -g sequence_sum.cpp
+a.out :padoban.cpp 
+	g++ -g padoban.cpp
 run : a.out
 	./a.out < input
-gdb : a.out
+gdb : padoban.cpp
 	gdb a.out
-algo : sequence_sum.cpp
-	algo sequence_sum
+algo : padoban.cpp
+	algo padoban
