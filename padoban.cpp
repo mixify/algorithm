@@ -32,5 +32,5 @@ void solve_problem(int case_num)
         // printf("%lld ",cache[i]);
     }
     // printf("\n");
-    printf("%d\n", cache[N-1]);
+    printf("%lld ", cache[N-1]);
 }
