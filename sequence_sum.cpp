@@ -21,10 +21,17 @@ int sequence_sum(int idx)
     if(ret!=-1) return ret;
     int sum;
     sum=ret=0;
-    for (int i = idx; i < N-1; ++i)
+    if(idx==0)
+        for (int i = idx; i < N-1; ++i)
+        {
+            sum+=sequence[i];
+            ret = max(sum, sum+sequence_sum(i+1));
+            M = max(M,ret);
+        }
+    else
     {
-        sum+=sequence[i];
-        ret = max(sum, sum+sequence_sum(i+1));
+        sum+=sequence[idx];
+        ret = max(sum, sum+sequence_sum(idx+1));
         M = max(M,ret);
     }
     return ret;

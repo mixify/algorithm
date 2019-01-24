@@ -11,7 +11,7 @@ int main(int argc, char *argv[])
     printf("%d\n", N);
     for (int i = 0; i < N; ++i)
     {
-        printf("%d %d\n",(int)rand()%10000, (int)rand()%10000);
+        printf("%d ",(int)rand()%1000-(int)rand()%2000);
     }
     return 0;
 }
