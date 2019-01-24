@@ -27,6 +27,7 @@ int sequence_sum(int idx)
             sum+=sequence[i];
             ret = max(sum, sum+sequence_sum(i+1));
             M = max(M,ret);
+            break;
         }
     else
     {
