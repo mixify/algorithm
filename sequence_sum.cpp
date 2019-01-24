@@ -44,7 +44,10 @@ int main(int argc, char *argv[])
     M=-2000;
     memset(cache,-1,sizeof(cache));
     sequence_sum(0);
-    printf("%d\n", M);
+    if(N==1)
+        printf("%d\n", sequence[0]);
+    else
+        printf("%d\n", M);
     return 0;
 }
 
