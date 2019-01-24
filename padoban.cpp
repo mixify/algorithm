@@ -25,10 +25,12 @@ int main(int argc, char *argv[])
 
 void solve_problem(int case_num)
 {
-    int cache[100] = {1,1,1,2,2,3,4,5,7,9,12,16};
+    long long cache[100] = {1,1,1,2,2,};
     cin>>N;
-    for (int i = 5; i < N; ++i) {
+    for (int i = 5; i < 100; ++i) {
         cache[i] = cache[i-1]+cache[i-5];
+        // printf("%lld ",cache[i]);
     }
+    // printf("\n");
     printf("%d\n", cache[N-1]);
 }
