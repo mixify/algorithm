@@ -17,7 +17,11 @@ vector<int> sequence;
 int sequence_sum(int idx)
 {
     int &ret = cache[idx];
-    if(idx == N-1) return ret = sequence[idx];
+    if(idx == N-1) {
+        ret = sequence[idx];
+        M = max(ret,M);
+        return ret;
+    }
     if(ret!=-1) return ret;
     int sum;
     sum=ret=-2000;
