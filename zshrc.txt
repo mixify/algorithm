@@ -55,7 +55,7 @@ cpcode() {
 
 solve () {
     echo "making makefile sibal...."
-    printf 'a.out :'$@'.cpp \n	g++ -g '$@'.cpp\n''run : a.out\n	./a.out < input\n''gdb : a.out\n	gdb a.out\n''algo : '$@'.cpp\n	algo '$@ > Makefile
+    printf 'a.out :'$@'.cpp \n	g++ -g '$@'.cpp\n''run : a.out\n	./a.out < input\n''gdb : '$@'.cpp\n	gdb a.out\n''algo : '$@'.cpp\n	algo '$@ > Makefile
     echo "init code and edit file"
     cp ~/algorithm/cp.cpp ~/algorithm/$@.cpp
     vim -c "vsplit input" -c 'vertical resize 30' ~/algorithm/$@.cpp
@@ -65,5 +65,5 @@ solve () {
 alias m='make'
 alias mr='make run'
 alias mg='make gdb'
-alias mg='make algo'
+alias ma='make algo'
 
