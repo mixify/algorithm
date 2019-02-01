@@ -58,7 +58,7 @@ pair<int,string> solve(string &seq1,string &seq2, int idx1, int idx2, string &lc
 
     for (int i = idx1; i < N; ++i)
     {
-        if(best > idx1 + lcs.length())
+        if(best > N-idx1 + lcs.length())
             break;
         for (int j = idx2; j < M; ++j)
             if (seq1[i] == seq2[j])
