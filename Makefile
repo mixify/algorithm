@@ -1,8 +1,8 @@
-a.out :padoban.cpp 
-	g++ -g padoban.cpp
+a.out :stone_cut.cpp 
+	g++ -g stone_cut.cpp
 run : a.out
 	./a.out < input
-gdb : padoban.cpp
+gdb : stone_cut.cpp
 	gdb a.out
-algo : padoban.cpp
-	algo padoban
+algo : stone_cut.cpp
+	algo stone_cut

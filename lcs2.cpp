@@ -11,9 +11,8 @@
 using namespace std;
 
 int N,M;
-pair<int,string> cache[1001][1001];
-pair<int,string> solve(string &seq1,string &seq2, int idx1, int idx2, string &lcs);
-int best = 0;
+int cache[1001][1001];
+int solve(string &seq1,string &seq2, int idx1, int idx2);
 void solve_problem(int case_num);
 int main(int argc, char *argv[])
 {
@@ -26,65 +25,31 @@ void solve_problem(int case_num)
 {
     string seq1;
     string seq2;
-    string lcs;
     cin>>seq1>>seq2;
     N = seq1.length();
     M = seq2.length();
 
-    // memset(cache, 0, sizeof(cache));
-    for (int i = 0; i < 1001; ++i) {
-        for (int j = 0; j < 1001; ++j) {
-            cache[i][j].first = 0;
-        }
-    }
+    memset(cache, -1, sizeof(cache));
     // mx = max(solve(seq1,seq2,0,0), mx);
-    // printf("%d\n", solve(seq1,seq2,0,0,lcs).first/* -2 */);
-    solve(seq1,seq2,0,0,lcs);
-    cout<<cache[0][0].first<<endl<<cache[0][0].second<<endl;
-    // cout<<max_string<<endl;
+    printf("%d\n", solve(seq1,seq2,0,0)/* -2 */);
     // for (int i = 1; i < JLIS.size(); ++i) {
     //     printf("%d ", JLIS[i]);
     // }
     // printf("\n");
 }
-pair<int,string> solve(string &seq1,string &seq2, int idx1, int idx2, string &lcs)
+int solve(string &seq1,string &seq2, int idx1, int idx2)
 {
-    pair<int,string> &ret = cache[idx1][idx2];
-    if(ret.first != 0  && lcs.length()<ret.second.length())
+    int &ret = cache[idx1][idx2];
+    if(ret != -1)
         return ret;
 
-    ret.first = 0;
-    ret.second = lcs;
-
+    ret = 0;
     for (int i = idx1; i < N; ++i)
     {
-        if(best > N-idx1 + lcs.length())
-            break;
         for (int j = idx2; j < M; ++j)
             if (seq1[i] == seq2[j])
             {
-                // if(best > idx2 + lcs.length())
-                //     break;
-                lcs+=seq1[i];
-                // cout<<lcs<<endl;
-                // ret.second+=seq1[i];
-                pair<int,string> res = solve(seq1,seq2,i+1,j+1,lcs);
-                if(ret.first < res.first+1)
-                {
-                    ret.first=res.first+1;
-                    ret.second=res.second;//  + res.second;
-                    // std::cout << idx1 <<" "<< idx2 << std::endl;
-                    // std::cout << "lcs2 : "<< ret.second << std::endl;
-                }
-                // ret.first = max(ret.first, solve(seq1,seq2,i+1,j+1,lcs)+1);
-                // if(lcs.length()>=max_string.length())
-                //     max_string = lcs;
-                // ret.second
-                // ret.second.pop_back();
-                if(ret.first > best)
-                    best = ret.first;
-
-                lcs.pop_back();
+                ret = max(ret, solve(seq1,seq2,i+1,j+1)+1);
                 break;
             }
     }
@@ -97,6 +62,5 @@ pair<int,string> solve(string &seq1,string &seq2, int idx1, int idx2, string &lc
     // long long b = (idx2==-1 ? NEGINF : seq2[idx2]);
     // long long last_elem = max(a,b);
     // printf("%lld\n", last_elem);
-    // ret.second = lcs + ret.second;
     return ret;
 }
