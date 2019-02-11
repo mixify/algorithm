@@ -55,38 +55,45 @@ int cut_stone(int x, int y, int size_x, int size_y, int slice_orientation)
         return 0;
     }
     int ret = 0;
+    vector<int> divided_y;
+    vector<int> divided_x;
     for (int i = 0; i < dirty.size(); ++i)
     {
-        int divided_y = dirty[i].first;
-        int divided_x = dirty[i].second;
-        if(slice_orientation==UNKNOWN)
-        {
-            if(dividable(divided_x,divided_y,VERTICAL,crystal))
-            {
-                ret += cut_stone(x,y,divided_x-x,size_y,VERTICAL) && cut_stone(divided_x+1,y,size_x + x-divided_x - 1,size_y,VERTICAL);
-            }
-            if(dividable(divided_x,divided_y,HORIZONTAL,crystal))
-            {
-                ret += cut_stone(x,y,size_x,divided_y-y,HORIZONTAL) && cut_stone(x,divided_y+1,size_x,size_y + y-divided_y -1,HORIZONTAL);
-            }
-        }
-        else if(slice_orientation == HORIZONTAL)
-        {
-            if(dividable(divided_x,divided_y,VERTICAL,crystal))
-            {
-                if(!(cut_stone(x,y,divided_x-x,size_y,VERTICAL) && cut_stone(divided_x+1,y,size_x + x-divided_x - 1,size_y,VERTICAL)))
-                    return 0;
-            }
-        }
-        else
-        {
-            if(dividable(divided_x,divided_y,HORIZONTAL,crystal))
-            {
-                if(!(cut_stone(x,y,size_x,divided_y-y,HORIZONTAL) && cut_stone(x,divided_y+1,size_x,size_y + y-divided_y -1,HORIZONTAL)))
-                    return 0;
-            }
-        }
+        divided_y.push_back(dirty[i].first);
+        divided_x.push_back(dirty[i].second);
     }
+    sort(divided_y.begin(),divided_y.end());
+    sort(divided_x.begin(),divided_x.end());
+    divided_y.erase(unique(divided_y.begin(),divided_y.end()),divided_y.end());
+    divided_x.erase(unique(divided_x.begin(),divided_x.end()),divided_x.end());
+    // for (int i = 0; i < dirty.size(); ++i)
+    // {
+    //     int divided_y = dirty[i].first;
+    //     int divided_x = dirty[i].second;
+    if(slice_orientation==UNKNOWN)
+    {
+        for (int i = 0; i < divided_y.size(); ++i)
+            if(dividable(0,divided_y[i],HORIZONTAL,crystal))
+                ret += cut_stone(x,y,size_x,divided_y[i]-y,HORIZONTAL) && cut_stone(x,divided_y[i]+1,size_x,size_y + y-divided_y[i] -1,HORIZONTAL);
+        for (int i = 0; i < divided_x.size(); ++i)
+            if(dividable(divided_x[i],0,VERTICAL,crystal))
+                ret += cut_stone(x,y,divided_x[i]-x,size_y,VERTICAL) && cut_stone(divided_x[i]+1,y,size_x + x-divided_x[i] - 1,size_y,VERTICAL);
+    }
+    else if(slice_orientation == HORIZONTAL)
+    {
+        for (int i = 0; i < divided_x.size(); ++i)
+            if(dividable(divided_x[i],0,VERTICAL,crystal))
+                if(!(cut_stone(x,y,divided_x[i]-x,size_y,VERTICAL) && cut_stone(divided_x[i]+1,y,size_x + x-divided_x[i] - 1,size_y,VERTICAL)))
+                    return 0;
+    }
+    else
+    {
+        for (int i = 0; i < divided_y.size(); ++i)
+            if(dividable(0,divided_y[i],HORIZONTAL,crystal))
+                if(!(cut_stone(x,y,size_x,divided_y[i]-y,HORIZONTAL) && cut_stone(x,divided_y[i]+1,size_x,size_y + y-divided_y[i] -1,HORIZONTAL)))
+                    return 0;
+    }
+    // }
 
     if(slice_orientation==UNKNOWN)
         return ret;
