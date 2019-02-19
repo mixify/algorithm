@@ -40,14 +40,16 @@ int cut_stone(int x, int y, int size_x, int size_y, int slice_orientation)
         }
     }
 
+    if(size_x==0 || size_y==0)
+        return 1;
     if(crystal.size()==0) return 0;
     //제일 끝부분 자를 수도 있으니 그것도 고려하자
     if(crystal.size()==1)
     {
         if(dirty.size()==0)
             return 1;
-        else
-            return 0;
+        // else
+        //     return 0;
     }
 
     if(dirty.size()==0)
@@ -77,6 +79,8 @@ int cut_stone(int x, int y, int size_x, int size_y, int slice_orientation)
                 ret += cut_stone(x,y,size_x,divided_y[i]-y,HORIZONTAL) && cut_stone(x,divided_y[i]+1,size_x,size_y + y-divided_y[i] -1,HORIZONTAL);
         for (int i = 0; i < divided_x.size(); ++i)
             if(dividable(divided_x[i],0,VERTICAL,crystal))
+        // else
+        //     return 0;
                 ret += cut_stone(x,y,divided_x[i]-x,size_y,VERTICAL) && cut_stone(divided_x[i]+1,y,size_x + x-divided_x[i] - 1,size_y,VERTICAL);
     }
     else if(slice_orientation == HORIZONTAL)
