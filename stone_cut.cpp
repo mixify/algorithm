@@ -72,6 +72,7 @@ int cut_stone(int x, int y, int size_x, int size_y, int slice_orientation)
     // {
     //     int divided_y = dirty[i].first;
     //     int divided_x = dirty[i].second;
+    bool cutable = true;
     if(slice_orientation==UNKNOWN)
     {
         for (int i = 0; i < divided_y.size(); ++i)
@@ -87,19 +88,28 @@ int cut_stone(int x, int y, int size_x, int size_y, int slice_orientation)
     {
         for (int i = 0; i < divided_x.size(); ++i)
             if(dividable(divided_x[i],0,VERTICAL,crystal))
+            {
+                cutable = false;
                 if(!(cut_stone(x,y,divided_x[i]-x,size_y,VERTICAL) && cut_stone(divided_x[i]+1,y,size_x + x-divided_x[i] - 1,size_y,VERTICAL)))
                     return 0;
+            }
     }
     else
     {
         for (int i = 0; i < divided_y.size(); ++i)
             if(dividable(0,divided_y[i],HORIZONTAL,crystal))
+            {
+                cutable = false;
                 if(!(cut_stone(x,y,size_x,divided_y[i]-y,HORIZONTAL) && cut_stone(x,divided_y[i]+1,size_x,size_y + y-divided_y[i] -1,HORIZONTAL)))
                     return 0;
+            }
     }
     // }
 
-    return ret;
+    if(slice_orientation==UNKNOWN)
+        return ret;
+    else
+        return cutable?0:1;
 }
 int main(int argc, char *argv[])
 {
