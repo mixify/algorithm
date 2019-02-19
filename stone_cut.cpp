@@ -99,10 +99,7 @@ int cut_stone(int x, int y, int size_x, int size_y, int slice_orientation)
     }
     // }
 
-    if(slice_orientation==UNKNOWN)
-        return ret;
-    else
-        return 1;
+    return ret;
 }
 int main(int argc, char *argv[])
 {
