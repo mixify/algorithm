@@ -1,8 +1,8 @@
-a.out :stone_cut.cpp 
-	g++ -g stone_cut.cpp
+a.out :circular_queue.cpp 
+	g++ -g circular_queue.cpp
 run : a.out
 	./a.out < input
-gdb : stone_cut.cpp
+gdb : circular_queue.cpp
 	gdb a.out
-algo : stone_cut.cpp
-	algo stone_cut
+algo : circular_queue.cpp
+	algo circular_queue
