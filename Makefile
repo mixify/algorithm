@@ -1,8 +1,8 @@
-a.out :circular_queue.cpp 
-	g++ -g circular_queue.cpp
+a.out :bead_escape2.cpp 
+	g++ -g bead_escape2.cpp
 run : a.out
 	./a.out < input
-gdb : circular_queue.cpp
+gdb : bead_escape2.cpp
 	gdb a.out
-algo : circular_queue.cpp
-	algo circular_queue
+algo : bead_escape2.cpp
+	algo bead_escape2

@@ -24,8 +24,6 @@ int main(int argc, char *argv[])
     int count = 0;
     for (int i = 0; i < M; ++i) {
         count += min(min(abs(numbers[i] - current), current + queue_size - numbers[i]), queue_size-current + numbers[i]);
-        // cout<<"current = "<<current<<" "<<"queue_size = "<< queue_size<<" "<<"numbers[i] = "<< numbers[i]<<endl;
-        // cout<<abs(numbers[i] - current)<<" and "<<current + queue_size - numbers[i] <<endl;
         for (int j = i+1; j < M; ++j)
             if(numbers[j] > numbers[i])
                 numbers[j]--;
