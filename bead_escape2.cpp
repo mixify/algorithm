@@ -32,9 +32,9 @@ int brute(int count, int direction, int Ry, int Rx, int By, int Bx)
     int orientation = BLUE_FIRST;
     int ret = 0;
     switch (direction) {
-        case UP: dy=-1; dx=0; if(Ry > By) orientation=RED_FIRST;
+        case UP: dy=-1; dx=0; if(Ry < By) orientation=RED_FIRST;
             break;
-        case DOWN: dy=1; dx=0; if(Ry < By) orientation=RED_FIRST;
+        case DOWN: dy=1; dx=0; if(Ry > By) orientation=RED_FIRST;
             break;
         case LEFT: dy=0; dx=-1; if(Rx < Bx) orientation=RED_FIRST;
             break;
