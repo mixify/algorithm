@@ -41,6 +41,7 @@ int in_order(int idx, int depth, int x)// L root R
         lc_count = in_order(node[idx].left, depth+1,x);
 
     x+=lc_count;
+    // printf("%d : %d %d\n",idx,depth,x );
     if(node[idx].right!=NOCHILD)
         rc_count = in_order(node[idx].right, depth+1,x+1);
 
@@ -73,12 +74,12 @@ int main(int argc, char *argv[])
             if(calc[node[i].depth][1] < node[i].x) calc[node[i].depth][1] = node[i].x;
         }
     }
-    for (int i = 0; i <= 10000; ++i) {
+    for (int i = 1; i <= 10000; ++i) {
         int wide = calc[i][1] - calc[i][0] + 1;
         if(wide>widest)
         {
-            widest = wide;
             widest_d = i;
+            widest = wide;
         }
     }
     printf("%d %d\n", widest_d, widest);
