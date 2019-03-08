@@ -24,12 +24,20 @@ public:
     int num;
     int depth;
     int x;
+    bool root;
     void set_Node(int n, int l, int r)
     {
         num = n;
         left = l;
         right = r;
+        if(root!=false)
+            root = true;
     }
+    Node()
+    {
+        root = true;
+    }
+    void not_root() {root = false;}
 };
 
 Node node[10001];
@@ -55,11 +63,23 @@ int main(int argc, char *argv[])
 {
     cin>>N;
     int root;
+    vector<int> node_idx;
     for (int i = 0; i < N; ++i) {
         int node_num, left_child, right_child;
         cin>>node_num>>left_child>>right_child;
+        node_idx.push_back(node_num);
         node[node_num].set_Node(node_num,left_child,right_child);
-        if(i==0) root = node_num;
+        if(left_child!=-1)
+            node[left_child].not_root();
+        if(right_child!=-1)
+            node[right_child].not_root();
+    }
+    for (int i = 0; i < node_idx.size(); ++i) {
+        if(node[node_idx[i]].root)
+        {
+            // printf("%d is root\n", node_idx[i]);
+            root = node_idx[i];
+        }
     }
 
     in_order(root,1,0);
