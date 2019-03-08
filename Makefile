@@ -1,8 +1,8 @@
-a.out :bead_escape2.cpp 
-	g++ -g bead_escape2.cpp
+a.out :tree_hw.cpp 
+	g++ -g tree_hw.cpp
 run : a.out
 	./a.out < input
-gdb : bead_escape2.cpp
+gdb : tree_hw.cpp
 	gdb a.out
-algo : bead_escape2.cpp
-	algo bead_escape2
+algo : tree_hw.cpp
+	algo tree_hw

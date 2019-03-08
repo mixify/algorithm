@@ -74,8 +74,6 @@ int brute(int count, int direction, int Ry, int Rx, int By, int Bx)
     board[original_Ry][original_Rx] = 'R';
     board[By][Bx] = '.';
     board[original_By][original_Bx] = 'B';
-    // // if(original_Ry == Ry && original_Rx == Rx && original_By == By && original_Bx == Bx) return 999999;
-
 
     return ret;
 }
