@@ -23,6 +23,7 @@ public:
     int right;
     int num;
     int depth;
+    int parent;
     int x;
     bool root;
     void set_Node(int n, int l, int r)
@@ -36,8 +37,12 @@ public:
     Node()
     {
         root = true;
+        parent = -1;
     }
-    void not_root() {root = false;}
+    void set_parent(int p)
+    {
+        parent = p;
+    }
 };
 
 Node node[10001];
@@ -63,24 +68,18 @@ int main(int argc, char *argv[])
 {
     cin>>N;
     int root;
-    vector<int> node_idx;
+    int node_num, left_child, right_child;
     for (int i = 0; i < N; ++i) {
-        int node_num, left_child, right_child;
         cin>>node_num>>left_child>>right_child;
-        node_idx.push_back(node_num);
         node[node_num].set_Node(node_num,left_child,right_child);
         if(left_child!=-1)
-            node[left_child].not_root();
+            node[left_child].set_parent(node_num);
         if(right_child!=-1)
-            node[right_child].not_root();
+            node[right_child].set_parent(node_num);
     }
-    for (int i = 0; i < node_idx.size(); ++i) {
-        if(node[node_idx[i]].root)
-        {
-            // printf("%d is root\n", node_idx[i]);
-            root = node_idx[i];
-        }
-    }
+    while(node[node_num].parent!=-1)
+        node_num=node[node_num].parent;
+    root = node_num;
 
     in_order(root,1,0);
     int calc[10001][2];
