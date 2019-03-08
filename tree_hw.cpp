@@ -14,8 +14,8 @@
 using namespace std;
 int N, M;
 
-int widest = 0;
-int widest_d = 0;
+int widest = 1;
+int widest_d = 1;
 class Node
 {
 public:
@@ -68,9 +68,11 @@ int main(int argc, char *argv[])
 {
     cin>>N;
     int root;
+    vector <int> node_idx;
     int node_num, left_child, right_child;
     for (int i = 0; i < N; ++i) {
         cin>>node_num>>left_child>>right_child;
+        node_idx.push_back(node_num);
         node[node_num].set_Node(node_num,left_child,right_child);
         if(left_child!=-1)
             node[left_child].set_parent(node_num);
@@ -80,28 +82,28 @@ int main(int argc, char *argv[])
     while(node[node_num].parent!=-1)
         node_num=node[node_num].parent;
     root = node_num;
+    // printf("%d\n", root);
 
-    in_order(root,1,0);
+    in_order(root,1,1);
     int calc[10001][2];
     memset(calc,0,sizeof(calc));
-    for (int i = 1; i <= N; ++i) {
-        if(calc[node[i].depth][0] == 0)
+    for (int i = 0; i < node_idx.size(); ++i) {
+        int idx = node_idx[i];
+        if(calc[node[idx].depth][0] == 0)
         {
-            calc[node[i].depth][0] = node[i].x;
-            calc[node[i].depth][1] = node[i].x;
+            calc[node[idx].depth][0] = node[idx].x;
+            calc[node[idx].depth][1] = node[idx].x;
         }
         else
         {
-            if(calc[node[i].depth][0] > node[i].x) calc[node[i].depth][0] = node[i].x;
-            if(calc[node[i].depth][1] < node[i].x) calc[node[i].depth][1] = node[i].x;
-        }
-    }
-    for (int i = 1; i <= 10000; ++i) {
-        int wide = calc[i][1] - calc[i][0] + 1;
-        if(wide>widest)
-        {
-            widest_d = i;
-            widest = wide;
+            if(calc[node[idx].depth][0] > node[idx].x) calc[node[idx].depth][0] = node[idx].x;
+            if(calc[node[idx].depth][1] < node[idx].x) calc[node[idx].depth][1] = node[idx].x;
+            int wide = calc[node[idx].depth][1] - calc[node[idx].depth][0] + 1;
+            if(wide > widest)
+            {
+                widest_d = node[idx].depth;
+                widest = wide;
+            }
         }
     }
     printf("%d %d\n", widest_d, widest);
