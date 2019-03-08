@@ -20,11 +20,13 @@ class Node
 {
 public:
     int left;
+    int num;
     int right;
     int depth;
     int x;
-    Node(int l, int r)
+    Node(int n, int l, int r)
     {
+        num = n;
         left = l;
         right = r;
     }
@@ -52,14 +54,13 @@ int in_order(int idx, int depth, int x)// L root R
 int main(int argc, char *argv[])
 {
     cin>>N;
-    node.push_back(Node(NOCHILD,NOCHILD));
     for (int i = 0; i < N; ++i) {
         int node_num, left_child, right_child;
         cin>>node_num>>left_child>>right_child;
-        node.push_back(Node(left_child,right_child));
+        node.push_back(Node(node_num, left_child,right_child));
     }
 
-    in_order(1,1,0);
+    in_order(node[0].num,1,0);
     int calc[10001][2];
     memset(calc,0,sizeof(calc));
     for (int i = 1; i <= N; ++i) {
