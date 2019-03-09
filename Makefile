@@ -1,8 +1,8 @@
-a.out :router_install.cpp 
-	g++ -g router_install.cpp
+a.out :num_bead.cpp 
+	g++ -g num_bead.cpp
 run : a.out
 	./a.out < input
-gdb : router_install.cpp
+gdb : num_bead.cpp
 	gdb a.out
-algo : router_install.cpp
-	algo router_install
+algo : num_bead.cpp
+	algo num_bead
