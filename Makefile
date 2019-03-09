@@ -1,8 +1,8 @@
-a.out :tree_hw.cpp 
-	g++ -g tree_hw.cpp
+a.out :router_install.cpp 
+	g++ -g router_install.cpp
 run : a.out
 	./a.out < input
-gdb : tree_hw.cpp
+gdb : router_install.cpp
 	gdb a.out
-algo : tree_hw.cpp
-	algo tree_hw
+algo : router_install.cpp
+	algo router_install
