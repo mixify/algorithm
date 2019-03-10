@@ -76,7 +76,7 @@ void solve_problem(int case_num)
         stuffs.push_back(stuff(name,size,ne));
     }
     memset(cache, -1, sizeof(cache));
-    cout<<pack(stuffs,W,0)<<endl;
+    cout<<pack(stuffs,W,0)<<" ";
     tracking(stuffs,W,0,stuffs_name);
     cout<<stuffs_name.size()<<endl;
     for (int i = 0; i < stuffs_name.size(); ++i) {
