@@ -63,10 +63,11 @@ void parametric()
         }//cnt 부족=> 값을 줄여서 하자
 
     }
+
+    printf("%d\n",ret);
     for (int i = 0; i < ret_vectors.size(); ++i) {
         printf("%d ", ret_vectors[i]);
     }
-    printf("\n%d\n",ret);
 
 }
 int main(int argc, char *argv[])
