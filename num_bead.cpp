@@ -47,6 +47,16 @@ void parametric()
         if(cnt>M) left = mid + 1;//딱맞을때 어떻게 해야할까
         else
         {
+            if(cnt<M)
+            {
+                for (int i = division.size()-1; division.size() < M; --i) {
+                    while(division[i] > 1)
+                    {
+                        division[i]--;
+                        division.insert(division.begin()+i+1, 1);
+                    }
+                }
+            }
             ret = mid;
             ret_vectors = division;
             right = mid -1;
