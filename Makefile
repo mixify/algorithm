@@ -1,8 +1,8 @@
-a.out :num_bead.cpp 
-	g++ -g num_bead.cpp
+a.out :packing.cpp 
+	g++ -g packing.cpp
 run : a.out
 	./a.out < input
-gdb : num_bead.cpp
+gdb : packing.cpp
 	gdb a.out
-algo : num_bead.cpp
-	algo num_bead
+algo : packing.cpp
+	algo packing
