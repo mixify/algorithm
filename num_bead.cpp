@@ -80,10 +80,10 @@ int main(int argc, char *argv[])
     }
     if(N==M)
     {
+        printf("%d\n", max_min);
         for (int i = 0; i < N; ++i) {
             printf("1 ");
         }
-        printf("\n%d\n", max_min);
         return 0;
     }
     parametric();
