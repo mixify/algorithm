@@ -66,27 +66,18 @@ int solve(string &seq1,string &seq2, int idx1, int idx2)
         for (int j = idx2; j < M; ++j)
             if (seq1[i] == seq2[j])
             {
-                // cout<<seq1[i]<<" - ";
+                // ret = max(ret, solve(seq1,seq2,i+1,j+1)+1);
+                // break;
                 if(ret < (better = solve(seq1,seq2,i+1,j+1)+1))
                 {
-                    // if(!str.empty())
-                    //     str.pop_back();
                     ret = better;
                     best_i = i;
                     best_j = j;
-                    // str.append(seq1,i,1);
-                    // a = seq1.substr(i,1);
-                    // cout<<"depth : "<<b<<" => ";
-                    // cout<<"idx = "<<j<<" : ";
-                    // cout<<str<<endl;
-                    break;
                 }
+                    break;
             }
     }
-    // cout<<best_i<<","<<best_j<<" ";
-    // cout<<a<<" : ";
     best[idx1][idx2][0] = best_i;
     best[idx1][idx2][1] = best_j;
-    // printf("cache[%d][%d] = %d\n", idx1,idx2,ret);
     return ret;
 }
