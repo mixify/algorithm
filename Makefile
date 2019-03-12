@@ -1,8 +1,8 @@
-a.out :packing.cpp 
-	g++ -g packing.cpp
+a.out :ocr.cpp 
+	g++ -g ocr.cpp
 run : a.out
 	./a.out < input
-gdb : packing.cpp
+gdb : ocr.cpp
 	gdb a.out
-algo : packing.cpp
-	algo packing
+algo : ocr.cpp
+	algo ocr

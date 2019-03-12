@@ -33,7 +33,7 @@ public:
     }
     Node()
     {
-        parent = -1;
+        parent = NOCHILD;
     }
     void set_parent(int p)
     {
@@ -70,12 +70,12 @@ int main(int argc, char *argv[])
         cin>>node_num>>left_child>>right_child;
         node_idx.push_back(node_num);
         node[node_num].set_Node(node_num,left_child,right_child);
-        if(left_child!=-1)
+        if(left_child!=NOCHILD)
             node[left_child].set_parent(node_num);
-        if(right_child!=-1)
+        if(right_child!=NOCHILD)
             node[right_child].set_parent(node_num);
     }
-    while(node[node_num].parent!=-1)
+    while(node[node_num].parent!=NOCHILD)
         node_num=node[node_num].parent;
     root = node_num;
     // printf("%d\n", root);

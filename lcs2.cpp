@@ -12,6 +12,7 @@ using namespace std;
 
 int N,M;
 int cache[1001][1001];
+int best[1001][1001][2];
 int solve(string &seq1,string &seq2, int idx1, int idx2);
 void solve_problem(int case_num);
 int main(int argc, char *argv[])
@@ -21,17 +22,28 @@ int main(int argc, char *argv[])
     return 0;
 }
 
+string str;
+void tracking(string &seq1,string &seq2,int i, int j)
+{
+    if(cache[i][j] == 0) return;
+    str.append(seq1,best[i][j][0],1);
+    tracking(seq1,seq2,best[i][j][0]+1,best[i][j][1]+1);
+}
 void solve_problem(int case_num)
 {
     string seq1;
     string seq2;
+    // string str = "";
     cin>>seq1>>seq2;
     N = seq1.length();
     M = seq2.length();
 
     memset(cache, -1, sizeof(cache));
+    memset(cache, -1, sizeof(cache));
     // mx = max(solve(seq1,seq2,0,0), mx);
     printf("%d\n", solve(seq1,seq2,0,0)/* -2 */);
+    tracking(seq1,seq2,0,0);
+    cout<<str<<endl;
     // for (int i = 1; i < JLIS.size(); ++i) {
     //     printf("%d ", JLIS[i]);
     // }
@@ -43,24 +55,38 @@ int solve(string &seq1,string &seq2, int idx1, int idx2)
     if(ret != -1)
         return ret;
 
+    // string a;
+    int best_i = 0;
+    int best_j = 0;
+
     ret = 0;
+    int better;
     for (int i = idx1; i < N; ++i)
     {
         for (int j = idx2; j < M; ++j)
             if (seq1[i] == seq2[j])
             {
-                ret = max(ret, solve(seq1,seq2,i+1,j+1)+1);
-                break;
+                // cout<<seq1[i]<<" - ";
+                if(ret < (better = solve(seq1,seq2,i+1,j+1)+1))
+                {
+                    // if(!str.empty())
+                    //     str.pop_back();
+                    ret = better;
+                    best_i = i;
+                    best_j = j;
+                    // str.append(seq1,i,1);
+                    // a = seq1.substr(i,1);
+                    // cout<<"depth : "<<b<<" => ";
+                    // cout<<"idx = "<<j<<" : ";
+                    // cout<<str<<endl;
+                    break;
+                }
             }
     }
-    // ret = max(ret, solve(seq1,seq2,i,idx2,seq1[i])+1);
-    // bool first = false;
-    // if(last_elem == 0)
-    //     first = true;
-    // ret = 2;
-    // long long a = (idx1==-1 ? NEGINF : seq1[idx1]);
-    // long long b = (idx2==-1 ? NEGINF : seq2[idx2]);
-    // long long last_elem = max(a,b);
-    // printf("%lld\n", last_elem);
+    // cout<<best_i<<","<<best_j<<" ";
+    // cout<<a<<" : ";
+    best[idx1][idx2][0] = best_i;
+    best[idx1][idx2][1] = best_j;
+    // printf("cache[%d][%d] = %d\n", idx1,idx2,ret);
     return ret;
 }

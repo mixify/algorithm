@@ -42,7 +42,7 @@ int brute(int count, int direction, int Ry, int Rx, int By, int Bx)
             break;
         default:
             break;
-    }
+    }//같은 행이나 열이 아니라도 상관없지않나??
     if(direction!=NOP)
     {
         if(orientation == RED_FIRST)
