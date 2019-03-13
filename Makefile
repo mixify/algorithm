@@ -1,8 +1,8 @@
-a.out :ocr.cpp 
-	g++ -g ocr.cpp
+a.out :candy.cpp 
+	g++ -g candy.cpp
 run : a.out
 	./a.out < input
-gdb : ocr.cpp
+gdb : candy.cpp
 	gdb a.out
-algo : ocr.cpp
-	algo ocr
+algo : candy.cpp
+	algo candy
