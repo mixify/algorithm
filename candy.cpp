@@ -15,7 +15,7 @@ vector<int> candy_price;
 vector<vector<int> > candy;
 
 bool prime_array[500001];
-long long cache[51][500001];// [500000];
+// long long cache[51][500001];// [500000];
 long long cache1[500001];// [500000];
 long long cache2[500001];// [500000];
 // cache<int,int>
@@ -34,29 +34,29 @@ void eratos(int n)
     }
 }
 // int cases = 0;
-long long D(int idx, int count, int value)
-{
-    long long &ret = cache[idx][value];
-    if(ret != -1){
-        return ret;
-    }
-    if(idx==candy.size())
-    {
-        if(prime_array[value])
-        {
-            // printf("prime : %d\n", value);
-            return ret=1;
-        }
-        else
-            return ret=0;
-    }
-    ret=D(idx+1,0,value);
-    for (int i = 0; i < candy[idx].size(); ++i) {
-        int added_value = value + candy[idx][i];
-        ret+=D(idx+1,i+1,added_value);
-    }
-    return ret;
-}
+// long long D(int idx, int count, int value)
+// {
+//     long long &ret = cache[idx][value];
+//     if(ret != -1){
+//         return ret;
+//     }
+//     if(idx==candy.size())
+//     {
+//         if(prime_array[value])
+//         {
+//             // printf("prime : %d\n", value);
+//             return ret=1;
+//         }
+//         else
+//             return ret=0;
+//     }
+//     ret=D(idx+1,0,value);
+//     for (int i = 0; i < candy[idx].size(); ++i) {
+//         int added_value = value + candy[idx][i];
+//         ret+=D(idx+1,i+1,added_value);
+//     }
+//     return ret;
+// }
 int main(int argc, char *argv[])
 {
     eratos(500000);
@@ -81,7 +81,7 @@ int main(int argc, char *argv[])
         }
     }
 
-    memset(cache,-1,sizeof(cache));
+    // memset(cache,-1,sizeof(cache));
     memset(cache2,0,sizeof(cache1));
     memset(cache1,0,sizeof(cache2));
 
@@ -118,6 +118,6 @@ int main(int argc, char *argv[])
         }
     }
     printf("%lld\n", p_count);
-    printf("%lld\n", D(0,0,0));
+    // printf("%lld\n", D(0,0,0));
     return 0;
 }
