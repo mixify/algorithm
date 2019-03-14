@@ -10,7 +10,7 @@ int main(int argc, char *argv[])
 {
     scanf("%d %d", &N, &L);
     for (int i = 0; i < N; ++i) {
-        int in; scanf("%D",&in); ary.push_back(in);
+        int in; scanf("%d",&in); ary.push_back(in);
     }
     // i-L+1 ~ i
     for (int i = 0; i < N; ++i) {
