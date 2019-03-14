@@ -8,9 +8,9 @@ vector<int> ary;
 deque<pair<int,int> > dq;
 int main(int argc, char *argv[])
 {
-    cin>>N>>L;
+    scanf("%d %d", &N, &L);
     for (int i = 0; i < N; ++i) {
-        int in; cin>>in; ary.push_back(in);
+        int in; scanf("%D",&in); ary.push_back(in);
     }
     // i-L+1 ~ i
     for (int i = 0; i < N; ++i) {
