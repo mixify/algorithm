@@ -20,8 +20,8 @@ int main(int argc, char *argv[])
         {
             while(!dq.empty() && i - dq.front().first>=L) dq.pop_front();
             while(!dq.empty() && dq.back().second>ary[i]) dq.pop_front();
+            dq.push_back(make_pair(i,ary[i]));
         }
-        dq.push_back(make_pair(i,ary[i]));
         cout<<dq.front().second<<" ";
     }
     printf("\n");
