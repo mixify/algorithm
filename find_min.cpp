@@ -19,7 +19,7 @@ int main(int argc, char *argv[])
         else
         {
             while(!dq.empty() && i - dq.front().first>=L) dq.pop_front();
-            while(!dq.empty() && dq.back().second>ary[i]) dq.pop_front();
+            while(!dq.empty() && dq.back().second>ary[i]) dq.pop_back();
             dq.push_back(make_pair(i,ary[i]));
         }
         cout<<dq.front().second<<" ";
