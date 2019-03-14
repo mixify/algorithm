@@ -16,6 +16,8 @@ vector<vector<int> > candy;
 
 bool prime_array[500001];
 long long cache[51][500001];// [500000];
+// long long cache[500001];// [500000];
+// cache<int,int>
 
 void eratos(int n)
 {
@@ -37,7 +39,6 @@ long long D(int idx, int count, int value)
     if(ret != -1){
         return ret;
     }
-    // ret = 0;
     if(idx==candy.size())
     {
         if(prime_array[value])
@@ -45,28 +46,21 @@ long long D(int idx, int count, int value)
         else
             return ret=0;
     }
-
-        // if(prime_array[added_value])
     ret=D(idx+1,0,value);
     for (int i = 0; i < candy[idx].size(); ++i) {
         int added_value = value + candy[idx][i];
-        // if(prime_array[added_value])
-        //     ret++;
         ret+=D(idx+1,i+1,added_value);
     }
     return ret;
 }
-// int D(int idx)
-// {
-//     int &ret = cache[idx];
-//     if(ret!=-1) return ret;
-// }
 int main(int argc, char *argv[])
 {
     eratos(500000);
     cin>>N;
+    int sum_value = 0;
     for (int i = 0; i < N; ++i) {
         int in; cin>>in; candy_price.push_back(in);
+        sum_value += in;
     }
     for (int i = 0; i < N; ++i) {
         int amount = 1;
@@ -82,17 +76,36 @@ int main(int argc, char *argv[])
             }
         }
     }
-    // for (int i = 0; i < candy.size(); ++i) {
-    //     for (int j = 0; j < candy[i].size(); ++j) {
-    //         printf("%d ", candy[i][j]);
-    //     }
-    //     printf("\n");
-    // }
-    // printf("\n");
 
     memset(cache,-1,sizeof(cache));
 
+    // cache[0]=1;
+    // for (int i = 0; i < candy.size(); ++i)
+    // {
+    //         for (int j = 0; j < candy[i].size(); ++j) {
+    //             int in = candy[i][j];
+    //             if(i==0)
+    //                 cache[in]++;
+    //             else
+    //                 for (int k = 0; k < sum_value; ++k) {
+    //                     if(k-in>=0)
+    //                         cache[k] = cache[k] + cache[k-in];
+    //                 }
+    //         }
+    //         // for (int i = 0; i < candy.size(); ++i) {
+    //         //     for (int j = 0; j < candy[i].size(); ++j) {
+    //         //         printf("%d ", candy[i][j]);
+    //         //     }
+    //         //     printf("\n");
+    //         // }
+    //         // printf("\n");
+    //
+    //
     printf("%lld\n", D(0,0,0));
-    // calc(0);
+    //         // calc(0);
+    // }
+    // for (int i = 0; i < sum_value; ++i) {
+    //     printf("%d\n",cache[i]);
+    // }
     return 0;
 }
