@@ -14,6 +14,7 @@ int main(int argc, char *argv[])
     }
     // i-L+1 ~ i
     for (int i = 0; i < N; ++i) {
+        printf("incoming = %d\n", ary[i]);
         if(dq.empty())
             dq.push_back(make_pair(i,ary[i]));
         else
@@ -22,7 +23,11 @@ int main(int argc, char *argv[])
             while(!dq.empty() && dq.back().second>ary[i]) dq.pop_back();
             dq.push_back(make_pair(i,ary[i]));
         }
-        cout<<dq.front().second<<" ";
+        for (int i = 0; i < dq.size(); ++i) {
+            printf("%d ", dq[i].second);
+        }
+        printf("\n");
+        // cout<<dq.front().second<<" ";
     }
     printf("\n");
     return 0;
