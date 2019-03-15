@@ -11,7 +11,7 @@
 
 using namespace std;
 int N, M;
-pair<int,int> cache[10000][10000];
+pair<int,int> cache[501][501];
 
 void solve_problem(int case_num);
 int main(int argc, char *argv[])
