@@ -1,8 +1,8 @@
-a.out :candy.cpp 
-	g++ -g candy.cpp
+a.out :chained_matrix_multiplication.cpp 
+	g++ -g chained_matrix_multiplication.cpp
 run : a.out
 	./a.out < input
-gdb : candy.cpp
+gdb : chained_matrix_multiplication.cpp
 	gdb a.out
-algo : candy.cpp
-	algo candy
+algo : chained_matrix_multiplication.cpp
+	algo chained_matrix_multiplication
