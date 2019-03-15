@@ -23,7 +23,7 @@ int main(int argc, char *argv[])
     }
     int best = 99999999;
     int best_num = 0;
-    for (int i = min_n; i < max_n; ++i) {
+    for (int i = min_n; i <= max_n; ++i) {
         int sum = 0;
         for (int j = 0; j < N; ++j) sum+=abs(number[j]-i);
         if(sum<best)
