@@ -33,7 +33,6 @@ void eratos(int n)
             }
     }
 }
-// int cases = 0;
 // long long D(int idx, int count, int value)
 // {
 //     long long &ret = cache[idx][value];
@@ -101,22 +100,12 @@ int main(int argc, char *argv[])
                 }
             }
         }
-        // for (int k = 0; k <= sum_value; ++k)
-        //     printf("%d ",k);
-        // printf("\n-----------------------\n");
-        // for (int k = 0; k <= sum_value; ++k)
-        //     printf("%d ",cache2[k]);
-        // printf("\n\n");
         memcpy(cache1,cache2,sizeof(cache1));
     }
     long long p_count = 0;
-    for (int i = 0; i <= sum_value; ++i) {
+    for (int i = 0; i <= sum_value; ++i)
         if(prime_array[i])
-        {
-            // printf("%d : %d\n", i, cache1[i]);
             p_count+=cache1[i];
-        }
-    }
     printf("%lld\n", p_count);
     // printf("%lld\n", D(0,0,0));
     return 0;
