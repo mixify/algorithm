@@ -14,6 +14,8 @@ int N;
 vector<int> stuff;
 vector<int> stuff_with_heli;
 int cache[3001][3001];
+int summation[3001][3001];
+int summation_heli[3001][3001];
 int pay_truck, pay_heli;
 int mid;
 int total_cost(int x, int y)
@@ -37,20 +39,20 @@ int total_cost(int x, int y)
 
 
     // int n=y-x+1;
-    mid = /* n%2==0?stuff[(x+y)/2-1 < 0?0:(x+y)/2-1]: */stuff[(x+y)/2];
     // printf("mid = %d\n", mid);
 
-    int sum = 0;
-    int sum_heli = 0;
-    for (int i = x; i <= y; ++i)
-    {
-        sum+=stuff[i]*pay_truck;
-        sum_heli+=abs(stuff[i] - mid)*pay_truck;
+    int sum = summation[x][y] * pay_truck;
+    int sum_heli = summation_heli[x][y] * pay_truck + pay_heli;
+    // int sum_heli = sum;
+    // for (int i = x; i <= y; ++i)//should recess this loop
+    // {
+        // sum+=stuff[i]*pay_truck;
+        // sum_heli+=abs(stuff[i] - mid)*pay_truck;
         // printf("%d\n", abs(stuff[x] - mid)*pay_truck);
-    }
+    // }
     // printf("x y = (%d %d)\n", x,y);
     // printf("sum = %d sum_heli = %d\n",sum, sum_heli);
-    ret = min(ret, min(sum,sum_heli + pay_heli));
+    ret = min(ret, min(sum,sum_heli));
     // printf("n = %d, mid = %d\n", n, mid);
     // int sum_with_heli = 0;
     //     sum_with_heli += abs(mid-stuff[i]);
@@ -69,6 +71,20 @@ int main(int argc, char *argv[])
     sort(stuff.begin(),stuff.end());
     cin>>pay_truck>>pay_heli;
 
+    for (int i = 0; i < N; ++i) {
+        for (int j = i; j < N; ++j) {
+            mid = stuff[(i+j)/2];
+            if(i==j) {summation[i][j] = stuff[i]; summation_heli[i][j] = abs(stuff[i]-mid);}
+            else
+            {
+                summation[i][j] = summation[i][j-1] + stuff[j];
+                summation_heli[i][j] = summation_heli[i][j-1] + abs(stuff[j]-mid);
+                // printf("stuff[j] = %d mid = %d\n", stuff[j],mid);
+            }
+        }
+    }
+    // printf("%d\n", summation[2][4]);
+    // printf("%d\n", summation_heli[2][3]);
     // int sum = 0;
     // int sum_by_heli = 0;
     // int ret;
