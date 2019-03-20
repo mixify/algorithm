@@ -1,8 +1,8 @@
-a.out :delivery.cpp 
-	g++ -g delivery.cpp
+a.out :robot_cleaner.cpp 
+	g++ -g robot_cleaner.cpp
 run : a.out
 	./a.out < input
-gdb : delivery.cpp
+gdb : robot_cleaner.cpp
 	gdb a.out
-algo : delivery.cpp
-	algo delivery
+algo : robot_cleaner.cpp
+	algo robot_cleaner
