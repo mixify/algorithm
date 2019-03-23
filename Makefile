@@ -1,8 +1,8 @@
-a.out :glasses.cpp 
-	g++ -g glasses.cpp
+a.out :millionaire.cpp 
+	g++ -g millionaire.cpp
 run : a.out
 	./a.out < input
-gdb : glasses.cpp
+gdb : millionaire.cpp
 	gdb a.out
-algo : glasses.cpp
-	algo glasses
+algo : millionaire.cpp
+	algo millionaire
