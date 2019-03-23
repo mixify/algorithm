@@ -47,6 +47,7 @@ void solve_problem(int case_num)
             // printf("-----------\n");
         }
     }
+    num.clear();
     // D[0] = 1;
     // for (int i = 0; i < N; ++i) {
     //     if(i==0) D[num[i]] = 1;
