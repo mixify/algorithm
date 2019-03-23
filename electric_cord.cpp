@@ -56,9 +56,7 @@ int answer(int idx, int ori, int count_cord, int count_core)
         }
         return count_cord;
     }
-    if(best>0)
-        if(core.size() - idx+-1 > best)
-            return 0;
+
     int a = core[idx].first;
     int b = core[idx].second;
 
@@ -81,11 +79,14 @@ int answer(int idx, int ori, int count_cord, int count_core)
         mat[a][b] = 2;
         count_cord++;
     }
-
     if(possible)
         count_core++;
     else
         count_cord = org_count;
+    if(best>0)
+        if(core.size() - idx + count_core < best)
+            return 0;
+
     for (int i = 0; i < 5; ++i)
         answer(idx+1,i,count_cord,count_core);
     memcpy(mat,org,sizeof(mat));
