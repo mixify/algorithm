@@ -14,8 +14,9 @@ int N;
 int mat[12][12];
 int best;
 int best_min;
-int dy[4] = {-1,0,0,1};
-int dx[4] = {0,1,-1,0};
+int cache[12][4][12];
+int dy[5] = {-1,0,0,1,0};
+int dx[5] = {0,1,-1,0,0};
 vector<pair<int,int> > core;
 
 
@@ -53,14 +54,22 @@ int answer(int idx, int ori, int count_cord, int count_core)
                 best_min = count_cord;
             }
         }
-        return 0;
+        return count_cord;
     }
+    if(best>0)
+        if(core.size() - idx+-1 > best)
+            return 0;
     int a = core[idx].first;
     int b = core[idx].second;
 
     bool possible = true;
     while((a+dy[ori] >= 0 && a+dy[ori] < N) && (b+dx[ori] >=0 && b+dx[ori] < N))
     {
+        if(ori == 4)
+        {
+            possible = false;
+            break;
+        }
         if(mat[a+dy[ori]][b+dx[ori]] != 0)
         {
             memcpy(mat,org,sizeof(mat));
@@ -77,14 +86,15 @@ int answer(int idx, int ori, int count_cord, int count_core)
         count_core++;
     else
         count_cord = org_count;
-    for (int i = 0; i < 4; ++i)
+    for (int i = 0; i < 5; ++i)
         answer(idx+1,i,count_cord,count_core);
     memcpy(mat,org,sizeof(mat));
+    return count_cord;
 }
 void solve_problem(int case_num)
 {
     cin>>N;
-    best = 0;
+    best = -1;
     best_min = 200;
     for (int i = 0; i < N; ++i) {
         for (int j = 0; j < N; ++j) {
@@ -94,11 +104,11 @@ void solve_problem(int case_num)
                     core.push_back(make_pair(i,j));
         }
     }
-    for (int i = 0; i < 4; ++i) {
+    for (int i = 0; i < 5; ++i) {
         answer(0,i,0,0);
     }
 
-    printf("%d\n", best_min);
+    printf("#%d %d\n",case_num+1, best_min);
     core.clear();
     // printf("%d\n", answer(0,0));
 }
