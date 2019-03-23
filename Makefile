@@ -1,8 +1,8 @@
-a.out :electric_cord.cpp 
-	g++ -g electric_cord.cpp
+a.out :glasses.cpp 
+	g++ -g glasses.cpp
 run : a.out
 	./a.out < input
-gdb : electric_cord.cpp
+gdb : glasses.cpp
 	gdb a.out
-algo : electric_cord.cpp
-	algo electric_cord
+algo : glasses.cpp
+	algo glasses
