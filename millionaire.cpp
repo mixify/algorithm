@@ -50,12 +50,26 @@ void solve_problem(int case_num)
     int m_idx;
     for (int i = 0; i < N; ++i) {
         int in; cin>>in; stuff.push_back(in);
-        if(in > m)
+        // if(in > m)
+        // {
+        //     m = in;
+        //     m_idx = i;
+        // }
+    }
+    int best = stuff[N-1];
+    long long sum = 0;
+    for (int i = N-2; i >= 0; --i) {
+        if(best < stuff[i])
         {
-            m = in;
-            m_idx = i;
+            best = stuff[i];
+            continue;
+        }
+        else
+        {
+            sum+=best - stuff[i];
         }
     }
-    printf("#%d %lld\n", case_num+1, solve(0,m_idx,m));
+    // printf("#%d %lld\n", case_num+1, solve(0,m_idx,m));
+    printf("#%d %lld\n", case_num+1, sum);
     stuff.clear();
 }
