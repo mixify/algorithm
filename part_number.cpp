@@ -34,7 +34,7 @@ void solve_problem(int case_num)
         int in; cin>>in; num.push_back(in);
     }
     int cnt = 0;
-    for (int i = 0; i < N-1;++i) {
+    for (int i = 0; i < N;++i) {
         int sum = 0;
         for (int j = i; j < N; ++j) {
             sum+=num[j];
@@ -47,7 +47,6 @@ void solve_problem(int case_num)
             // printf("-----------\n");
         }
     }
-    num.clear();
     // D[0] = 1;
     // for (int i = 0; i < N; ++i) {
     //     if(i==0) D[num[i]] = 1;
