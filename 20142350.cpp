@@ -11,81 +11,102 @@
 
 using namespace std;
 int N, M;
-int max_min = 0;
-int max_value = 0;
-vector<int> bead;
+vector<int> candy_price;
+vector<vector<int> > candy;
 
-void parametric()
+bool prime_array[500001];
+// long long cache[51][500001];// [500000];
+long long cache1[500001];// [500000];
+long long cache2[500001];// [500000];
+// cache<int,int>
+
+void eratos(int n)
 {
-    int left = max_min;
-    int right = max_value;
-    int ret = 0;
-    vector<int> ret_vectors;
-    while(left<=right)
-    {
-        int mid = (left+right)/2;
-        int start = bead[0];
-        int sum = start;
-        int cnt = 1;
-        int bead_cnt = 1;
-        vector<int> division;
-        for (int i = 1; i < N; ++i) {
-            sum+=bead[i];
-            if(sum > mid)
-            {
-                division.push_back(bead_cnt);
-                cnt++;
-                bead_cnt=1;
-                start = bead[i];
-                sum = start;
+    if(n<=1) return;
+
+    for (int i = 2; i <= n; ++i)
+        prime_array[i] = true;
+    for (int i = 2; i*i <= n; ++i) {
+        if(prime_array[i])
+            for (int j = i*i; j <= n; j+=i) {
+                prime_array[j] = false;
             }
-            else
-                bead_cnt++;
-        }
-        division.push_back(bead_cnt);
-        //cnt초과 => 너무많이 해당됨 == 값을 키워야 함
-        if(cnt>M) left = mid + 1;//딱맞을때 어떻게 해야할까
-        else
-        {
-            if(cnt<M)
-            {
-                for (int i = division.size()-1; division.size() < M; --i) {
-                    while(division[i] > 1)
-                    {
-                        division[i]--;
-                        division.insert(division.begin()+i+1, 1);
-                    }
-                }
-            }
-            ret = mid;
-            ret_vectors = division;
-            right = mid -1;
-        }//cnt 부족=> 값을 줄여서 하자
-
     }
-
-    printf("%d\n",ret);
-    for (int i = 0; i < ret_vectors.size(); ++i) {
-        printf("%d ", ret_vectors[i]);
-    }
-
 }
+// long long D(int idx, int count, int value)
+// {
+//     long long &ret = cache[idx][value];
+//     if(ret != -1){
+//         return ret;
+//     }
+//     if(idx==candy.size())
+//     {
+//         if(prime_array[value])
+//         {
+//             // printf("prime : %d\n", value);
+//             return ret=1;
+//         }
+//         else
+//             return ret=0;
+//     }
+//     ret=D(idx+1,0,value);
+//     for (int i = 0; i < candy[idx].size(); ++i) {
+//         int added_value = value + candy[idx][i];
+//         ret+=D(idx+1,i+1,added_value);
+//     }
+//     return ret;
+// }
 int main(int argc, char *argv[])
 {
-    cin>>N>>M;
+    eratos(500000);
+    cin>>N;
+    int sum_value = 0;
     for (int i = 0; i < N; ++i) {
-        int in; cin>>in; bead.push_back(in);
-        if(in > max_min) max_min = in;
-        max_value+=in;
+        int in; cin>>in; candy_price.push_back(in);
+        sum_value += in;
     }
-    if(N==M)
-    {
-        printf("%d\n", max_min);
-        for (int i = 0; i < N; ++i) {
-            printf("1 ");
+    for (int i = 0; i < N; ++i) {
+        int amount = 1;
+        if(candy_price[i]==-1)
+            continue;
+        candy.push_back(vector<int>());
+        candy[candy.size()-1].push_back(candy_price[i]);
+        for (int j = i+1; j < N; ++j) {
+            if(candy_price[i] == candy_price[j])
+            {
+                candy[candy.size()-1].push_back(candy_price[i]*(++amount));
+                candy_price[j]=-1;
+            }
         }
-        return 0;
     }
-    parametric();
+
+    // memset(cache,-1,sizeof(cache));
+    memset(cache2,0,sizeof(cache1));
+    memset(cache1,0,sizeof(cache2));
+
+    cache2[0]=1;
+    for (int i = 0; i < candy.size(); ++i)
+    {
+        for (int j = 0; j < candy[i].size(); ++j) {
+            int in = candy[i][j];
+            if(i==0)
+                cache2[in]++;
+            else
+            {
+                // cache2[in]++;
+                for (int k = 0; k <= sum_value; ++k) {
+                    if(k-in>=0)
+                        cache2[k] = cache2[k] + cache1[k-in];
+                }
+            }
+        }
+        memcpy(cache1,cache2,sizeof(cache1));
+    }
+    long long p_count = 0;
+    for (int i = 0; i <= sum_value; ++i)
+        if(prime_array[i])
+            p_count+=cache1[i];
+    printf("%lld\n", p_count);
+    // printf("%lld\n", D(0,0,0));
     return 0;
 }

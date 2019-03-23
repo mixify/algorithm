@@ -24,6 +24,7 @@ alias lxb='ls -lXB' # sort by extension
 alias lk='ls -lSr' # sort by size
 alias ltr='ls -ltr' # sort by date
 
+export PATH=$PATH:/bin:/usr/bin
 
 alias mkdir='mkdir -p'
 
@@ -31,9 +32,10 @@ alias mkdir='mkdir -p'
 source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 source /home/mixify/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source /home/mixify/zsh-history-substring-search/zsh-history-substring-search.zsh
+# [[ -s /etc/profile.d/autojump.sh ]] && source /etc/profile.d/autojump.sh
 
 # fpath=("$HOME/.zfunctions" $fpath )
-
+export PATH=$PATH:/bin:/usr/bin
 # added by Anaconda3 2018.12 installer
 # >>> conda init >>>
 # !! Contents within this block are managed by 'conda init' !!
