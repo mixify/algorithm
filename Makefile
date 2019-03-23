@@ -1,8 +1,8 @@
-a.out :tree_invest.cpp 
-	g++ -g tree_invest.cpp
+a.out :part_number.cpp 
+	g++ -g part_number.cpp
 run : a.out
 	./a.out < input
-gdb : tree_invest.cpp
+gdb : part_number.cpp
 	gdb a.out
-algo : tree_invest.cpp
-	algo tree_invest
+algo : part_number.cpp
+	algo part_number
