@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <cstring>
 #include <iostream>
 #include <algorithm>
 #include <climits>
