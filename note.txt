@@ -1,0 +1,11 @@
+set은 insert를 사용한다!!!!
+
+int A[11][11];// 1부터 시작하는거는 헤깔리지 말게 이렇게 풀자 앞으로...
+
+// 자료구조가 루프를 돌면서 변형되는 거라면 잘 고려하자 복사를 하던
+
+for (idx_itr = tree.begin(); idx_itr != tree.end();)//set 은 !=로 순회 검사
+    tree_itr = tree_on_land[idx_itr->first][idx_itr->second].erase(tree_itr);
+    // erase 리턴값으로 꼭 가야한다 까먹지 말자 시벌
+
+str.append(1,panel[x][y]+'0'); // string에 char 한글짜식 추가하는 방법임!

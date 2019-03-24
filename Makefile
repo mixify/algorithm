@@ -1,8 +1,8 @@
-a.out :part_number.cpp 
-	g++ -g part_number.cpp
+a.out :panel.cpp 
+	g++ -g panel.cpp
 run : a.out
 	./a.out < input
-gdb : part_number.cpp
+gdb : panel.cpp
 	gdb a.out
-algo : part_number.cpp
-	algo part_number
+algo : panel.cpp
+	algo panel
