@@ -1,8 +1,8 @@
-a.out :panel.cpp 
-	g++ -g panel.cpp
+a.out :lcs4.cpp 
+	g++ -g lcs4.cpp
 run : a.out
 	./a.out < input
-gdb : panel.cpp
+gdb : lcs4.cpp
 	gdb a.out
-algo : panel.cpp
-	algo panel
+algo : lcs4.cpp
+	algo lcs4
