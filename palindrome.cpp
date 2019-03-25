@@ -57,7 +57,7 @@ int m = 2500;
 int palindrome(int y)
 {
     int &ret = cache[y];
-    if(y==0) return 0;
+    if(y==0) return 1;
     if(ret!=-1) return ret;
     // if(idx==str.length()) {
     //     if(count<m) m = count;
