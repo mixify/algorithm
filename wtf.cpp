@@ -95,7 +95,6 @@ int main(int argc, char *argv[])
     cin>>str;
     memset(cache,-1,sizeof(cache));
     memset(sym_cache,-1,sizeof(sym_cache));
-    // if(str.length()==0) return 1;
     // palindrome(str.length());
     // if(is_symmetry(0,str.length()-1))
     //     printf("1\n");
@@ -104,3 +103,4 @@ int main(int argc, char *argv[])
     // printf("%d\n", m);
     return 0;
 }
+
