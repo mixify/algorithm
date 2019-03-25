@@ -64,7 +64,7 @@ int palindrome(int y)
     //     return ret = 1;
     // }
 
-    ret = 2500;
+    ret = 999999;
 
     for (int i = 0; i <= y; ++i) {
         if(is_symmetry(i,y))
@@ -95,6 +95,7 @@ int main(int argc, char *argv[])
     cin>>str;
     memset(cache,-1,sizeof(cache));
     memset(sym_cache,-1,sizeof(sym_cache));
+    // if(str.length()==0) return 1;
     // palindrome(str.length());
     // if(is_symmetry(0,str.length()-1))
     //     printf("1\n");
