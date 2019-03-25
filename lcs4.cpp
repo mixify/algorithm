@@ -40,12 +40,13 @@ int solve(int idx, int length)
         {
             best_idx.push(i);
             ret = max(solve(i,length+1),ret);
+            best_idx.pop();
             break;
         }
     }
 
-    if(ret!=0)
-        best_idx.pop();
+    // if(ret!=0)
+    //     best_idx.pop();
     return ret;
 }
 
