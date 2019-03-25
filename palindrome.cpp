@@ -71,7 +71,7 @@ int palindrome(int y)
         {
             // cout<<str.substr(i,y-i+1)<<endl;
             // printf("%d %d\n", i,y);
-            if(i==0) return 1;
+            if(i==0) return ret = 1;
             ret = min(ret,palindrome(i-1)+1);
         }
     }
