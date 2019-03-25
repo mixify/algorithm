@@ -12,16 +12,19 @@
 using namespace std;
 string str;
 int cache[2501][2501];// [2501];
+bool sym_cache[2501][2501];// [2501];
 
 bool is_symmetry(int i, int j)
 {
+    bool &ret = sym_cache[i][j];
+    if(ret!=-1) return ret;
     while(i<j)
     {
         if(str[i] != str[j])
-            return false;
+            return ret = false;
         i++; j--;
     }
-    return true;
+    return ret = true;
 }
 int m = 2500;
 int palindrome(int idx,int count)
@@ -52,7 +55,7 @@ int main(int argc, char *argv[])
 {
     cin>>str;
     memset(cache,-1,sizeof(cache));
-palindrome(0,0);
+    palindrome(0,0);
     // printf("%d\n", palindrome(0,0));
     printf("%d\n", m);
     return 0;
