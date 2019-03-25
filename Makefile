@@ -1,8 +1,8 @@
-a.out :lcs4.cpp 
-	g++ -g lcs4.cpp
+a.out :palindrome.cpp 
+	g++ -g palindrome.cpp
 run : a.out
 	./a.out < input
-gdb : lcs4.cpp
+gdb : palindrome.cpp
 	gdb a.out
-algo : lcs4.cpp
-	algo lcs4
+algo : palindrome.cpp
+	algo palindrome
