@@ -64,7 +64,7 @@ int palindrome(int y)
     //     return ret = 1;
     // }
 
-    ret = 999999;
+    ret = 2500;
 
     for (int i = 0; i <= y; ++i) {
         if(is_symmetry(i,y))
