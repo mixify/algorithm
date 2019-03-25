@@ -25,7 +25,7 @@ int solve(int idx, int length)
     if(ret!=-1) return ret;
     if(idx==N-1)
     {
-        if(m<length)
+        if(m<=length)
         {
             max_idx = best_idx;
             // printf("%d\n", max_idx.size());
@@ -44,7 +44,8 @@ int solve(int idx, int length)
         }
     }
 
-    best_idx.pop();
+    if(ret!=0)
+        best_idx.pop();
     return ret;
 }
 
