@@ -23,17 +23,15 @@ int solve(int idx, int length)
 {
     int &ret = D[idx][length];
     if(ret!=-1) return ret;
-    if(idx==N-1)
+    if(m<=length)
     {
-        if(m<=length)
-        {
-            m = length;
-            max_idx = best_idx;
-            // printf("size = %d\n", max_idx.size());
-            // auto itr = deque<int>::iterator();
-        }
-        return length;
+        m = length;
+        max_idx = best_idx;
+        // printf("size = %d\n", max_idx.size());
+        // auto itr = deque<int>::iterator();
     }
+    if(idx==N-1)
+        return ret = length;
 
     ret = 0;
     for (int i = idx+1; i < N; ++i)
