@@ -6,7 +6,7 @@
 #include <cmath>
 #include <stack>
 #include <vector>
-#include <queue>
+#include <deque>
 #include <utility>
 #include <set>
 #include <map>
@@ -17,8 +17,8 @@ int num[1001];
 int D[1001][1001];
 
 int m= 0;
-queue<int> best_idx;
-queue<int> max_idx;
+deque<int> best_idx;
+deque<int> max_idx;
 int solve(int idx, int length)
 {
     int &ret = D[idx][length];
@@ -27,8 +27,10 @@ int solve(int idx, int length)
     {
         if(m<=length)
         {
+            m = length;
             max_idx = best_idx;
-            // printf("%d\n", max_idx.size());
+            // printf("size = %d\n", max_idx.size());
+            // auto itr = deque<int>::iterator();
         }
         return length;
     }
@@ -38,10 +40,13 @@ int solve(int idx, int length)
     {
         if(num[idx] < num[i])
         {
-            best_idx.push(i);
+            // printf("%d => %d\n", num[idx], num[i]);
+            best_idx.push_front(i);
+            // printf("pushing %d\n", num[i]);
             ret = max(solve(i,length+1),ret);
-            best_idx.pop();
-            break;
+            // printf("poping %d\n", num[best_idx.front()]);
+            best_idx.pop_front();
+            // break;
         }
     }
 
@@ -58,16 +63,18 @@ int main(int argc, char *argv[])
     memset(D,-1,sizeof(D));
     for (int i = 0; i < N; ++i)
     {
-        best_idx.push(i);
+        best_idx.push_front(i);
+        // printf("pushing %d\n", num[i]);
         m= max(m,solve(i,1));
-        best_idx.pop();
+        // printf("poping %d\n", num[best_idx.front()]);
+        best_idx.pop_front();
     }
 
     printf("%d\n", m);
     while(max_idx.size()>0)
     {
-        cout<<num[max_idx.front()]<<" ";//stack 은 제이랑피 top이다
-        max_idx.pop();
+        cout<<num[max_idx.back()]<<" ";//stack 은 제이랑피 top이다
+        max_idx.pop_back();
     }
     return 0;
 }

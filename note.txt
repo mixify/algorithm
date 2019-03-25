@@ -11,3 +11,5 @@ for (idx_itr = tree.begin(); idx_itr != tree.end();)//set 은 !=로 순회 검�
 str.append(1,panel[x][y]+'0'); // string에 char 한글짜식 추가하는 방법임!
 
 cout>>max_idx.top();//stack 은 제이랑피 top이다
+
+그냥 queue 는 순회가 안된다~~~~
