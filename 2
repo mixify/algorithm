@@ -27,7 +27,7 @@ int m = 2500;
 int palindrome(int idx,int count)
 {
     int &ret = cache[idx][count];// [length];
-    if(ret!=-1) return ret;
+    // if(ret!=-1) return ret;
     if(idx==str.length()) {
         if(count<m) m = count;
         return 1;
@@ -38,22 +38,21 @@ int palindrome(int idx,int count)
     for (int i = idx; i < str.length(); ++i) {
         if(is_symmetry(idx,i))
         {
-            // printf("from %d to %d\n", idx,i);
-            // cout<<str.substr(idx,i-idx+1)<<endl;
+            printf("from %d to %d\n", idx,i);
+            cout<<str.substr(idx,i-idx+1)<<endl;
             //how to ignore useless duplicates??
             int bef = ret;
             ret += palindrome(i+1,count+1);
         }
     }
-    // printf("at %d ret = %d\n", idx, ret);
+    printf("at %d ret = %d\n", idx, ret);
     return ret;
 }
 int main(int argc, char *argv[])
 {
     cin>>str;
     memset(cache,-1,sizeof(cache));
-palindrome(0,0);
-    // printf("%d\n", palindrome(0,0));
+    printf("%d\n", palindrome(0,0));
     printf("%d\n", m);
     return 0;
 }
