@@ -13,3 +13,4 @@ str.append(1,panel[x][y]+'0'); // string에 char 한글짜식 추가하는 방�
 cout>>max_idx.top();//stack 은 제이랑피 top이다
 
 그냥 queue 는 순회가 안된다~~~~
+int amount = stoi(str.substr(1,str.length()-1)); string to ascii~~
