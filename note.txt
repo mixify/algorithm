@@ -14,3 +14,6 @@ cout>>max_idx.top();//stack 은 제이랑피 top이다
 
 그냥 queue 는 순회가 안된다~~~~
 int amount = stoi(str.substr(1,str.length()-1)); string to ascii~~
+
+<algorithm> => lower_bound, upper_bound 사용 가능~~ lower_bound 는 크거나
+같은수를 구함~~~ upper_bound는 무조건 큰수만~~ 둘다 위치를 구해줌~~

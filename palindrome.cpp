@@ -15,7 +15,7 @@ string str;
 int cache[2501];/* [2501] */;// [2501];
 int sym_cache[2501][2501];// [2501];
 
-bool is_symmetry(int i, int j)
+bool is_symmetry(int i, int j) // should make chaind matrix version~~~~~~
 {
     int &ret = sym_cache[i][j];
     if(ret!=-1) return ret;
@@ -71,7 +71,7 @@ int palindrome(int y)
         {
             // cout<<str.substr(i,y-i+1)<<endl;
             // printf("%d %d\n", i,y);
-            if(i==0) return 1;
+            if(i==0) return ret = 1;
             ret = min(ret,palindrome(i-1)+1);
         }
     }

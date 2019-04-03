@@ -10,103 +10,97 @@
 #include <map>
 
 using namespace std;
-int N, M;
-vector<int> candy_price;
-vector<vector<int> > candy;
+string str;
+// int cache[2501][2501];// [2501];
+int cache[2501];/* [2501] */;// [2501];
+int sym_cache[2501][2501];// [2501];
 
-bool prime_array[500001];
-// long long cache[51][500001];// [500000];
-long long cache1[500001];// [500000];
-long long cache2[500001];// [500000];
-// cache<int,int>
-
-void eratos(int n)
+bool is_symmetry(int i, int j)
 {
-    if(n<=1) return;
-
-    for (int i = 2; i <= n; ++i)
-        prime_array[i] = true;
-    for (int i = 2; i*i <= n; ++i) {
-        if(prime_array[i])
-            for (int j = i*i; j <= n; j+=i) {
-                prime_array[j] = false;
-            }
+    int &ret = sym_cache[i][j];
+    if(ret!=-1) return ret;
+    while(i<j)
+    {
+        if(str[i] != str[j])
+            return ret = 0;
+        i++; j--;
     }
+    return ret = 1;
 }
-// long long D(int idx, int count, int value)
+int m = 2500;
+// int palindrome(int idx,int count)
 // {
-//     long long &ret = cache[idx][value];
-//     if(ret != -1){
-//         return ret;
+//     int &ret = cache[idx][count];// [length];
+//     if(ret!=-1) return ret;
+//     if(idx==str.length()) {
+//         if(count<m) m = count;
+//         return ret = 1;
 //     }
-//     if(idx==candy.size())
-//     {
-//         if(prime_array[value])
+//
+//     ret = 0;
+//
+//     for (int i = str.length()-1; i >= idx; --i) {
+//         // if()
+//         if(is_symmetry(idx,i))
 //         {
-//             // printf("prime : %d\n", value);
-//             return ret=1;
+//             // printf("from %d to %d\n", idx,i);
+//             // cout<<str.substr(idx,i-idx+1)<<endl;
+//             //how to ignore useless duplicates??
+//             // int bef = ret;
+//             ret += palindrome(i+1,count+1);
+//             // break;
 //         }
-//         else
-//             return ret=0;
 //     }
-//     ret=D(idx+1,0,value);
-//     for (int i = 0; i < candy[idx].size(); ++i) {
-//         int added_value = value + candy[idx][i];
-//         ret+=D(idx+1,i+1,added_value);
+//     // printf("at %d ret = %d\n", idx, ret);
+//     return ret;
+// }
+int palindrome(int y)
+{
+    int &ret = cache[y];
+    if(y==0) return 1;
+    if(ret!=-1) return ret;
+    // if(idx==str.length()) {
+    //     if(count<m) m = count;
+    //     return ret = 1;
+    // }
+
+    ret = 2500;
+
+    for (int i = 0; i <= y; ++i) {
+        if(is_symmetry(i,y))
+        {
+            // cout<<str.substr(i,y-i+1)<<endl;
+            // printf("%d %d\n", i,y);
+            if(i==0) return 1;
+            ret = min(ret,palindrome(i-1)+1);
+        }
+    }
+    // printf("at %d ret = %d\n", idx, ret);
+    return ret;
+}
+// int total_cost3(int y)
+// {
+//     int &ret = cache2[y];
+//     if(y == 0) return ret = min(summation[y][y],summation_heli[y][y]);
+//     if(ret!=-1) return ret;
+//
+//     ret = min(summation[0][y], summation_heli[0][y]);
+//     for (int x = 0; x < y; ++x) {
+//         ret = min(ret, total_cost3(x) +  summation_heli[x+1][y]);
 //     }
 //     return ret;
 // }
 int main(int argc, char *argv[])
 {
-    eratos(500000);
-    cin>>N;
-    int sum_value = 0;
-    for (int i = 0; i < N; ++i) {
-        int in; cin>>in; candy_price.push_back(in);
-        sum_value += in;
-    }
-    for (int i = 0; i < N; ++i) {
-        int amount = 1;
-        if(candy_price[i]==-1)
-            continue;
-        candy.push_back(vector<int>());
-        candy[candy.size()-1].push_back(candy_price[i]);
-        for (int j = i+1; j < N; ++j) {
-            if(candy_price[i] == candy_price[j])
-            {
-                candy[candy.size()-1].push_back(candy_price[i]*(++amount));
-                candy_price[j]=-1;
-            }
-        }
-    }
-
-    // memset(cache,-1,sizeof(cache));
-    memset(cache2,0,sizeof(cache1));
-    memset(cache1,0,sizeof(cache2));
-
-    cache2[0]=1;
-    for (int i = 0; i < candy.size(); ++i)
-    {
-        for (int j = 0; j < candy[i].size(); ++j) {
-            int in = candy[i][j];
-            if(i==0)
-                cache2[in]++;
-            else
-            {
-                // cache2[in]++;
-                for (int k = 0; k <= sum_value; ++k) {
-                    if(k-in>=0)
-                        cache2[k] = cache2[k] + cache1[k-in];
-                }
-            }
-        }
-        memcpy(cache1,cache2,sizeof(cache1));
-    }
-    long long p_count = 0;
-    for (int i = 0; i <= sum_value; ++i)
-        if(prime_array[i])
-            p_count+=cache1[i];
-    printf("%lld\n", p_count);
-    // printf("%lld\n", D(0,0,0));
+    cin>>str;
+    memset(cache,-1,sizeof(cache));
+    memset(sym_cache,-1,sizeof(sym_cache));
+    // if(str.length()==0) return 1;
+    // palindrome(str.length());
+    // if(is_symmetry(0,str.length()-1))
+    //     printf("1\n");
+    // else
+    printf("%d\n", palindrome(str.length()-1));
+    // printf("%d\n", m);
     return 0;
 }

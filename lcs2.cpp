@@ -14,6 +14,7 @@ int N,M;
 int cache[1001][1001];
 int best[1001][1001][2];
 int solve(string &seq1,string &seq2, int idx1, int idx2);
+int solve2(string &seq1,string &seq2, int idx1, int idx2);
 void solve_problem(int case_num);
 int main(int argc, char *argv[])
 {
@@ -41,7 +42,8 @@ void solve_problem(int case_num)
     memset(cache, -1, sizeof(cache));
     memset(cache, -1, sizeof(cache));
     // mx = max(solve(seq1,seq2,0,0), mx);
-    printf("%d\n", solve(seq1,seq2,0,0)/* -2 */);
+    solve2(seq1,seq2,0,0);
+    printf("my = %d\n", solve(seq1,seq2,0,0)/* -2 */);
     tracking(seq1,seq2,0,0);
     cout<<str<<endl;
     // for (int i = 1; i < JLIS.size(); ++i) {
@@ -80,4 +82,23 @@ int solve(string &seq1,string &seq2, int idx1, int idx2)
     best[idx1][idx2][0] = best_i;
     best[idx1][idx2][1] = best_j;
     return ret;
+}
+int solve2(string &seq1,string &seq2, int idx1, int idx2)
+{
+    for (int i = 1; i <= N; ++i) {
+        cache[i][0] = 0;
+    }
+    for (int i = 1; i <= M; ++i) {
+        cache[0][i] = 0;
+    }
+    for (int i = 1; i <= N; ++i) {
+        for (int j = 1; j <= M; ++j) {
+            if(seq1[i] == seq2[j])
+                cache[i][j] = cache[i-1][j-1]+1;
+            else
+                cache[i][j] = max(cache[i-1][j],cache[j][i-1]);
+        }
+    }
+    printf("%d\n", cache[N][M]);
+    // if(idx1)
 }

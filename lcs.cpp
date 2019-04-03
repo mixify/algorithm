@@ -42,6 +42,7 @@ int solve(string &seq1,string &seq2, int idx1, int idx2)
     int &ret = cache[idx1][idx2];
     if(ret != -1)
         return ret;
+    // D[i][j]
 
     ret = 0;
     for (int i = idx1; i < N; ++i)
@@ -50,8 +51,11 @@ int solve(string &seq1,string &seq2, int idx1, int idx2)
             if (seq1[i] == seq2[j])
             {
                 ret = max(ret, solve(seq1,seq2,i+1,j+1)+1);
+                // 사실 D[i-1][j-1] + 1;
                 break;
             }
+            // else
+            //     D[i][j-1] 둘중 큰값 D[i-1][j]
     }
     // ret = max(ret, solve(seq1,seq2,i,idx2,seq1[i])+1);
     // bool first = false;

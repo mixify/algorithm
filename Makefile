@@ -1,8 +1,8 @@
-a.out :palindrome.cpp 
-	g++ -g palindrome.cpp
-run : a.out
+a.out :dragon_curve.cpp 
+	g++ -g dragon_curve.cpp
+run : dragon_curve.cpp a.out
 	./a.out < input
-gdb : palindrome.cpp
+gdb : dragon_curve.cpp a.out
 	gdb a.out
-algo : palindrome.cpp
-	algo palindrome
+algo : dragon_curve.cpp
+	algo dragon_curve
