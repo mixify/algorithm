@@ -17,3 +17,4 @@ int amount = stoi(str.substr(1,str.length()-1)); string to ascii~~
 
 <algorithm> => lower_bound, upper_bound 사용 가능~~ lower_bound 는 크거나
 같은수를 구함~~~ upper_bound는 무조건 큰수만~~ 둘다 위치를 구해줌~~
+vector<int>(1,ori) ori 로 초기화된 1개의 원소를 가지는 벡터

@@ -13,6 +13,29 @@ int cache[1501][1501][3];
 
 // int dy[3] = {1,0,1};
 // int dx[3] = {0,1,1};
+int bulldozer(int y, int x,int ori, int apple, int banana)
+{
+    int &ret = cache[y][x][ori];
+    if(ret!=-1)
+    {
+        // printf("ret = %d apnana = %d\n", ret,apple+banana);
+        if(ret > apple+banana)
+            return ret;
+    }
+
+    // printf("%d %d => %d and %d\n", y,x,apple,banana);
+    if(y==R-1 && x==C-1)
+        return apple+banana;
+    ret = 0;
+    if(y<R-1 && x<C-1)
+        ret = max(bulldozer(y+1,x+1,2,apple+summation_A[y+1][x+1],banana+summation_B[y+1][x+1]), ret);
+    if(y<R-1)
+        ret = max(bulldozer(y+1,x,1,apple-land_A[y+1][x],banana+summation_B[y+1][x]), ret);
+    if(x<C-1)
+        ret = max(bulldozer(y,x+1,0,apple+summation_A[y][x+1],banana-land_B[y][x+1]), ret);
+    return ret;
+}
+
 // int bulldozer(int y, int x,int ori, int apple, int banana)
 // {
 //     int &ret = cache[y][x][ori];
@@ -20,51 +43,25 @@ int cache[1501][1501][3];
 //         return ret;
 //     }
 //
-//     // printf("%d %d => %d and %d\n", y,x,apple,banana);
+//     printf("%d %d => %d and %d\n", y,x,apple,banana);
 //     if(y==R-1 && x==C-1)
 //     {
-//         if(ori==2)
-//             return summation_A[y][x] + summation_B[y][x];
-//         else if(ori==1)
-//
+//         return apple + banana;
+//         // if(ori==2)
+//         //     return summation_A[y][x] + summation_B[y][x];
+//         // else if(ori==1)
+//         //
 //     }
 //
 //     ret = 0;
 //     if(y<R-1 && x<C-1)
-//         ret = max(bulldozer(y+1,x+1,2,apple,banana+summation_B[y+1][x+1]+summation_A[y+1][x+1])+apple+banana, ret);
+//         ret = max(bulldozer(y+1,x+1,2,summation_A[y+1][x+1],summation_B[y+1][x+1]), ret);
 //     if(y<R-1)
-//         ret = max(bulldozer(y+1,x,1,apple-land_A[y+1][x],banana+summation_B[y+1][x])+apple+banana-land_A[y+1][x], ret);
+//         ret = max(bulldozer(y+1,x,1,apple-land_A[y+1][x],summation_B[y+1][x]), ret);
 //     if(x<C-1)
-//         ret = max(bulldozer(y,x+1,0,apple+summation_A[y][x+1],banana-land_B[y][x+1])+apple+banana-land_B[y][x+1], ret);
+//         ret = max(bulldozer(y,x+1,0,summation_A[y][x+1],banana-land_B[y][x+1]), ret);
 //     return ret;
 // }
-
-int bulldozer(int y, int x,int ori, int apple, int banana)
-{
-    int &ret = cache[y][x][ori];
-    if(ret!=-1) {
-        return ret;
-    }
-
-    // printf("%d %d => %d and %d\n", y,x,apple,banana);
-    if(y==R-1 && x==C-1)
-    {
-        return apple + banana;
-        // if(ori==2)
-        //     return summation_A[y][x] + summation_B[y][x];
-        // else if(ori==1)
-        //
-    }
-
-    ret = 0;
-    if(y<R-1 && x<C-1)
-        ret = max(bulldozer(y+1,x+1,2,summation_A[y+1][x+1],summation_B[y+1][x+1]), ret);
-    if(y<R-1)
-        ret = max(bulldozer(y+1,x,1,apple-land_A[y+1][x],summation_B[y+1][x]), ret);
-    if(x<C-1)
-        ret = max(bulldozer(y,x+1,0,summation_A[y][x+1],banana-land_B[y][x+1]), ret);
-    return ret;
-}
 int main(int argc, char *argv[])
 {
     cin>>R>>C;
