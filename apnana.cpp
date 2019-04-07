@@ -1,9 +1,14 @@
-#include <iostream>
+#include <stdio.h>
 #include <cstring>
+#include <iostream>
+#include <algorithm>
 #include <climits>
-
+#include <cmath>
+#include <vector>
+#include <utility>
+#include <set>
+#include <map>
 using namespace std;
-int R,C;
 string str;
 int land_A[1501][1501];//for lower
 int land_B[1501][1501];//for higher
@@ -11,61 +16,40 @@ int summation_A[1501][1501];
 int summation_B[1501][1501];
 int cache[1501][1501][3];
 
-// int dy[3] = {1,0,1};
-// int dx[3] = {0,1,1};
-int bulldozer(int y, int x,int ori, int apple, int banana)
+int R, C;
+
+int bulldozer(int y, int x,int ori,int apple, int banana)
 {
     int &ret = cache[y][x][ori];
-    if(ret!=-1)
-    {
-        // printf("ret = %d apnana = %d\n", ret,apple+banana);
-        if(ret > apple+banana)
-            return ret;
-    }
+    // int &ret = cache[x][y];
+    if(ret!=-1) return ret;
+    //
+    if(y==R || x==C)
+        return -10000;
+    // if(x >= size)
+    //     return 0;
+    // if(ori == 0)
+    //     printf("jump type = x\n");
+    // else if(ori == 1)
+    //     printf("jump type = y\n");
+    // else if(ori == 2)
+    //     printf("jump type = xy\n");
+    // printf("at %d %d\n", y,x);
+    // printf("apple + banana = %d\n", apple + banana);
 
-    // printf("%d %d => %d and %d\n", y,x,apple,banana);
     if(y==R-1 && x==C-1)
-        return apple+banana;
-    ret = 0;
-    if(y<R-1 && x<C-1)
-        ret = max(bulldozer(y+1,x+1,2,apple+summation_A[y+1][x+1],banana+summation_B[y+1][x+1]), ret);
-    if(y<R-1)
-        ret = max(bulldozer(y+1,x,1,apple-land_A[y+1][x],banana+summation_B[y+1][x]), ret);
-    if(x<C-1)
-        ret = max(bulldozer(y,x+1,0,apple+summation_A[y][x+1],banana-land_B[y][x+1]), ret);
-    return ret;
+        return ret = apple + banana;
+    //     return triangle[x][y];
+
+    return ret = apple+banana + max(
+            max(bulldozer(y+1,x+1,2,summation_A[y+1][x+1],summation_B[y+1][x+1]),
+                bulldozer(y+1,x,1,-land_A[y+1][x],summation_B[y+1][x]))
+            , bulldozer(y,x+1,0,summation_A[y][x+1],-land_B[y][x+1]));
 }
 
-// int bulldozer(int y, int x,int ori, int apple, int banana)
-// {
-//     int &ret = cache[y][x][ori];
-//     if(ret!=-1) {
-//         return ret;
-//     }
-//
-//     printf("%d %d => %d and %d\n", y,x,apple,banana);
-//     if(y==R-1 && x==C-1)
-//     {
-//         return apple + banana;
-//         // if(ori==2)
-//         //     return summation_A[y][x] + summation_B[y][x];
-//         // else if(ori==1)
-//         //
-//     }
-//
-//     ret = 0;
-//     if(y<R-1 && x<C-1)
-//         ret = max(bulldozer(y+1,x+1,2,summation_A[y+1][x+1],summation_B[y+1][x+1]), ret);
-//     if(y<R-1)
-//         ret = max(bulldozer(y+1,x,1,apple-land_A[y+1][x],summation_B[y+1][x]), ret);
-//     if(x<C-1)
-//         ret = max(bulldozer(y,x+1,0,summation_A[y][x+1],banana-land_B[y][x+1]), ret);
-//     return ret;
-// }
 int main(int argc, char *argv[])
 {
     cin>>R>>C;
-
     memset(cache,-1,sizeof(cache));
     memset(land_A,0,sizeof(land_A));
     memset(land_B,0,sizeof(land_B));
@@ -120,14 +104,6 @@ int main(int argc, char *argv[])
                 summation_B[i][j] = summation_B[i][j-1] - land_B[i][j];
         }
     }
-
-    // printf("%d\n", summation_A[1][1]);
-    // printf("%d\n", summation_B[3][1]);
-    // for (int i = 0; i < R; ++i) {
-    //     for (int j = 0; j < C; ++j) {
-    //
-    //     }
-    // // }
     printf("%d\n", bulldozer(0,0,0,summation_A[0][0],summation_B[0][0]));
     return 0;
 }

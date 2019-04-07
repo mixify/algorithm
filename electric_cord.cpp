@@ -74,6 +74,7 @@ int answer(int idx, int ori, int count_cord, int count_core)
             possible = false;
             break;
         }
+
         a+=dy[ori];
         b+=dx[ori];
         mat[a][b] = 2;
