@@ -24,6 +24,7 @@ int dx[4] = {0,0,1,-1};
 void play_game(int cnt,int ori)
 {
 
+    // printf("-----------\n");
     // for (int i = 0; i < N; ++i) {
     //     for (int j = 0; j < N; ++j) {
     //         printf("%d ", board[i][j]);
@@ -206,6 +207,7 @@ int main(int argc, char *argv[])
     for (int i = 0; i < N; ++i) {
         for (int j = 0; j < N; ++j) {
             cin>>board[i][j];
+            max_block = max(max_block,board[i][j]);
         }
     }
 
