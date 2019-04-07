@@ -18,7 +18,7 @@ int eat(int y, int x, int leaves)
 {
     int &ret = cache[y][x];
 
-    if(leaves > forest[y][x])
+    if(leaves >= forest[y][x])
         return 0;
     leaves = forest[y][x];
     if(ret!=-1) return ret;
