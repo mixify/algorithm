@@ -1,8 +1,8 @@
-a.out :apnana.cpp 
-	g++ -g apnana.cpp
-run : apnana.cpp a.out
+a.out :panda.cpp 
+	g++ -g panda.cpp
+run : panda.cpp a.out
 	./a.out < input
-gdb : apnana.cpp a.out
+gdb : panda.cpp a.out
 	gdb a.out
-algo : apnana.cpp
-	algo apnana
+algo : panda.cpp
+	algo panda
