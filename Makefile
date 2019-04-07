@@ -1,8 +1,8 @@
-a.out :panda.cpp 
-	g++ -g panda.cpp
-run : panda.cpp a.out
+a.out :2048.cpp 
+	g++ -g 2048.cpp
+run : 2048.cpp a.out
 	./a.out < input
-gdb : panda.cpp a.out
+gdb : 2048.cpp a.out
 	gdb a.out
-algo : panda.cpp
-	algo panda
+algo : 2048.cpp
+	algo 2048
