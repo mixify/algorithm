@@ -1,8 +1,8 @@
-a.out :safe_place.cpp 
-	g++ -g safe_place.cpp
-run : safe_place.cpp a.out
+a.out :danji.cpp 
+	g++ -g danji.cpp
+run : danji.cpp a.out
 	./a.out < input
-gdb : safe_place.cpp a.out
+gdb : danji.cpp a.out
 	gdb a.out
-algo : safe_place.cpp
-	algo safe_place
+algo : danji.cpp
+	algo danji
