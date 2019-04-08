@@ -1,8 +1,8 @@
-a.out :2048.cpp 
-	g++ -g 2048.cpp
-run : 2048.cpp a.out
+a.out :safe_place.cpp 
+	g++ -g safe_place.cpp
+run : safe_place.cpp a.out
 	./a.out < input
-gdb : 2048.cpp a.out
+gdb : safe_place.cpp a.out
 	gdb a.out
-algo : 2048.cpp
-	algo 2048
+algo : safe_place.cpp
+	algo safe_place

@@ -96,7 +96,7 @@ set shell=/usr/bin/bash
 
     " Awesome syntax checker.
     " REQUIREMENTS: See :h syntastic-intro
-    Plug 'vim-syntastic/syntastic'
+    " Plug 'vim-syntastic/syntastic'
 
     " Functions, class data etc.
     " depends on either exuberant-ctags or universal-ctags
@@ -478,16 +478,16 @@ set shell=/usr/bin/bash
     " Automatic checking for active, only when :SyntasticCheck for passive
     " NOTE: override these in $HOME/.vimrc.first as needed!
     " https://github.com/timss/vimconf/issues/9
-    let g:syntastic_mode_map = get(g:, 'syntastic_mode_map', {
-                \ 'mode': 'passive',
-                \ 'active_filetypes':
-                \ ['c', 'cpp', 'perl', 'python'] })
+    " let g:syntastic_mode_map = get(g:, 'syntastic_mode_map', {
+    "             \ 'mode': 'passive',
+    "             \ 'active_filetypes':
+    "             \ ['c', 'cpp', 'perl', 'python'] })
 
     " Skip check on :wq, :x, :ZZ etc
     " Syntastic
-    set statusline+=%#warningmsg#
-    set statusline+=%{SyntasticStatuslineFlag()}
-    set statusline+=%*
+    " set statusline+=%#warningmsg#
+    " set statusline+=%{SyntasticStatuslineFlag()}
+    " set statusline+=%*
 
     " let g:syntastic_always_populate_loc_list = 1
     " let g:syntastic_auto_loc_list = 1
@@ -663,17 +663,17 @@ set shell=/usr/bin/bash
         return lightline#statusline(0)
     endfunction
 
-    function! s:syntastic()
-        SyntasticCheck
-        call lightline#update()
-    endfunction
+    " function! s:syntastic()
+    "     SyntasticCheck
+    "     call lightline#update()
+    " endfunction
 
-    augroup AutoSyntastic
-        autocmd!
-        execute 'autocmd FileType ' .
-                    \join(g:syntastic_mode_map['active_filetypes'], ',') .
-                    \' autocmd BufWritePost <buffer> :call s:syntastic()'
-    augroup END
+    " augroup AutoSyntastic
+    "     autocmd!
+    "     execute 'autocmd FileType ' .
+    "                 \join(g:syntastic_mode_map['active_filetypes'], ',') .
+    "                 \' autocmd BufWritePost <buffer> :call s:syntastic()'
+    " augroup END
     """ }}}
     """ }}}
     """ Local ending config, will overwrite anything above. Generally use this. {{{
