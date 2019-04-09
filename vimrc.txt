@@ -1,8 +1,11 @@
-"-----------------------------------------"
-" Source: http://github.com/timss/vimconf "
-"-----------------------------------------"
+" -----------------------------------------"
+"  Source: http://github.com/timss/vimconf "
+" -----------------------------------------"
+if exists('py2') && has('python')
+elseif has('python3')
+endif
 
-set shell=/usr/bin/bash
+set shell=/usr/bin/zsh
 """ Automatically create needed files and folders on first run (*nix only) {{{
     call system('mkdir -p $HOME/.vim/{autoload,bundle,swap,undo}')
     if !filereadable($HOME.'/.vimrc.plugins') | call system('touch $HOME/.vimrc.plugins') | endif
@@ -104,6 +107,13 @@ set shell=/usr/bin/bash
         Plug 'majutsushi/tagbar'
     endif
 
+    " jupyternotebook....
+    "
+    autocmd Filetype ipynb nmap <silent><Leader>b :VimpyterInsertPythonBlock<CR>
+    autocmd Filetype ipynb nmap <silent><Leader>j :VimpyterStartJupyter<CR>
+    autocmd Filetype ipynb nmap <silent><Leader>n :VimpyterStartNteract<CR>
+    let g:jedi#popup_on_dot = 0
+
     " easy motion
     Plug 'easymotion/vim-easymotion'
 
@@ -118,61 +128,61 @@ set shell=/usr/bin/bash
 
     " Initalize plugin system
     call plug#end()
-""" }}}
-""" Local leading config, only for prerequisites and will be overwritten {{{
+    """ }}}
+    """ Local leading config, only for prerequisites and will be overwritten {{{
     if filereadable($HOME.'/.vimrc.first')
         source $HOME/.vimrc.first
     endif
-""" }}}
-""" User interface {{{
+    """ }}}
+    """ User interface {{{
     """ Syntax highlighting {{{
-        " https://stackoverflow.com/a/33380495/1076493
-        if !exists('g:syntax_on')
-            syntax enable
-        endif
+    " https://stackoverflow.com/a/33380495/1076493
+    if !exists('g:syntax_on')
+        syntax enable
+    endif
 
-        let g:jellybeans_overrides = {
-        \    'background': { 'ctermbg': 'none', '256ctermbg': 'none' },
-        \    'SignColumn': { 'ctermbg': 'none', '256ctermbg': 'none', 'guibg': 'none' },
-        \    'CursorLine': { 'ctermbg': '235'},
-        \}
-        silent! colorscheme jellybeans
-        """ Force behavior and filetypes, and by extension highlighting {{{
-            augroup FileTypeRules
-                autocmd!
-                autocmd BufNewFile,BufRead *.md set ft=markdown tw=79
-                autocmd BufNewFile,BufRead *.tex set ft=tex tw=79
-                autocmd BufNewFile,BufRead *.txt set ft=sh tw=79
-            augroup END
-        """ }}}
-        """ 256 colors for maximum jellybeans bling. See commit log for info {{{
-            if (&term =~# 'xterm') || (&term =~# 'screen')
-                set t_Co=256
-            endif
-        """ }}}
+    let g:jellybeans_overrides = {
+                \    'background': { 'ctermbg': 'none', '256ctermbg': 'none' },
+                \    'SignColumn': { 'ctermbg': 'none', '256ctermbg': 'none', 'guibg': 'none' },
+                \    'CursorLine': { 'ctermbg': '235'},
+                \}
+    silent! colorscheme jellybeans
+    """ Force behavior and filetypes, and by extension highlighting {{{
+    augroup FileTypeRules
+        autocmd!
+        autocmd BufNewFile,BufRead *.md set ft=markdown tw=79
+        autocmd BufNewFile,BufRead *.tex set ft=tex tw=79
+        autocmd BufNewFile,BufRead *.txt set ft=sh tw=79
+    augroup END
+    """ }}}
+    """ 256 colors for maximum jellybeans bling. See commit log for info {{{
+    if (&term =~# 'xterm') || (&term =~# 'screen')
+        set t_Co=256
+    endif
+    """ }}}
     """ }}}
     """ Interface general {{{
-        set cursorline                              " hilight cursor line
-        set more                                    " ---more--- like less
-        set number                                  " line numbers
-        set scrolloff=3                             " lines above/below cursor
-        set showcmd                                 " show cmds being typed
-        set title                                   " window title
-        set vb t_vb=                                " disable beep and flashing
-        """ Depending on your setup you may want to enforce UTF-8. {{{
-        """ Should generally be set in your environment LOCALE/$LANG
-            " set encoding=utf-8                    " default $LANG/latin1
-            " set fileencoding=utf-8                " default none
-        """ }}}
-        """ Gvim {{{
-            set guifont=DejaVu\ Sans\ Mono\ 9
-            set guioptions-=m                       " remove menubar
-            set guioptions-=T                       " remove toolbar
-            set guioptions-=r                       " remove right scrollbar
-        """ }}}
+    set cursorline                              " hilight cursor line
+    set more                                    " ---more--- like less
+    set number                                  " line numbers
+    set scrolloff=3                             " lines above/below cursor
+    set showcmd                                 " show cmds being typed
+    set title                                   " window title
+    set vb t_vb=                                " disable beep and flashing
+    """ Depending on your setup you may want to enforce UTF-8. {{{
+    """ Should generally be set in your environment LOCALE/$LANG
+    " set encoding=utf-8                    " default $LANG/latin1
+    " set fileencoding=utf-8                " default none
     """ }}}
-""" }}}
-""" General settings {{{
+    """ Gvim {{{
+    set guifont=DejaVu\ Sans\ Mono\ 9
+    set guioptions-=m                       " remove menubar
+    set guioptions-=T                       " remove toolbar
+    set guioptions-=r                       " remove right scrollbar
+    """ }}}
+    """ }}}
+    """ }}}
+    """ General settings {{{
     set completeopt=menu,preview,longest            " insert mode completion
     set hidden                                      " buffer change, more undo
     set history=1000                                " default 20
@@ -192,68 +202,68 @@ set shell=/usr/bin/bash
     set ttyfast                                     " for faster redraws etc
     set ttymouse=xterm2                             " experimental
     """ Folding {{{
-        set foldcolumn=0                            " hide folding column
-        set foldmethod=indent                       " folds using indent
-        set foldnestmax=10                          " max 10 nested folds
-        set foldlevelstart=99                       " folds open by default
+    set foldcolumn=0                            " hide folding column
+    set foldmethod=indent                       " folds using indent
+    set foldnestmax=10                          " max 10 nested folds
+    set foldlevelstart=99                       " folds open by default
     """ }}}
     """ Search and replace {{{
-        set gdefault                                " default s//g (global)
-        set incsearch                               " "live"-search
+    set gdefault                                " default s//g (global)
+    set incsearch                               " "live"-search
     """ }}}
     """ Matching {{{
-        set matchtime=2                             " time to blink match {}
-        set matchpairs+=<:>                         " for ci< or ci>
-        set showmatch                               " tmpjump to match-bracket
+    set matchtime=2                             " time to blink match {}
+    set matchpairs+=<:>                         " for ci< or ci>
+    set showmatch                               " tmpjump to match-bracket
     """ }}}
     """ Wildmode/wildmenu command-line completion {{{
-        set wildignore+=*.bak,*.swp,*.swo
-        set wildignore+=*.a,*.o,*.so,*.pyc,*.class
-        set wildignore+=*.jpg,*.jpeg,*.gif,*.png,*.pdf
-        set wildignore+=*/.git*,*.tar,*.zip
-        set wildmenu
-        set wildmode=longest:full,list:full
+    set wildignore+=*.bak,*.swp,*.swo
+    set wildignore+=*.a,*.o,*.so,*.pyc,*.class
+    set wildignore+=*.jpg,*.jpeg,*.gif,*.png,*.pdf
+    set wildignore+=*/.git*,*.tar,*.zip
+    set wildmenu
+    set wildmode=longest:full,list:full
     """ }}}
     """ Return to last edit position when opening files {{{
-        augroup LastPosition
-            autocmd! BufReadPost *
-                \ if line("'\"") > 0 && line("'\"") <= line("$") |
-                \     exe "normal! g`\"" |
-                \ endif
-        augroup END
+    augroup LastPosition
+        autocmd! BufReadPost *
+                    \ if line("'\"") > 0 && line("'\"") <= line("$") |
+                    \     exe "normal! g`\"" |
+                    \ endif
+    augroup END
     """ }}}
-""" }}}
-""" Files {{{
+    """ }}}
+    """ Files {{{
     set autoread                                    " refresh if changed
     set confirm                                     " confirm changed files
     set noautowrite                                 " never autowrite
     set nobackup                                    " disable backups
     """ Persistent undo. Requires Vim 7.3 {{{
-        if has('persistent_undo') && exists('&undodir')
-            set undodir=$HOME/.vim/undo/            " where to store undofiles
-            set undofile                            " enable undofile
-            set undolevels=500                      " max undos stored
-            set undoreload=10000                    " buffer stored undos
-        endif
+    if has('persistent_undo') && exists('&undodir')
+        set undodir=$HOME/.vim/undo/            " where to store undofiles
+        set undofile                            " enable undofile
+        set undolevels=500                      " max undos stored
+        set undoreload=10000                    " buffer stored undos
+    endif
     """ }}}
     """ Swap files, unless vim is invoked using sudo {{{
     """ https://github.com/tejr/dotfiles/blob/master/vim/vimrc
-        if !strlen($SUDO_USER)
-            set directory^=$HOME/.vim/swap//        " default cwd, // full path
-            set swapfile                            " enable swap files
-            set updatecount=50                      " update swp after 50chars
-            """ Don't swap tmp, mount or network dirs {{{
-                augroup SwapIgnore
-                    autocmd! BufNewFile,BufReadPre /tmp/*,/mnt/*,/media/*
+    if !strlen($SUDO_USER)
+        set directory^=$HOME/.vim/swap//        " default cwd, // full path
+        set swapfile                            " enable swap files
+        set updatecount=50                      " update swp after 50chars
+        """ Don't swap tmp, mount or network dirs {{{
+        augroup SwapIgnore
+            autocmd! BufNewFile,BufReadPre /tmp/*,/mnt/*,/media/*
                         \ setlocal noswapfile
-                augroup END
-            """ }}}
-        else
-            set noswapfile                          " dont swap sudo'ed files
-        endif
+        augroup END
+        """ }}}
+    else
+        set noswapfile                          " dont swap sudo'ed files
+    endif
     """ }}}
-""" }}}
-""" Text formatting {{{
+    """ }}}
+    """ Text formatting {{{
     set autoindent                                  " preserve indentation
     set backspace=indent,eol,start                  " smart backspace
     set cinkeys-=0#                                 " don't force # indentation
@@ -267,197 +277,198 @@ set shell=/usr/bin/bash
     set softtabstop=-1                              " =-1 uses 'sw' value
     set tabstop=4                                   " <Tab> as 4 spaces indent
     """ Only auto-comment newline for block comments {{{
-        augroup AutoBlockComment
-            autocmd! FileType c,cpp setlocal comments -=:// comments +=f://
-        augroup END
+    augroup AutoBlockComment
+        autocmd! FileType c,cpp setlocal comments -=:// comments +=f://
+    augroup END
     """ }}}
     """ Take comment leaders into account when joining lines, :h fo-table {{{
     """ http://ftp.vim.org/pub/vim/patches/7.3/7.3.541
-        if has('patch-7.3.541')
-            set formatoptions+=j
-        endif
+    if has('patch-7.3.541')
+        set formatoptions+=j
+    endif
     """ }}}
-""" }}}
-""" Keybindings {{{
+    """ }}}
+    """ Keybindings {{{
     """ General {{{
-        " Remap <Leader>
-        let g:mapleader=','
+    " Remap <Leader>
+    let g:mapleader=','
+    let maplocalleader="`"
 
-        " disable F1 and use it as esc
-        nnoremap <F1> <Esc>g<C-G>
-        " Quickly edit/source .vimrc
-        noremap <Leader>ve :edit $HOME/.vimrc<CR>
-        noremap <Leader>vs :source $HOME/.vimrc<CR>
+    " disable F1 and use it as esc
+    nnoremap <F1> <Esc>g<C-G>
+    " Quickly edit/source .vimrc
+    noremap <Leader>ve :edit $HOME/.vimrc<CR>
+    noremap <Leader>vs :source $HOME/.vimrc<CR>
 
-        " Yank(copy) to system clipboard
-        noremap <Leader>y "+y
+    " Yank(copy) to system clipboard
+    noremap <Leader>y "+y
 
-        " Toggle pastemode, doesn't indent
-        set pastetoggle=<F3>
+    " Toggle pastemode, doesn't indent
+    set pastetoggle=<F3>
 
-        " Toggle folding
-        " http://vim.wikia.com/wiki/Folding#Mappings_to_toggle_folds
-        nnoremap <silent> <Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
+    " Toggle folding
+    " http://vim.wikia.com/wiki/Folding#Mappings_to_toggle_folds
+    nnoremap <silent> <Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
 
-        " Toggle relativenumber
-        nnoremap <silent> <Leader>r :set relativenumber!<CR>
+    " Toggle relativenumber
+    nnoremap <silent> <Leader>r :set relativenumber!<CR>
 
-        " Treat wrapped lines as normal lines
-        nnoremap <expr> k v:count == 0 ? 'gk' : 'k'
-        nnoremap <expr> j v:count == 0 ? 'gj' : 'j'
+    " Treat wrapped lines as normal lines
+    nnoremap <expr> k v:count == 0 ? 'gk' : 'k'
+    nnoremap <expr> j v:count == 0 ? 'gj' : 'j'
 
-        " Quickly switch buffers
-        nnoremap <Leader>e :bnext<CR>
-        nnoremap <Leader>q :bprevious<CR>
-        nnoremap <Leader>f :b#<CR>
-        nnoremap <Leader>1 :1b<CR>
-        nnoremap <Leader>2 :2b<CR>
-        nnoremap <Leader>3 :3b<CR>
-        nnoremap <Leader>4 :4b<CR>
-        nnoremap <Leader>5 :5b<CR>
-        nnoremap <Leader>6 :6b<CR>
-        nnoremap <Leader>7 :7b<CR>
-        nnoremap <Leader>8 :8b<CR>
-        nnoremap <Leader>9 :9b<CR>
-        nnoremap <Leader>0 :10b<CR>
+    " Quickly switch buffers
+    nnoremap <Leader>e :bnext<CR>
+    nnoremap <Leader>q :bprevious<CR>
+    nnoremap <Leader>f :b#<CR>
+    nnoremap <Leader>1 :1b<CR>
+    nnoremap <Leader>2 :2b<CR>
+    nnoremap <Leader>3 :3b<CR>
+    nnoremap <Leader>4 :4b<CR>
+    nnoremap <Leader>5 :5b<CR>
+    nnoremap <Leader>6 :6b<CR>
+    nnoremap <Leader>7 :7b<CR>
+    nnoremap <Leader>8 :8b<CR>
+    nnoremap <Leader>9 :9b<CR>
+    nnoremap <Leader>0 :10b<CR>
 
-        " Highlight last inserted text
-        nnoremap gV '[V']
+    " Highlight last inserted text
+    nnoremap gV '[V']
     """ }}}
     """ Functions and/or fancy keybinds {{{
-        """ Toggle syntax highlighting {{{
-            function! ToggleSyntaxHighlighthing()
-                if exists('g:syntax_on')
-                    syntax off
-                else
-                    syntax enable
-                endif
-            endfunction
+    """ Toggle syntax highlighting {{{
+    function! ToggleSyntaxHighlighthing()
+        if exists('g:syntax_on')
+            syntax off
+        else
+            syntax enable
+        endif
+    endfunction
 
-            nnoremap <Leader>s :call ToggleSyntaxHighlighthing()<CR>
-        """ }}}
-        """ Highlight characters past 79, toggle with <Leader>h {{{
-        """ You might want to override this function and its variables with
-        """ your own in .vimrc.last which might set for example colorcolumn or
-        """ even the textwidth. See https://github.com/timss/vimconf/pull/4
+    nnoremap <Leader>s :call ToggleSyntaxHighlighthing()<CR>
+    """ }}}
+    """ Highlight characters past 79, toggle with <Leader>h {{{
+    """ You might want to override this function and its variables with
+    """ your own in .vimrc.last which might set for example colorcolumn or
+    """ even the textwidth. See https://github.com/timss/vimconf/pull/4
+    let g:overlength_enabled = 0
+    highlight OverLength ctermbg=238 guibg=#444444
+
+    function! ToggleOverLength()
+        if g:overlength_enabled == 0
+            match OverLength /\%79v.*/
+            let g:overlength_enabled = 1
+            echo 'OverLength highlighting turned on'
+        else
+            match
             let g:overlength_enabled = 0
-            highlight OverLength ctermbg=238 guibg=#444444
+            echo 'OverLength highlighting turned off'
+        endif
+    endfunction
 
-            function! ToggleOverLength()
-                if g:overlength_enabled == 0
-                    match OverLength /\%79v.*/
-                    let g:overlength_enabled = 1
-                    echo 'OverLength highlighting turned on'
-                else
-                    match
-                    let g:overlength_enabled = 0
-                    echo 'OverLength highlighting turned off'
-                endif
-            endfunction
+    nnoremap <Leader>h :call ToggleOverLength()<CR>
+    """ }}}
+    """ Toggle text wrapping, wrap on whole words {{{
+    """ For more info see: http://stackoverflow.com/a/2470885/1076493
+    function! WrapToggle()
+        if &wrap
+            set list
+            set nowrap
+        else
+            set nolist
+            set wrap
+        endif
+    endfunction
 
-            nnoremap <Leader>h :call ToggleOverLength()<CR>
-        """ }}}
-        """ Toggle text wrapping, wrap on whole words {{{
-        """ For more info see: http://stackoverflow.com/a/2470885/1076493
-            function! WrapToggle()
-                if &wrap
-                    set list
-                    set nowrap
-                else
-                    set nolist
-                    set wrap
-                endif
-            endfunction
+    nnoremap <Leader>w :call WrapToggle()<CR>
+    """ }}}
+    """ Remove multiple empty lines {{{
+    function! DeleteMultipleEmptyLines()
+        g/^\_$\n\_^$/d
+    endfunction
 
-            nnoremap <Leader>w :call WrapToggle()<CR>
-        """ }}}
-        """ Remove multiple empty lines {{{
-            function! DeleteMultipleEmptyLines()
-                g/^\_$\n\_^$/d
-            endfunction
+    nnoremap <Leader>ld :call DeleteMultipleEmptyLines()<CR>
+    """ }}}
+    """ Split to relative header/source {{{
+    function! SplitRelSrc()
+        let l:fname = expand('%:t:r')
 
-            nnoremap <Leader>ld :call DeleteMultipleEmptyLines()<CR>
-        """ }}}
-        """ Split to relative header/source {{{
-            function! SplitRelSrc()
-                let l:fname = expand('%:t:r')
+        if expand('%:e') ==? 'h'
+            set nosplitright
+            exe 'vsplit' fnameescape(l:fname . '.cpp')
+            set splitright
+        elseif expand('%:e') ==? 'cpp'
+            exe 'vsplit' fnameescape(l:fname . '.h')
+        endif
+    endfunction
 
-                if expand('%:e') ==? 'h'
-                    set nosplitright
-                    exe 'vsplit' fnameescape(l:fname . '.cpp')
-                    set splitright
-                elseif expand('%:e') ==? 'cpp'
-                    exe 'vsplit' fnameescape(l:fname . '.h')
-                endif
-            endfunction
+    nnoremap <Leader>le :call SplitRelSrc()<CR>
+    """ }}}
+    """ Strip trailing whitespace, return to cursor at save {{{
+    function! StripTrailingWhitespace()
+        let l:save = winsaveview()
+        %s/\s\+$//e
+        call winrestview(l:save)
+    endfunction
 
-            nnoremap <Leader>le :call SplitRelSrc()<CR>
-        """ }}}
-        """ Strip trailing whitespace, return to cursor at save {{{
-            function! StripTrailingWhitespace()
-                let l:save = winsaveview()
-                %s/\s\+$//e
-                call winrestview(l:save)
-            endfunction
-
-            augroup StripTrailingWhitespace
-                autocmd!
-                autocmd FileType c,cpp,cfg,conf,css,html,perl,python,sh,tex,yaml
+    augroup StripTrailingWhitespace
+        autocmd!
+        autocmd FileType c,cpp,cfg,conf,css,html,perl,python,sh,tex,yaml
                     \ autocmd BufWritePre <buffer> :call
                     \ StripTrailingWhitespace()
-            augroup END
-        """ }}}
+    augroup END
+    """ }}}
 
 
     """ }}}
     """ Plugins {{{
-        " Toggle tagbar (definitions, functions etc.)
-        if exists('g:plugs["tagbar"]')
-            nnoremap <F2> :TagbarToggle<CR>
-        endif
+    " Toggle tagbar (definitions, functions etc.)
+    if exists('g:plugs["tagbar"]')
+        nnoremap <F2> :TagbarToggle<CR>
+    endif
 
-        " Toggle undo history tree
-        nnoremap <F5> :UndotreeToggle<CR>
+    " Toggle undo history tree
+    nnoremap <F5> :UndotreeToggle<CR>
 
-        " Syntastic - toggle error list. Probably should be toggleable.
-        noremap <silent><Leader>lo :Errors<CR>
-        noremap <silent><Leader>lc :lclose<CR>
+    " Syntastic - toggle error list. Probably should be toggleable.
+    noremap <silent><Leader>lo :Errors<CR>
+    noremap <silent><Leader>lc :lclose<CR>
 
-        " EasyAlign - interactive mode (e.g. vipga/gaip)
-        xmap ga <Plug>(EasyAlign)
-        nmap ga <Plug>(EasyAlign)
+    " EasyAlign - interactive mode (e.g. vipga/gaip)
+    xmap ga <Plug>(EasyAlign)
+    nmap ga <Plug>(EasyAlign)
     """ }}}
-""" }}}
-""" Plugin settings {{{
+    """ }}}
+    """ Plugin settings {{{
     """ Startify {{{
-        let g:startify_bookmarks = [
-            \ $HOME . '/.vimrc', $HOME . '/.vimrc.first',
-            \ $HOME . '/.vimrc.last', $HOME . '/.vimrc.plugins'
-            \ ]
-        let g:startify_custom_header = [
-            \ '   http://github.com/timss/vimconf',
-            \ ''
-            \ ]
-        let g:startify_files_number = 5
+    let g:startify_bookmarks = [
+                \ $HOME . '/.vimrc', $HOME . '/.vimrc.first',
+                \ $HOME . '/.vimrc.last', $HOME . '/.vimrc.plugins'
+                \ ]
+    let g:startify_custom_header = [
+                \ '   http://github.com/timss/vimconf',
+                \ ''
+                \ ]
+    let g:startify_files_number = 5
     """ }}}
     """ CtrlP {{{
-        " Don't recalculate files on start (slow)
-        let g:ctrlp_clear_cache_on_exit = 0
-        let g:ctrlp_working_path_mode = 'ra'
+    " Don't recalculate files on start (slow)
+    let g:ctrlp_clear_cache_on_exit = 0
+    let g:ctrlp_working_path_mode = 'ra'
 
-        " Don't split in Startify
-        let g:ctrlp_reuse_window = 'startify'
+    " Don't split in Startify
+    let g:ctrlp_reuse_window = 'startify'
     """ }}}
     """ TagBar {{{
-        set tags=~/tags
+    set tags=~/tags
 
 
-        " Proportions
-        let g:tagbar_left = 0
-        let g:tagbar_width = 30
+    " Proportions
+    let g:tagbar_left = 0
+    let g:tagbar_width = 30
 
-        " Used in lightline.vim
-        let g:tagbar_status_func = 'TagbarStatusFunc'
+    " Used in lightline.vim
+    let g:tagbar_status_func = 'TagbarStatusFunc'
     """ }}}
     " """ Cscope {{{
     " enable gtags module
