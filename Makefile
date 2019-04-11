@@ -1,8 +1,8 @@
-a.out :area_divide.cpp 
-	g++ -g area_divide.cpp
-run : area_divide.cpp a.out
+a.out :chicken.cpp 
+	g++ -g chicken.cpp
+run : chicken.cpp a.out
 	./a.out < input
-gdb : area_divide.cpp a.out
+gdb : chicken.cpp a.out
 	gdb a.out
-algo : area_divide.cpp
-	algo area_divide
+algo : chicken.cpp
+	algo chicken
