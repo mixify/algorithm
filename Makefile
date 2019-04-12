@@ -1,8 +1,8 @@
-a.out :chicken.cpp 
-	g++ -g chicken.cpp
-run : chicken.cpp a.out
+a.out :baby_shark.cpp 
+	g++ -g baby_shark.cpp
+run : baby_shark.cpp a.out
 	./a.out < input
-gdb : chicken.cpp a.out
+gdb : baby_shark.cpp a.out
 	gdb a.out
-algo : chicken.cpp
-	algo chicken
+algo : baby_shark.cpp
+	algo baby_shark

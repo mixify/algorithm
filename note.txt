@@ -23,3 +23,37 @@ ios::sync_with_stdio(false);
 cin.tie(NULL); => cin 속도 개선
 
 bool compare 를 만들어서 정렬을 오름차순, 내림차순 할 수 있다.
+
+
+이거시 바로 조합생성 알고리즘
+vector <vector<int> > combination(int n, int r)
+{
+    vector <vector<int> > comb;
+    vector <int> num;
+    for (int i = 0; i < n; ++i) {
+        num.push_back(i);
+    }
+    vector<int> ind;
+
+    for (int i = 0; i < r; ++i) {
+        ind.push_back(1);
+    }
+    for (int i = 0; i < n-r; ++i) {
+        ind.push_back(0);
+    }
+
+    sort(ind.begin(),ind.end());
+
+    do{
+        vector<int> one_comb;
+        for (int i = 0; i < ind.size(); ++i) {
+            if(ind[i] == 1)
+                one_comb.push_back(num[i]);
+        }
+        comb.push_back(one_comb);
+    }while(next_permutation(ind.begin(),ind.end()));
+
+    return comb;
+}
+
+compare 함수 override 할때 오름차순 => < 로 한다~~~~~
