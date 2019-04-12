@@ -1,8 +1,8 @@
-a.out :baby_shark.cpp 
-	g++ -g baby_shark.cpp
-run : baby_shark.cpp a.out
+a.out :watch_dog.cpp 
+	g++ -g watch_dog.cpp
+run : watch_dog.cpp a.out
 	./a.out < input
-gdb : baby_shark.cpp a.out
+gdb : watch_dog.cpp a.out
 	gdb a.out
-algo : baby_shark.cpp
-	algo baby_shark
+algo : watch_dog.cpp
+	algo watch_dog

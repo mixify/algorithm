@@ -57,3 +57,9 @@ vector <vector<int> > combination(int n, int r)
 }
 
 compare 함수 override 할때 오름차순 => < 로 한다~~~~~
+
+
+n1_cctv.push_back({i,j,0}); 구조체 푸쉬백 개 꿀팁~~~
+
+y,x 변수명 주의 bfs할때 i,j 다음에 k이다 q 순회할떄 주의!
+마찬가리로 N,M 가로세로 주의~~~
