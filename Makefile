@@ -1,8 +1,8 @@
-a.out :direct.cpp 
-	g++ -g direct.cpp
-run : direct.cpp a.out
+a.out :start_link.cpp 
+	g++ -g start_link.cpp
+run : start_link.cpp a.out
 	./a.out < input
-gdb : direct.cpp a.out
+gdb : start_link.cpp a.out
 	gdb a.out
-algo : direct.cpp
-	algo direct
+algo : start_link.cpp
+	algo start_link
