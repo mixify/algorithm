@@ -140,7 +140,7 @@ int main(int argc, char *argv[])
     }
     Wheel_group wheel_group = Wheel_group(val);
 
-    cin>>K;
+    scanf("%d",&K);
     // wheel_group.test();
     // printf("------------\n");
     for (int i = 0; i < K; ++i) {
