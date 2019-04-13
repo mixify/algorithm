@@ -150,7 +150,7 @@ int main(int argc, char *argv[])
         // wheel_group.test();
         // printf("-------------\n");
     }
-    printf("%d\n",wheel_group.calc());
+    printf("%d",wheel_group.calc());
     return 0;
 }
 
