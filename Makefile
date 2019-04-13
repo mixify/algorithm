@@ -1,8 +1,8 @@
-a.out :wheel.cpp 
-	g++ -g wheel.cpp
-run : wheel.cpp a.out
+a.out :direct.cpp 
+	g++ -g direct.cpp
+run : direct.cpp a.out
 	./a.out < input
-gdb : wheel.cpp a.out
+gdb : direct.cpp a.out
 	gdb a.out
-algo : wheel.cpp
-	algo wheel
+algo : direct.cpp
+	algo direct

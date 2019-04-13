@@ -106,6 +106,7 @@ class Wheel_group
         for (int i = 0; i < 4; ++i) {
             wheels[i].clock(rt[i]);
         }
+        // printf("\n");
     }
     void test()
     {
