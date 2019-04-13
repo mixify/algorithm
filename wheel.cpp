@@ -29,7 +29,7 @@ class Wheel
             for (int i = 0; i < 8; ++i) {
                 vals[i] = val[i];
             }
-            top = vals+0;
+            top = vals;
             right = vals+2;
             left = vals+6;
         }
@@ -67,7 +67,6 @@ class Wheel_group
     private:
 
     Wheel wheels[4];
-
 
     public:
     Wheel_group(int val[4][8])
@@ -125,7 +124,7 @@ class Wheel_group
     {
         int sum = 0;
         for (int i = 0; i < 4; ++i) {
-            if(*wheels[i].top == 1)
+            if(*(wheels[i].top) == 1)
                 sum+=pow(2,i);
         }
         return sum;
