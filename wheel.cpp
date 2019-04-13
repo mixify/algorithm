@@ -135,7 +135,7 @@ int main(int argc, char *argv[])
 {
     for (int i = 0; i < 4; ++i) {
         for (int j = 0; j < 8; ++j) {
-            scanf("%1d",&val[i][j]);
+            scanf(" %1d",&val[i][j]);
         }
     }
     Wheel_group wheel_group = Wheel_group(val);
