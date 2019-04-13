@@ -23,7 +23,7 @@ int main(int argc, char *argv[])
         A.push_back(in);
     }
     cin>>B>>C;
-    int cnt = 0;
+    long long cnt = 0;
     for (int i = 0; i < N; ++i) {
         A[i];
         A[i]-=B;
@@ -40,7 +40,7 @@ int main(int argc, char *argv[])
             cnt += s + (r>0?1:0);
         }
     }
-    printf("%d\n", cnt);
+    printf("%lld\n", cnt);
     return 0;
 }
 
