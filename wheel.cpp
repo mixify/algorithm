@@ -10,7 +10,6 @@
 #include <set>
 #include <map>
 
-int val[4][8];
 int K;
 
 using namespace std;
@@ -77,7 +76,7 @@ class Wheel_group
 
         // for (int i = 0; i < 4; ++i) {
         //     wheels[i].print();
-        // }
+        // j
     }
     void rotate(int idx, int ori)
     {
@@ -133,6 +132,7 @@ class Wheel_group
 
 int main(int argc, char *argv[])
 {
+    int val[4][8];
     for (int i = 0; i < 4; ++i) {
         for (int j = 0; j < 8; ++j) {
             scanf(" %1d",&val[i][j]);
