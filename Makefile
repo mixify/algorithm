@@ -1,8 +1,8 @@
-a.out :watch_dog.cpp 
-	g++ -g watch_dog.cpp
-run : watch_dog.cpp a.out
+a.out :wheel.cpp 
+	g++ -g wheel.cpp
+run : wheel.cpp a.out
 	./a.out < input
-gdb : watch_dog.cpp a.out
+gdb : wheel.cpp a.out
 	gdb a.out
-algo : watch_dog.cpp
-	algo watch_dog
+algo : wheel.cpp
+	algo wheel
