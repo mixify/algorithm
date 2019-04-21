@@ -1,8 +1,8 @@
-a.out :snake.cpp 
-	g++ -g snake.cpp
-run : snake.cpp a.out
+a.out :marathon.cpp 
+	g++ -g marathon.cpp
+run : marathon.cpp a.out
 	./a.out < input
-gdb : snake.cpp a.out
+gdb : marathon.cpp a.out
 	gdb a.out
-algo : snake.cpp
-	algo snake
+algo : marathon.cpp
+	algo marathon
