@@ -66,3 +66,5 @@ y,x 변수명 주의 bfs할때 i,j 다음에 k이다 q 순회할떄 주의!
 switch case문 안에서 변수선언시 감싸라
 
 크기 보고 long long 견적잡자~~
+
+c++ to_string 사용가능

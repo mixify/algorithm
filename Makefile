@@ -1,8 +1,8 @@
-a.out :marathon.cpp 
-	g++ -g marathon.cpp
-run : marathon.cpp a.out
+a.out :liner.cpp 
+	g++ -g liner.cpp
+run : liner.cpp a.out
 	./a.out < input
-gdb : marathon.cpp a.out
+gdb : liner.cpp a.out
 	gdb a.out
-algo : marathon.cpp
-	algo marathon
+algo : liner.cpp
+	algo liner
