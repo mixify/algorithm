@@ -18,7 +18,8 @@ int lm,rm;
 pair<int,int> arrow[100000];
 vector<pair<int,int> > hull;
 stack<pair<int,int> > st;
-
+// bool cmp1(pos p1, pos p2) {
+// }
 int comp(pair<int,int> a1, pair<int,int> a2)
 {
     int ax = a1.first;
@@ -73,30 +74,30 @@ void graham_scan()
             max_dis = max(max_dis, dis(hull[i],hull[j]));
         }
     }
-    printf("%.8lf\n", max_dis);
+    printf("%lf\n", max_dis);
 }
 int main(int argc, char *argv[])
 {
     cin>>N;
     rm = -1000;
     lm = 1000;
+    // return p1.x < p2.x || (p1.x == p2.x) && (p1.y < p2.y);
     for (int i = 0; i < N; ++i)
     {
         int x,y;
         cin>>x>>y;
         arrow[i] = make_pair(x,y);
-        if(x >= rm)
+        if(y < lm)
         {
-            if(x==rm)
-            {
-                if(y < lm)
-                {
-                    lm = y;
-                    rm = x;
-                    right_most = i;
-                }
-            }
-            else
+                lm = y;
+                rm = x;
+                right_most = i;
+
+
+        }
+        else
+        {
+            if(y == lm && x>rm)
             {
                 lm = y;
                 rm = x;
