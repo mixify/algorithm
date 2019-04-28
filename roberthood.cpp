@@ -18,11 +18,13 @@ int lm,rm;
 pair<int,int> arrow[100000];
 vector<pair<int,int> > hull;
 stack<pair<int,int> > st;
-int check_cw(pair<int,int> p1, pair<int,int> p2, pair<int,int> p3)
+int check_cw(pair<int,int> p, pair<int,int> q, pair<int,int> r)
 {
-    long long res = (p2.second - p1.second)*(p3.first - p2.first) -
-        (p2.first-p1.first)*(p3.second-p2.second);
-    if(res==0) return 0;
+    int res = (q.second - p.second)*(r.first - q.first) -
+        (q.first-p.first)*(r.second-q.second);
+    if(res==0) {
+        return 0;
+    }
     return (res>0)?1:2;
 }
 
@@ -34,17 +36,23 @@ pair<int,int> swp(pair<int,int> *p1, pair<int,int> *p2)
     p1->first = tmp.first;
     p1->second = tmp.second;
 }
-double dis(pair<int,int> p1, pair<int,int> p2)
+int dis(pair<int,int> p1, pair<int,int> p2)
 {
-    return sqrt(pow(p1.first-p2.first,2) + pow(p1.second-p2.second,2));
+    return (p1.first-p2.first)*(p1.first-p2.first) +
+        (p1.second-p2.second)*(p1.second-p2.second);
 }
 
-int comp(pair<int,int> a1, pair<int,int> a2)
+int comp(const void *p1, const void *p2)
 {
+    pair<int,int> a1 = *((pair<int,int>*)p1);
+    pair<int,int> a2 = *((pair<int,int>*)p2);
     pair<int,int> org = make_pair(rm,lm);
+    // printf("%d %d\n", rm,lm);
     int res = check_cw(org,a1,a2);
     if(res == 0)
+    {
         return(dis(org, a2) >= dis(org, a1))?-1:1;
+    }
     return (res==2)?-1:1;
     // printf("sibal %d %d %d %d\n",a1.first,a1.second,a2.first,a2.second);
     // if(p1<0) p1+=PI*2;
@@ -81,7 +89,7 @@ void graham_scan()
     for (int i = 0; i < hull.size()-1; ++i)
     {
         for (int j = i+1; j < hull.size(); ++j) {
-            max_dis = max(max_dis, dis(hull[i],hull[j]));
+            max_dis = max(max_dis, sqrt(dis(hull[i],hull[j])));
         }
     }
     printf("%lf\n", max_dis);
@@ -111,7 +119,7 @@ int main(int argc, char *argv[])
     //     arrow[i].first = arrow[i].first - arrow[right_most].first;
     //     arrow[i].second = arrow[i].second - arrow[right_most].second;
     // }
-    sort(arrow+1,arrow+N,comp);
+    qsort(&arrow[1],N-1,sizeof(pair<int,int>),comp);
     // for (int i = 0; i < N; ++i)
     //     printf("%d %d\n", arrow[i].first, arrow[i].second);
     graham_scan();
