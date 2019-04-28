@@ -73,7 +73,7 @@ void graham_scan()
             max_dis = max(max_dis, dis(hull[i],hull[j]));
         }
     }
-    printf("%lf\n", max_dis);
+    printf("%.8lf\n", max_dis);
 }
 int main(int argc, char *argv[])
 {
