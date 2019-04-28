@@ -85,11 +85,14 @@ void beat(){
     int i,j;
     char a,b;
     while(q[flag].empty() == 0){
-        if(q[flag].size() == 1){ //부전승일 경우
+        if(q[flag].size() == 1)
+        { //부전승일 경우
             q[(flag+1)%2].push(q[flag].front());
             q[flag].pop();
             break;
-        }else{
+        }
+        else
+        {
             a = q[flag].front();
             q[flag].pop();
             b = q[flag].front();
@@ -111,7 +114,8 @@ int main(){
 
     //큐는 두개 번갈아가면서 사용 flag이용
     //RSP를 큐에 담음, 나 자신은 M으로 표현
-    for(i=0;i<n;i++){
+    for(i=0;i<n;i++)
+    {
         if(i == p){
             q[flag].push('M');
         }else{
@@ -120,7 +124,8 @@ int main(){
         }
     }
 
-    while(1){
+    while(1)
+    {
         while(q[(flag+1)%2].empty() == 0) //다음에 쓸 큐 초기화
             q[(flag+1)%2].pop();
         if(q[flag].size() == 1) //우승했을 때
