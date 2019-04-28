@@ -18,25 +18,31 @@ int lm,rm;
 pair<int,int> arrow[100000];
 vector<pair<int,int> > hull;
 stack<pair<int,int> > st;
-// bool cmp1(pos p1, pos p2) {
-// }
-int comp(pair<int,int> a1, pair<int,int> a2)
-{
-    int ax = a1.first;
-    int ay = a1.second;
-    int bx = a2.first;
-    int by = a2.second;
-
-    // if(p1<0) p1+=PI*2;
-    // if(p2<0) p2+=PI*2;
-
-    return atan2(ax-rm,ay-lm) > atan2(bx-rm,by-lm);
-}
-
 int check_cw(pair<int,int> p1, pair<int,int> p2, pair<int,int> p3)
 {
-    return (p2.first*p1.first)*(p3.second - p1.second) - (p2.second-p1.second)*(p3.first-p1.first);
+    long long res = (p2.second - p1.second)*(p3.first - p2.first) -
+        (p2.first-p1.first)*(p3.second-p2.second);
+    if(res==0) return 0;
+    return (res>0)?1:2;
 }
+
+double dis(pair<int,int> p1, pair<int,int> p2)
+{
+    return sqrt(pow(p1.first-p2.first,2) + pow(p1.second-p2.second,2));
+}
+
+int comp(pair<int,int> a1, pair<int,int> a2)
+{
+    pair<int,int> org = make_pair(rm,lm);
+    int res = check_cw(org,a1,a2);
+    if(res == 0)
+        return(dis(org, a2) >= dis(org, a1))?-1:1;
+    return (res==2)?-1:1;
+    // printf("sibal %d %d %d %d\n",a1.first,a1.second,a2.first,a2.second);
+    // if(p1<0) p1+=PI*2;
+    // if(p2<0) p2+=PI*2;
+}
+
 pair<int,int> before_top()
 {
     pair<int,int> tmp = st.top();
@@ -45,10 +51,6 @@ pair<int,int> before_top()
     st.push(tmp);
     return ret;
 }
-double dis(pair<int,int> p1, pair<int,int> p2)
-{
-    return sqrt(pow(p1.first-p2.first,2) + pow(p1.second-p2.second,2));
-}
 void graham_scan()
 {
     st.push(arrow[0]);
@@ -56,7 +58,7 @@ void graham_scan()
     // st.push(arrow[2]);
     for (int i = 2; i < N; ++i)
     {
-        while(st.size()>=2 && check_cw(before_top(),st.top(),arrow[i]) <= 0)
+        while(st.size()>=2 && check_cw(before_top(),st.top(),arrow[i]) != 2)
             st.pop();
         st.push(arrow[i]);
     }
@@ -89,11 +91,9 @@ int main(int argc, char *argv[])
         arrow[i] = make_pair(x,y);
         if(y < lm)
         {
-                lm = y;
-                rm = x;
-                right_most = i;
-
-
+            lm = y;
+            rm = x;
+            right_most = i;
         }
         else
         {
@@ -111,8 +111,8 @@ int main(int argc, char *argv[])
     //     arrow[i].second = arrow[i].second - arrow[right_most].second;
     // }
     sort(arrow,arrow+N,comp);
-    graham_scan();
     // for (int i = 0; i < N; ++i)
     //     printf("%d %d\n", arrow[i].first, arrow[i].second);
+    graham_scan();
     return 0;
 }
