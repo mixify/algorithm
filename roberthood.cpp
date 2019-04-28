@@ -52,8 +52,8 @@ void graham_scan()
 {
     st.push(arrow[0]);
     st.push(arrow[1]);
-    st.push(arrow[2]);
-    for (int i = 3; i < N; ++i)
+    // st.push(arrow[2]);
+    for (int i = 2; i < N; ++i)
     {
         while(st.size()>=2 && check_cw(before_top(),st.top(),arrow[i]) <= 0)
             st.pop();
