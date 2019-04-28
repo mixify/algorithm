@@ -26,6 +26,14 @@ int check_cw(pair<int,int> p1, pair<int,int> p2, pair<int,int> p3)
     return (res>0)?1:2;
 }
 
+pair<int,int> swp(pair<int,int> *p1, pair<int,int> *p2)
+{
+    pair<int,int> tmp = make_pair((*p2).first,(*p2).second);
+    p2->first = p1->first;
+    p2->second = p1->second;
+    p1->first = tmp.first;
+    p1->second = tmp.second;
+}
 double dis(pair<int,int> p1, pair<int,int> p2)
 {
     return sqrt(pow(p1.first-p2.first,2) + pow(p1.second-p2.second,2));
@@ -89,28 +97,21 @@ int main(int argc, char *argv[])
         int x,y;
         cin>>x>>y;
         arrow[i] = make_pair(x,y);
-        if(y < lm)
+        if(y < lm || (lm == y && x < rm))
         {
             lm = y;
             rm = x;
             right_most = i;
         }
-        else
-        {
-            if(y == lm && x>rm)
-            {
-                lm = y;
-                rm = x;
-                right_most = i;
-            }
-        }
     }
+    swp(arrow,arrow+right_most);
+    // printf("%d %d haha\n", arrow[0].first, arrow[0].second);
     // for (int i = 0; i < N; ++i) {
     //     if(i==right_most) continue;
     //     arrow[i].first = arrow[i].first - arrow[right_most].first;
     //     arrow[i].second = arrow[i].second - arrow[right_most].second;
     // }
-    sort(arrow,arrow+N,comp);
+    sort(arrow+1,arrow+N,comp);
     // for (int i = 0; i < N; ++i)
     //     printf("%d %d\n", arrow[i].first, arrow[i].second);
     graham_scan();
