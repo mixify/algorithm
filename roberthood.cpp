@@ -55,7 +55,7 @@ void graham_scan()
     st.push(arrow[2]);
     for (int i = 3; i < N; ++i)
     {
-        while(check_cw(before_top(),st.top(),arrow[i]) < 0)
+        while(st.size()>=2 && check_cw(before_top(),st.top(),arrow[i]) < 0)
             st.pop();
         st.push(arrow[i]);
     }
@@ -67,7 +67,6 @@ void graham_scan()
         st.pop();
     }
     double max_dis = 0;
-    return;
     for (int i = 0; i < hull.size()-1; ++i)
     {
         for (int j = i+1; j < hull.size(); ++j) {
