@@ -3,7 +3,7 @@
 #include <iostream>
 #include <algorithm>
 #include <climits>
-#include <cmath>
+#include <math.h>
 #include <vector>
 #include <stack>
 #include <utility>
@@ -67,7 +67,9 @@ void graham_scan()
         st.pop();
     }
     double max_dis = 0;
-    for (int i = 0; i < hull.size()-1; ++i) {
+    return;
+    for (int i = 0; i < hull.size()-1; ++i)
+    {
         for (int j = i+1; j < hull.size(); ++j) {
             max_dis = max(max_dis, dis(hull[i],hull[j]));
         }
