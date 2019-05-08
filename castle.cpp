@@ -111,8 +111,8 @@ int main(int argc, char *argv[])
                 if(str.find(selected_char[k]) != string::npos)
                     word_cnt--;
             }
-            if(word_cnt==0) cnt++;
-            if(N-j + cnt + 1 < res) break;
+            if(word_cnt<=0) cnt++;
+            if(N-j + cnt < res) break;
         }
         res = max(res,cnt);
         // printf("\n");
