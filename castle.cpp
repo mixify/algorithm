@@ -49,7 +49,6 @@ int main(int argc, char *argv[])
 {
     cin>>N>>K;
     K-=5;//remove antic
-    int already = 0;
     for (int i = 0; i < N; ++i) {
         string word;
         cin>>word;
@@ -59,7 +58,6 @@ int main(int argc, char *argv[])
         substr.erase(remove(substr.begin(),substr.end(),'t'), substr.end());
         substr.erase(remove(substr.begin(),substr.end(),'i'), substr.end());
         substr.erase(remove(substr.begin(),substr.end(),'c'), substr.end());
-        if(substr.length()==0 && K>=0) already++;
         words[i] = substr;
         // cin>>words[i];
     }
@@ -90,10 +88,23 @@ int main(int argc, char *argv[])
     for(itr = cand.begin() ; itr != cand.end() ; itr++)
         candidates.push_back(*itr);
 
-
-    vector <vector<int> > comb;
-    if(candidates.size() > 0)
-        comb = combination(candidates.size(),K);
+    if(candidates.size()==0)
+    {
+        for (int i = 0; i < N; ++i) {
+            if(word_count[i] == 9999)
+            {
+                printf("0\n");
+                break;
+            }
+            else
+            {
+                printf("%d\n", N);
+                break;
+            }
+        }
+        return 0;
+    }
+    vector <vector<int> > comb = combination(candidates.size(),K);
 
     int res = 0;
     for (int i = 0; i < comb.size(); ++i) {
@@ -123,7 +134,7 @@ int main(int argc, char *argv[])
         // printf("\n");
     }
 
-    printf("%d\n", res+already);
+    printf("%d\n", res);
     return 0;
 }
 
