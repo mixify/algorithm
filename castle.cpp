@@ -93,13 +93,13 @@ int main(int argc, char *argv[])
     int res = 0;
     for (int i = 0; i < comb.size(); ++i) {
         vector<char> selected_char;
-        int cnt = 0;
         // string copied_words[51];
         // memcpy(copied_words,words,sizeof(words));
         for (int j = 0; j < comb[i].size(); ++j) {
             selected_char.push_back(candidates[comb[i][j]]);
             // cout<<candidates[comb[i][j]]<<' ';
         }
+        int cnt = 0;
         for (int j = 0; j < N; ++j)
         {
             string str = words[j];
@@ -112,7 +112,7 @@ int main(int argc, char *argv[])
                     word_cnt--;
             }
             if(word_cnt==0) cnt++;
-            if(N-j + cnt < res) break;
+            if(N-j + cnt + 1 < res) break;
         }
         res = max(res,cnt);
         // printf("\n");
