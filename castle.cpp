@@ -112,9 +112,9 @@ int main(int argc, char *argv[])
                     word_cnt--;
             }
             if(word_cnt==0) cnt++;
-            res = max(res,cnt);
-            if(N-j < res) break;
+            if(N-j + cnt < res) break;
         }
+        res = max(res,cnt);
         // printf("\n");
     }
 
