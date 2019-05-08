@@ -12,6 +12,7 @@
 using namespace std;
 int N, K;
 string words[51];
+int word_count[51];
 set<char> cand;
 
 vector <vector<int> > combination(int n, int r)
@@ -75,10 +76,11 @@ int main(int argc, char *argv[])
         if(cnt<=K)
         {
             for (int k = 0; k < tmp.size(); ++k)
-            {
                 cand.insert(tmp[k]);
-            }
+            word_count[i] = cnt;
         }
+        else
+            word_count[i] = 9999;
     }
 
     auto itr = set<char>::iterator();
@@ -101,11 +103,15 @@ int main(int argc, char *argv[])
         for (int j = 0; j < N; ++j)
         {
             string str = words[j];
+            int word_cnt=word_count[j];
             for (int k = 0; k < selected_char.size(); ++k) {
-                str.erase(remove(str.begin(),
-                            str.end(),selected_char[k]), str.end());
+                if(word_cnt > selected_char.size() - k) {
+                    break;
+                }
+                if(str.find(selected_char[k]) != string::npos)
+                    word_cnt--;
             }
-            if(str.length()==0) cnt++;
+            if(word_cnt==0) cnt++;
         }
         res = max(res,cnt);
         // printf("\n");
