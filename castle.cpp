@@ -105,13 +105,14 @@ int main(int argc, char *argv[])
             string str = words[j];
             int word_cnt=word_count[j];
             for (int k = 0; k < selected_char.size(); ++k) {
-                if(word_cnt > selected_char.size() - k) {
+                if(word_cnt > selected_char.size() - k)
                     break;
-                }
+
                 if(str.find(selected_char[k]) != string::npos)
                     word_cnt--;
             }
             if(word_cnt==0) cnt++;
+            if(N-j < res) break;
         }
         res = max(res,cnt);
         // printf("\n");
