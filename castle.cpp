@@ -17,6 +17,7 @@ set<char> cand;
 
 vector <vector<int> > combination(int n, int r)
 {
+    if(n==0) return vector<vector<int> >();
     vector <vector<int> > comb;
     vector <int> num;
     for (int i = 0; i < n; ++i) {
@@ -49,6 +50,7 @@ int main(int argc, char *argv[])
 {
     cin>>N>>K;
     K-=5;//remove antic
+    int res = 0;
     for (int i = 0; i < N; ++i) {
         string word;
         cin>>word;
@@ -58,6 +60,7 @@ int main(int argc, char *argv[])
         substr.erase(remove(substr.begin(),substr.end(),'t'), substr.end());
         substr.erase(remove(substr.begin(),substr.end(),'i'), substr.end());
         substr.erase(remove(substr.begin(),substr.end(),'c'), substr.end());
+        if(substr.length()==0 && K>=0) res++;
         words[i] = substr;
         // cin>>words[i];
     }
@@ -88,14 +91,8 @@ int main(int argc, char *argv[])
     for(itr = cand.begin() ; itr != cand.end() ; itr++)
         candidates.push_back(*itr);
 
-    if(candidates.size()==0)
-    {
-        printf("%d\n", N);
-        return 0;
-    }
     vector <vector<int> > comb = combination(candidates.size(),K);
 
-    int res = 0;
     for (int i = 0; i < comb.size(); ++i) {
         vector<char> selected_char;
         // string copied_words[51];
@@ -104,7 +101,7 @@ int main(int argc, char *argv[])
             selected_char.push_back(candidates[comb[i][j]]);
             // cout<<candidates[comb[i][j]]<<' ';
         }
-        int cnt = 0;
+        int cnt = res;
         for (int j = 0; j < N; ++j)
         {
             string str = words[j];
