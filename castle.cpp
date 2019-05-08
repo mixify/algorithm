@@ -88,6 +88,11 @@ int main(int argc, char *argv[])
     for(itr = cand.begin() ; itr != cand.end() ; itr++)
         candidates.push_back(*itr);
 
+    if(candidates.size()==0)
+    {
+        printf("%d\n", N);
+        return 0;
+    }
     vector <vector<int> > comb = combination(candidates.size(),K);
 
     int res = 0;
