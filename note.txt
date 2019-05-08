@@ -68,3 +68,30 @@ switch case문 안에서 변수선언시 감싸라
 크기 보고 long long 견적잡자~~
 
 c++ to_string 사용가능
+
+
+
+
+
+triangulation
+임의의 폴리곤이 주어짐 이걸 삼각형 들로 쪼개자(물리학,지리학, 경제학 에서 사용)
+triangulation이 항상 있을까? unique() 한가?
+va,vb diagonal => vavb < P-interior U {va,vb} 즉 inside P 이다.
+기본적으로 diagonal을 만들어가면서 만들어 간다~~~
+
+diagonal test는 어떻게 하나? O(n)
+1. 모든 vi,vi+1에 대해서 intersect(vi,vi+1,va,vb) => false를 체크한다
+    exception(양끝이 a,b가 된다.)
+    incone test => 각 상황(오목이 볼록이) 마다 내부인지 검사 convex hull
+    했을때처럼 외적의 양,음 여부 조사
+    볼록
+    SA(a,b,prev(a)) > 0 && SA(a,b,next(a)) < 0
+    오목
+    위 케이스의 여집합 !키워드 쓰면 될듯
+    lefton 뭔지모르겠다..
+
+즉 앞뒤꺼 연결해서 in 되는지 ear
+
+ear 양옆 잘라 => go 알고리즘(새로운 triangle 생김)
+이제 vertex하 적은 polyginal 생김
+이제 잘랐으니까 다시 ear를 업데이트 하자(바로 잘리진 양끝만)
