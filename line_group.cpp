@@ -92,7 +92,7 @@ void merge(line *x, line *y)
         if(a->height == b->height) b->height++;
         a->parent = b;
     }
-    else b->parent = b;
+    else b->parent = a;
 }
 int main(int argc, char *argv[])
 {
@@ -120,6 +120,7 @@ int main(int argc, char *argv[])
     for (int i = 0; i < N; ++i)
     {
         auto addr = find_set(lines+i);
+        // printf("%x %d\n", addr, i);
         if(groups.count(addr) == 1)
             groups[addr] = groups[addr]+1;
         groups.insert(make_pair(find_set(lines+i),1));
