@@ -78,6 +78,7 @@ void create_set(line *x)
 }
 line* find_set(line *x)
 {
+    if(x->parent == NULL) return NULL;
     while(x!=x->parent)
         x = x->parent;
     return x;
