@@ -1,8 +1,8 @@
-a.out :castle_wall.cpp 
-	g++ -g castle_wall.cpp
-run : castle_wall.cpp a.out
+a.out :line_group.cpp 
+	g++ -g line_group.cpp
+run : line_group.cpp a.out
 	./a.out < input
-gdb : castle_wall.cpp a.out
+gdb : line_group.cpp a.out
 	gdb a.out
-algo : castle_wall.cpp
-	algo castle_wall
+algo : line_group.cpp
+	algo line_group

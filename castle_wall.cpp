@@ -69,7 +69,8 @@ void BFS(int removed_wall)
                         int x = yx.second + dx[k];
                         if(y>=0 && x>=0 && x<N && y<M)
                         {
-                            if(((castle_wall[yx.first][yx.second] & dir(k)) == 0) && !visited[y][x])
+                            if(((castle_wall[yx.first][yx.second] & dir(k)) == 0)
+                                    && !visited[y][x])
                             {
                                 // printf("%d %d\n", y,x);
                                 area++;
