@@ -4,6 +4,7 @@
 #include <algorithm>
 #include <climits>
 #include <cmath>
+#include <numeric>
 #include <vector>
 #include <utility>
 #include <set>
@@ -22,15 +23,31 @@ map<int,vector<int> > reversed_way;
 
 int color[10001];
 int pred[10001];
-int f[10001];
-int d[10001];
+vector<int> f;
+vector<int> d;
 
 int t = 0;
 
+template <typename T>
+vector<size_t> sort_indexes(const vector<T> &v) {
+
+  // initialize original index locations
+  vector<size_t> idx(v.size());
+  iota(idx.begin(), idx.end(), 0);
+
+  // sort indexes based on comparing values in v
+  sort(idx.begin(), idx.end(),
+       [&v](size_t i1, size_t i2) {return v[i1] > v[i2];});
+
+  return idx;
+}
+
+int grp;
 void DFS_visit(int u, int direction)
 {
     color[u] = GRAY;
     t= t+1;
+    grp++;
     d[u] = t;
     vector<int> w;
     if(direction == STRAIGHT)
@@ -75,6 +92,10 @@ void DFS(int V,int direction)
 int main(int argc, char *argv[])
 {
     cin>>N>>M>>S>>T;
+    f = vector<int>(N+1);
+    f[0] = -1;
+    d = vector<int>(N+1);
+    d[0] = -1;
     for (int i = 0; i < M; ++i) {
         int a,b; cin>>a>>b;
         way[a].push_back(b);
@@ -83,8 +104,23 @@ int main(int argc, char *argv[])
         // reversed_way[i].second = way[i].first;
     }
     DFS(S,STRAIGHT);
-    DFS(T,REVERSE);
+    // for (int i = 1; i <= N; ++i) {
+    //     printf("%d = %d\n", i,f[i]);
+    // }
+    memset(color,0,sizeof(color));
+    t = 0;
+    for(auto i : sort_indexes(f))
+    {
+        // printf("%d\n", i);
+        grp = 0;
+        DFS_visit(i,REVERSE);
+        if(color[T]!=WHITE)
+        {
+            printf("%d\n", grp);
+            break;
+        }
+    }
 
-    printf("%d\n", t+1);
+    // printf("%d\n", t+1);
     return 0;
 }
