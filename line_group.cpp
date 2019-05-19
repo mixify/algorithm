@@ -57,8 +57,22 @@ int between(point a, point b, point c)
 {
     if(sign_area(a,b,c)==0)
     {
-        if(distance(a,c) + distance(b,c) == distance(a,b))
-            return true;
+        long long crossproduct = (c.y - a.y) * (b.x - a.x) - (c.x - a.x) * (b.y - a.y);
+        long long dotproduct = (c.x - a.x) * (b.x - a.x) + (c.y - a.y)*(b.y - a.y);
+        long long squaredlengthba = (b.x - a.x)*(b.x - a.x) + (b.y - a.y)*(b.y - a.y);
+        if(abs(crossproduct) > 0) return false;
+        if(dotproduct<0) return false;
+        if(dotproduct>squaredlengthba) return false;
+        // long long dxc = c.x - a.x;
+        // long long dyc = c.y - a.y;
+        //
+        // long long dx1 = b.x - a.x;
+        // long long dy1 = b.y - a.y;
+        //
+        // long long cross = dxc * dy1 - dyc * dx1;
+        return true;
+        // if(distance(a,c) + distance(b,c) == distance(a,b))
+        //     return true;
     }
     return false;
 }
