@@ -234,14 +234,15 @@ int main(int argc, char *argv[])
     //         }
     // }
     // printf("%d\n", dp[scc[T]]);
-    solve2(T);
-    solve(S);
-    // int d[10001];
-    // d[scc[S]] = size[scc[S]];
-    // for (int i = scc[S]; i >= 0; --i) {
-    //     for(auto next : scc_way[scc[i]])
-    //         D[next] = max(D[next],size[scc[next]] + D[i]);
-    // }
-    printf("%u", visit[scc[T]] ? solve(S) : 0);
+    // solve2(T);
+    // solve(S);
+    int d[10001];
+    d[scc[S]] = size[scc[S]];
+    for (int i = scc[S]; i >= 0; --i) {
+        for(auto next : scc_way[scc[i]])
+            D[next] = max(D[next],size[scc[next]] + D[i]);
+    }
+    printf("%d\n", d[scc[T]]);
+    // printf("%u", visit[scc[T]] ? solve(S) : 0);
     return 0;
 }
