@@ -59,17 +59,15 @@ void merge(int p, int q) {
 
 // vector <scc> scs;
 template <typename T>
-vector<int> sort_indexes(const vector<T> &v) {
+std::vector<size_t> ordered(std::vector<T> const& values) {
+    std::vector<size_t> indices(values.size());
+    std::iota(begin(indices), end(indices), static_cast<size_t>(0));
 
-  // initialize original index locations
-  vector<int> idx(v.size());
-  iota(idx.begin(), idx.end(), 0);
-
-  // sort indexes based on comparing values in v
-  sort(idx.begin(), idx.end(),
-       [&v](int i1, int i2) {return v[i1] > v[i2];});
-
-  return idx;
+    std::sort(
+        begin(indices), end(indices),
+        [&](size_t a, size_t b) { return values[a] < values[b]; }
+    );
+    return indices;
 }
 
 int grp;
@@ -79,7 +77,8 @@ void DFS_visit(int u, int direction)
     color[u] = GRAY;
     t= t+1;
     grp++;
-    d[u] = t;
+    if(direction == STRAIGHT)
+        d[u] = t;
     vector<int> w;
     if(direction == REVERSE)
     {
@@ -103,7 +102,8 @@ void DFS_visit(int u, int direction)
     }
     color[u] = BLACK;
     t= t + 1;
-    f[u] = t;
+    if(direction == STRAIGHT)
+        f[u] = t;
 }
 void DFS(int V,int direction)
 {
@@ -184,18 +184,33 @@ int main(int argc, char *argv[])
     //     printf("%d = %d\n", i,f[i]);
     // }
     memset(color,0,sizeof(color));
-    t = 0;
+    // t = 0;
 	for (int i = 1; i <= N; i++)
         scc[i] = i;
     fill_n(size,N+1,1);
-    for(auto i : sort_indexes(f))
+
+    // vector<int> test;
+    // test.push_back(5);
+    // test.push_back(2);
+    // test.push_back(3);
+    // test.push_back(7);
+    // for(auto i : ordered(test))
+    // {
+    //     printf("%d\n", test[i]);
+    // }
+    // for(auto v : f)
+    //     printf("%d\n", v);
+    for(auto i : ordered(f))
     {
-        // printf("%d\n", i);
         // grp = 0;
         if(i==0) continue;
+        // printf("%d = %d\n", i, f[i]);
         if(color[i]==WHITE)
-            DFS_visit(i,REVERSE);// making one scc
+            DFS_visit(i,REVERSE);// making scc
     }
+    // printf("-----------\n");
+    // for(auto v : f)
+    //     printf("%d\n", v);
     // printf("%d\n", scc[2]);
 
     for (int i = 1; i <= N; ++i) {
@@ -205,7 +220,20 @@ int main(int argc, char *argv[])
             scc_reversed_way[scc[w]].insert(scc[i]);
         }
     }
+    // printf("%d\n", scc[9]);
 
+
+    // printf("%d\n", scc[1]);
+    // printf("%d\n", size[scc[1]]);
+    //
+    // for(int i = scc[S]; i < scc[T]; ++i){
+    //     for(auto next : scc_way[scc[i]])
+    //         if(dp[next] < dp[i] + size[scc[next]])
+    //         {
+    //             dp[next] = dp[i] + size[scc[next]];
+    //         }
+    // }
+    // printf("%d\n", dp[scc[T]]);
     solve2(T);
     solve(S);
     // int d[10001];
