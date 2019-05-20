@@ -130,6 +130,20 @@ void DFS(int V,int direction)
 
 int dp[10001];
 bool visit[10001];
+
+
+void solve2(int node) {
+	int sccId = scc[node];
+	if (!visit[sccId]) return;
+	visit[sccId] = false;
+
+	for (int i = 1; i <= N; i++) {
+		if (scc[i] == sccId) {
+			for (auto next : reversed_way[i]) if (scc[next] != sccId) solve2(next);
+		}
+	}
+}
+
 int solve(size_t node) {
 	int sccId = scc[node];
 	int &p = dp[sccId];
@@ -140,7 +154,7 @@ int solve(size_t node) {
 	}
 	visit[sccId] = true;
 
-	for (size_t i = 0; i < N; i++) {
+	for (int i = 1; i <= N; i++) {
 		if (scc[i] == sccId) {
 			for (auto next : way[i]) {
 				if (scc[next] != sccId) p = max(p, solve(next));
@@ -192,6 +206,7 @@ int main(int argc, char *argv[])
         }
     }
 
+    solve2(T);
     solve(S);
     // int d[10001];
     // d[scc[S]] = size[scc[S]];
