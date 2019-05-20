@@ -8,110 +8,147 @@
 #include <utility>
 #include <set>
 #include <map>
-#include <queue>
 
-#define WEST 1
-#define NORTH 2
-#define EAST 4
-#define SOUTH 8
+#define LEFT 1
+#define ON 0
+#define RIGHT -1
 
-struct wall{
-    int y;
-    int x;
-    int direction;
+struct point{
+    long long x;
+    long long y;
+};
+struct line{
+    point start;
+    point end;
+    line *parent;
+    int height;
 };
 using namespace std;
-int N, M;
-int dy[4] = {0,-1,0,1};
-int dx[4] = {-1,0,1,0};
-// int castle[51][51];
-int castle_wall[51][51];
-bool visited[51][51];
+int N;
 
-vector<wall> walls;
+line lines[3000];
 
-int cnt_rooms = 0;
-int widest = 0;
-int widest_after_removing = 0;
-
-int dir(int exp)
+long long sign_area(point a,point b,point c)
 {
-    if(exp == 0) return WEST;
-    else if(exp == 1) return NORTH;
-    else if(exp == 2) return EAST;
-    else if(exp == 3) return SOUTH;
-    return 0;
+    // if(c.y==4)
+    //     printf("%d - %d + %d - %d + %d - %d\n", a.x*b.y , a.y*b.x , b.x*c.y , c.x*b.y , c.x*a.y , a.x*c.y);
+    // printf("%lld\n", (a.x*b.y - a.y*b.x + b.x*c.y - c.x*b.y + c.x*a.y - a.x*c.y));
+    long long sa = (a.x*b.y - a.y*b.x + b.x*c.y - c.x*b.y + c.x*a.y - a.x*c.y);
+    return sa==1?1:sa/2;
 }
-void BFS(int removed_wall)
+int left(point a, point b, point c)
 {
-    memset(visited,0,sizeof(visited));
-    queue<pair<int,int> > q;
-    if(removed_wall!=-1)
+    //c is the main
+    // if(c.y==4)
+    // {
+    //     printf("sibal\n");
+    //     printf("%lld\n", sign_area(a,b,c));
+    // }
+    if(sign_area(a,b,c) > 0) return true;
+    else return false;
+    // else if (sign_area(a,b,c) == 0) return ON;
+    // else return RIGHT;
+}
+double distance(point a, point b)
+{
+    return sqrt((b.x-a.x)*(b.x-a.x) + (b.y-a.y)*(b.y-a.y));
+}
+int between(point a, point b, point c)
+{
+    if(sign_area(a,b,c)==0)
     {
-        wall rw = walls[removed_wall];
-        castle_wall[rw.y][rw.x] -= rw.direction;
+        long long crossproduct = (c.y - a.y) * (b.x - a.x) - (c.x - a.x) * (b.y - a.y);
+        long long dotproduct = (c.x - a.x) * (b.x - a.x) + (c.y - a.y)*(b.y - a.y);
+        long long squaredlengthba = (b.x - a.x)*(b.x - a.x) + (b.y - a.y)*(b.y - a.y);
+        if(abs(crossproduct) > 0) return false;
+        if(dotproduct<0) return false;
+        if(dotproduct>squaredlengthba) return false;
+        // long long dxc = c.x - a.x;
+        // long long dyc = c.y - a.y;
+        //
+        // long long dx1 = b.x - a.x;
+        // long long dy1 = b.y - a.y;
+        //
+        // long long cross = dxc * dy1 - dyc * dx1;
+        return true;
+        // if(distance(a,c) + distance(b,c) == distance(a,b))
+        //     return true;
     }
-    for (int i = 0; i < M; ++i) {// i is Y
-        for (int j = 0; j < N; ++j) {// j is X
-            if(!visited[i][j])
-            {
-                if(removed_wall == -1) cnt_rooms++;
-                int area = 1;
-                visited[i][j] = true;
-                q.push(make_pair(i,j));
-                // printf("%d %d\n", i,j);
-                while(!q.empty())
-                {
-                    pair<int,int> yx = q.front();
-                    q.pop();
-                    for (int k = 0; k < 4; ++k) {
-                        int y = yx.first + dy[k];
-                        int x = yx.second + dx[k];
-                        if(y>=0 && x>=0 && x<N && y<M)
-                        {
-                            if(((castle_wall[yx.first][yx.second] & dir(k)) == 0) && !visited[y][x])
-                            {
-                                // printf("%d %d\n", y,x);
-                                area++;
-                                visited[y][x] = true;
-                                q.push(make_pair(y,x));
-                            }
-                        }
-                    }
-                }
-                // printf("------------\n");
-                if(removed_wall == -1) widest = max(area,widest);
-                else if (removed_wall != -1) widest_after_removing = max(area,widest_after_removing);
-            }
-        }
-    }
-    if(removed_wall!=-1)
+    return false;
+}
+
+bool intersect(point a, point b,point c,point d)
+{
+    if(between(a,b,c) || between(a,b,d) || between(c,d,a) || between(c,d,b)) return true;
+    // printf("sibal\n");
+    // printf("%d %d %d %d\n", left(a,b,c),left(a,b,d) ,left(c,d,a),left(c,d,b));
+    return ( (left(a,b,c)^left(a,b,d)) && (left(c,d,a)^left(c,d,b)) );
+}
+
+void create_set(line *x)
+{
+    x->parent = x;
+    x->height = 1;
+}
+line* find_set(line *x)
+{
+    if(x->parent == NULL) return NULL;
+    while(x!=x->parent)
+        x = x->parent;
+    return x;
+}
+
+void merge(line *x, line *y)
+{
+    line *a=find_set(x);
+    line *b=find_set(y);
+    if(a->height <= b->height)
     {
-        wall rw = walls[removed_wall];
-        castle_wall[rw.y][rw.x] += rw.direction;
+        if(a->height == b->height) b->height++;
+        a->parent = b;
     }
+    else b->parent = a;
 }
 int main(int argc, char *argv[])
 {
-    cin>>N>>M;
-    memset(castle_wall,0,sizeof(castle_wall));
-
-    for (int i = 0; i < M; ++i)
-    {
-        for (int j = 0; j < N; ++j)
-        {
-            cin>>castle_wall[i][j];
-            for (int dir = EAST; dir <= SOUTH; dir*=2) {
-                if(castle_wall[i][j] & dir)
-                    walls.push_back(wall{i,j,dir});
+    cin>>N;
+    for (int i = 0; i < N; ++i) {
+        cin>>lines[i].start.x>>lines[i].start.y;
+        cin>>lines[i].end.x>>lines[i].end.y;
+        lines[i].parent = NULL;
+    }
+    for (int i = 0; i < N-1; ++i) {
+        for (int j = i+1; j < N; ++j) {
+            if(lines[i].parent == NULL)
+                create_set(lines+i);
+            if(lines[j].parent == NULL)
+                create_set(lines+j);
+            if(intersect(lines[i].start,lines[i].end,lines[j].start,lines[j].end))
+            {
+                // printf("%d %d\n", i,j);
+                merge(lines+i,lines+j);
             }
         }
     }
 
-    for (int i = 0; i <= walls.size(); ++i)
-        BFS(i-1);
-    printf("%d\n", cnt_rooms);
-    printf("%d\n", widest);
-    printf("%d\n", widest_after_removing);
+    map<line *, int> groups;
+    for (int i = 0; i < N; ++i)
+    {
+        auto addr = find_set(lines+i);
+        // printf("%x %d\n", addr, i);
+        if(groups.count(addr) == 1)
+            groups[addr] = groups[addr]+1;
+        groups.insert(make_pair(find_set(lines+i),1));
+    }
+
+    printf("%lu\n", groups.size());
+    int m = 0;
+    for(auto itr=groups.begin() ; itr !=groups.end() ; itr++)
+    {
+        m = max(m,itr->second);
+    }
+    printf("%d\n", m);
+    // printf("%d\n", intersect({0,0},{0,4},{-1,2},{1,5}));
+    // printf("%d\n", intersect({0,0},{0,4},{-1,2},{1,5})); should care later
     return 0;
 }
