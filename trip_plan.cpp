@@ -128,6 +128,29 @@ void DFS(int V,int direction)
     }
 }
 
+int dp[10001];
+bool visit[10001];
+int solve(size_t node) {
+	int sccId = scc[node];
+	int &p = dp[sccId];
+	if (visit[sccId]) return p;
+	else if (sccId == scc[T]) {
+		visit[sccId] = true;
+		return p = size[sccId];
+	}
+	visit[sccId] = true;
+
+	for (size_t i = 0; i < N; i++) {
+		if (scc[i] == sccId) {
+			for (auto next : way[i]) {
+				if (scc[next] != sccId) p = max(p, solve(next));
+			}
+		}
+	}
+
+	return p += size[sccId];
+}
+
 int main(int argc, char *argv[])
 {
     cin>>N>>M>>S>>T;
@@ -168,12 +191,14 @@ int main(int argc, char *argv[])
             scc_reversed_way[scc[w]].insert(scc[i]);
         }
     }
-    int d[10001];
-    d[scc[S]] = size[scc[S]];
-    for (int i = scc[S]; i >= 0; --i) {
-        for(auto next : scc_way[scc[i]])
-            D[next] = max(D[next],size[scc[next]] + D[i]);
-    }
-    printf("%d\n", D[scc[T]]);
+
+    solve(S);
+    // int d[10001];
+    // d[scc[S]] = size[scc[S]];
+    // for (int i = scc[S]; i >= 0; --i) {
+    //     for(auto next : scc_way[scc[i]])
+    //         D[next] = max(D[next],size[scc[next]] + D[i]);
+    // }
+    printf("%u", visit[scc[T]] ? solve(S) : 0);
     return 0;
 }
