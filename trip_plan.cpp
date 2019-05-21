@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <cstring>
+#include <queue>
 #include <iostream>
 #include <algorithm>
 #include <climits>
@@ -216,15 +217,44 @@ int main(int argc, char *argv[])
     for (int i = 1; i <= N; ++i) {
         for(auto w: way[i])
         {
-            scc_way[scc[i]].insert(scc[w]);
-            scc_reversed_way[scc[w]].insert(scc[i]);
+            if(scc[i]!=scc[w])
+            {
+                scc_way[scc[i]].insert(scc[w]);
+                scc_reversed_way[scc[w]].insert(scc[i]);
+            }
         }
     }
     // printf("%d\n", scc[9]);
 
 
-    // printf("%d\n", scc[1]);
-    // printf("%d\n", size[scc[1]]);
+    // printf("%d\n", scc[5]);
+    // printf("%d\n", size[scc[5]]);
+
+    queue<int> Q;
+    Q.push(scc[S]);
+
+    dp[scc[S]] = size[scc[S]];
+
+    // for (int i = 1; i <= N; ++i) {
+    //     printf("%d => %d\n",i, scc[i]);
+    // }
+    // for(auto next : scc_way[scc[2]])
+    //     cout<<next<<endl;
+    while(!Q.empty())
+    {
+        int now = Q.front();
+        Q.pop();
+        for(auto next : scc_way[now])
+        {
+            // cout<<now<<"->"<<next<<endl;
+            if(dp[next] < dp[now] + size[next])
+            {
+                dp[next] = dp[now] + size[next];
+                Q.push(next);
+            }
+        }
+    }
+    printf("%d\n", dp[scc[T]]);
     //
     // for(int i = scc[S]; i < scc[T]; ++i){
     //     for(auto next : scc_way[scc[i]])
@@ -243,6 +273,6 @@ int main(int argc, char *argv[])
     //         D[next] = max(D[next],size[scc[next]] + D[i]);
     // }
     // printf("%d\n", d[scc[T]]);
-    printf("%u", visit[scc[T]] ? solve(S) : 0);
+    // printf("%u", visit[scc[T]] ? solve(S) : 0);
     return 0;
 }
