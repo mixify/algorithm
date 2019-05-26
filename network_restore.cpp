@@ -28,19 +28,19 @@ int main(int argc, char *argv[])
     for (int i = 0; i < M; ++i) {
         int a, b, dis;
         cin>>a>>b>>dis;
-        int from = min(a,b);
-        int to = max(a,b);
-        networks[from].push_back({to,dis});
-        W[a][b] = W[b][a] = dis;
+        // int from = min(a,b);
+        // int to = max(a,b);
+        networks[a].push_back({b,dis});
+        networks[b].push_back({a,dis});
+        // W[a][b] = W[b][a] = dis;
         // networks[to].push_back({from,dis});
     }
 
-    vector<net> F;
+    // vector<net> F;
 
     // int nearest[N+1];
-    int length[N+1];
+    vector<int> length(N+1,99999999);
 
-    fill_n(length,N+1,9999999);
     priority_queue<pair<int,int> > pq;
     vector<int> path(N+1,0);
     // for(auto v : networks[1])
@@ -52,9 +52,11 @@ int main(int argc, char *argv[])
     //     // length[i] = W[1][i];
     // }
 
+    // bool visited[1001][1001];
+    // memset(visited,0,sizeof(visited));
     pq.push(make_pair(0,1));
 
-    path[1] = 0;
+    // path[1] = 0;
 
     while(!pq.empty())
     {
@@ -79,24 +81,6 @@ int main(int argc, char *argv[])
     // for (int i = 1; i <= N; ++i) {
     //     printf("%d = %d\n", i, length[i]);
     // }
-    set<pair<int, int> > lines;
-    // printf("%d\n", p);
-    for (int i = 1; i <= N; ++i) {
-
-        int p = i;
-        while(path[p] != 0)
-        {
-            lines.insert(make_pair(path[p], p));
-            p = path[p];
-        }
-    }
-    // cout<<lines.size()<<endl;
-    int cnt = 0;
-    // for (int i = 2; i <= N; ++i) {
-    //     if(path[i]!=0)
-    //         cnt++;
-    // }
-    // printf("%d\n", cnt);
     printf("%d\n", N-1);
     for (int i = 2; i <= N; ++i) {
         if(path[i]!=0)
