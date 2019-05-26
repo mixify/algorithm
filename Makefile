@@ -1,8 +1,8 @@
-a.out :trip_plan.cpp 
-	g++ -g trip_plan.cpp
-run : trip_plan.cpp a.out
+a.out :network_restore.cpp 
+	g++ -g network_restore.cpp
+run : network_restore.cpp a.out
 	./a.out < input
-gdb : trip_plan.cpp a.out
+gdb : network_restore.cpp a.out
 	gdb a.out
-algo : trip_plan.cpp
-	algo trip_plan
+algo : network_restore.cpp
+	algo network_restore

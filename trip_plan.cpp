@@ -135,8 +135,8 @@ bool visit[10001];
 
 void solve2(int node) {
 	int sccId = scc[node];
-	if (!visit[sccId]) return;
-	visit[sccId] = false;
+	if (!color[sccId]) return;
+	color[sccId] = WHITE;
 
 	for (int i = 1; i <= N; i++) {
 		if (scc[i] == sccId) {
@@ -148,12 +148,12 @@ void solve2(int node) {
 int solve(size_t node) {
 	int sccId = scc[node];
 	int &p = dp[sccId];
-	if (visit[sccId]) return p;
+	if (color[sccId]) return p;
 	else if (sccId == scc[T]) {
-		visit[sccId] = true;
+		color[sccId] = BLACK;
 		return p = size[sccId];
 	}
-	visit[sccId] = true;
+	color[sccId] = BLACK;
 
 	for (int i = 1; i <= N; i++) {
 		if (scc[i] == sccId) {
@@ -233,7 +233,7 @@ int main(int argc, char *argv[])
     queue<int> Q;
     Q.push(scc[S]);
 
-    // dp[scc[S]] = size[scc[S]];
+    dp[scc[S]] = size[scc[S]];
 
     // for (int i = 1; i <= N; ++i) {
     //     printf("%d => %d\n",i, scc[i]);
@@ -264,12 +264,13 @@ int main(int argc, char *argv[])
     //         }
     // }
     // printf("%d\n", dp[scc[T]]);
+    // memset(visit,0,sizeof(visit));
     solve2(T);
     solve(S);
     // int d[10001];
     // d[scc[S]] = size[scc[S]];
     // for (int i = scc[S]; i >= 0; --i) {
-    //     for(auto next : scc_way[scc[i]])
+    //     for(auto next : scc_way[scc[S]])
     //         D[next] = max(D[next],size[scc[next]] + D[i]);
     // }
     // printf("%d\n", d[scc[T]]);
