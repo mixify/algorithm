@@ -88,9 +88,20 @@ int main(int argc, char *argv[])
             p = path[p];
         }
     }
-    cout<<lines.size()<<endl;
-    for(auto line : lines)
-        cout<<line.first<<" "<<line.second<<endl;
+    // cout<<lines.size()<<endl;
+    int cnt = 0;
+    for (int i = 2; i <= N; ++i) {
+        if(path[i]!=0)
+            cnt++;
+    }
+    printf("%d\n", cnt);
+    for (int i = 2; i <= N; ++i) {
+        if(path[i]!=0)
+            printf("%d %d\n", path[i],i);
+
+    }
+    // for(auto line : lines)
+    //     cout<<line.first<<" "<<line.second<<endl;
 
     // K=0;
     // cout<<K<<endl;
