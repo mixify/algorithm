@@ -43,15 +43,16 @@ int main(int argc, char *argv[])
     fill_n(length,N+1,9999999);
     priority_queue<pair<int,int> > pq;
     vector<int> path(N+1,0);
-    for(auto v : networks[1])
-    {
-        pq.push(make_pair(-v.dis,v.to));
-        length[v.to] = v.dis;
-        path[v.to] = 1;
-        // nearest[i] = 1;
-        // length[i] = W[1][i];
-    }
+    // for(auto v : networks[1])
+    // {
+    //     pq.push(make_pair(-v.dis,v.to));
+    //     length[v.to] = v.dis;
+    //     path[v.to] = 1;
+    //     // nearest[i] = 1;
+    //     // length[i] = W[1][i];
+    // }
 
+    pq.push(make_pair(0,1));
 
     path[1] = 0;
 
@@ -61,6 +62,9 @@ int main(int argc, char *argv[])
         int cost = -pq.top().first;
         int vnear = pq.top().second;
         pq.pop();
+
+        if(length[vnear] < cost)
+            continue;
 
         for (auto v : networks[vnear])
         {
@@ -75,8 +79,6 @@ int main(int argc, char *argv[])
     // for (int i = 1; i <= N; ++i) {
     //     printf("%d = %d\n", i, length[i]);
     // }
-    stack<int> st;
-    // int p = 4;
     set<pair<int, int> > lines;
     // printf("%d\n", p);
     for (int i = 1; i <= N; ++i) {
@@ -90,15 +92,15 @@ int main(int argc, char *argv[])
     }
     // cout<<lines.size()<<endl;
     int cnt = 0;
-    for (int i = 2; i <= N; ++i) {
-        if(path[i]!=0)
-            cnt++;
-    }
-    printf("%d\n", cnt);
+    // for (int i = 2; i <= N; ++i) {
+    //     if(path[i]!=0)
+    //         cnt++;
+    // }
+    // printf("%d\n", cnt);
+    printf("%d\n", N-1);
     for (int i = 2; i <= N; ++i) {
         if(path[i]!=0)
             printf("%d %d\n", path[i],i);
-
     }
     // for(auto line : lines)
     //     cout<<line.first<<" "<<line.second<<endl;
