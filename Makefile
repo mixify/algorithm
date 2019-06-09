@@ -1,8 +1,8 @@
-a.out :wormhole.cpp 
-	g++ -g wormhole.cpp
-run : wormhole.cpp a.out
+a.out :maximum_flow.cpp 
+	g++ -g maximum_flow.cpp
+run : maximum_flow.cpp a.out
 	./a.out < input
-gdb : wormhole.cpp a.out
+gdb : maximum_flow.cpp a.out
 	gdb a.out
-algo : wormhole.cpp
-	algo wormhole
+algo : maximum_flow.cpp
+	algo maximum_flow

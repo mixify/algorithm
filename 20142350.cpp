@@ -5,94 +5,72 @@
 #include <climits>
 #include <cmath>
 #include <vector>
-#include <stack>
 #include <utility>
+#include <queue>
 #include <set>
 #include <map>
-#include <queue>
 
 using namespace std;
-struct net{
-    int to;
-    int dis;
-};
-int N, M;
-int K;
-int W[1001][1001];
+int N, M, W;
 
-map<int,vector<net>> networks;
+void solve_problem(int case_num);
 int main(int argc, char *argv[])
 {
-    cin>>N>>M;
-    memset(W,0,sizeof(W));
-    for (int i = 0; i < M; ++i) {
-        int a, b, dis;
-        cin>>a>>b>>dis;
-        // int from = min(a,b);
-        // int to = max(a,b);
-        networks[a].push_back({b,dis});
-        networks[b].push_back({a,dis});
-        // W[a][b] = W[b][a] = dis;
-        // networks[to].push_back({from,dis});
+    int cases;
+    cin>>cases;
+    for (int i = 0; i < cases; ++i) {
+        solve_problem(i);
     }
+    return 0;
+}
 
-    // vector<net> F;
+void solve_problem(int case_num)
+{
+    cin>>N>>M>>W;
+    map<int,vector<pair<int,int > > > road;
+    // map<int,vector<pair<int,int > > > wormhole;
+    for (int i = 0; i < M; ++i) {
+        int s,t,e;
+        scanf("%d %d %d", &s, &t, &e);
+        road[s].push_back(make_pair(t,e));
+        road[t].push_back(make_pair(s,e));
+    }
+    for (int i = 0; i < W; ++i) {
+        int s,t,e;
+        scanf("%d %d %d", &s, &t, &e);
+        road[s].push_back(make_pair(t,-e));
+    }
+    vector<int> distance(N+1,99999999);
+    vector<int> predecessor(N+1,99999999);
+    distance[1] = 0;
 
-    // int nearest[N+1];
-    vector<int> length(N+1,99999999);
-
-    priority_queue<pair<int,int> > pq;
-    vector<int> path(N+1,0);
-    // for(auto v : networks[1])
-    // {
-    //     pq.push(make_pair(-v.dis,v.to));
-    //     length[v.to] = v.dis;
-    //     path[v.to] = 1;
-    //     // nearest[i] = 1;
-    //     // length[i] = W[1][i];
-    // }
-
-    // bool visited[1001][1001];
-    // memset(visited,0,sizeof(visited));
-    pq.push(make_pair(0,1));
-
-    // path[1] = 0;
-
-    while(!pq.empty())
+    deque<int> q;
+    vector<int> visited(N+1,0);
+    q.push_back(1);
+    bool cycle = false;
+    while(!q.empty())
     {
-        // printf("%d %d\n", -pq.top().first,pq.top().second);
-        int cost = -pq.top().first;
-        int vnear = pq.top().second;
-        pq.pop();
-
-        if(length[vnear] < cost)
-            continue;
-
-        for (auto v : networks[vnear])
+        int u = q.front();
+        visited[u]++;
+        if(visited[u]>N-1)
         {
-            if(cost + v.dis < length[v.to])
+            cycle = true;
+            break;
+        }
+        q.pop_front();
+        for(auto edge : road[u])
+        {
+            int w = edge.second;
+            int v = edge.first;
+            if(distance[u] + w < distance[v])
             {
-                length[v.to] = cost + v.dis;
-                pq.push(make_pair(-(cost + v.dis),v.to));
-                path[v.to] = vnear;
+                distance[v] = distance[u] + w;
+                // printf("%d\n", distance[v]);
+                predecessor[v] = u;
+                if(find(q.begin(), q.end(), v) == q.end())
+                    q.push_back(v);
             }
         }
     }
-    // for (int i = 1; i <= N; ++i) {
-    //     printf("%d = %d\n", i, length[i]);
-    // }
-    printf("%d\n", N-1);
-    for (int i = 2; i <= N; ++i) {
-        if(path[i]!=0)
-            printf("%d %d\n", path[i],i);
-    }
-    // for(auto line : lines)
-    //     cout<<line.first<<" "<<line.second<<endl;
-
-    // K=0;
-    // cout<<K<<endl;
-    // for (int i = 0; i < K; ++i) {
-    //     ;
-    // }
-    return 0;
+    printf("%s\n", cycle?"YES":"NO");
 }
