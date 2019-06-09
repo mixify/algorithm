@@ -31,8 +31,8 @@ int main(int argc, char *argv[])
 
         adj[from].push_back(to);
         adj[to].push_back(from);
-        capacity[from][to] = v;
-        capacity[to][from] = v;
+        capacity[from][to] += v;
+        capacity[to][from] += v;
     }
     int totalflow = 0;
     char source = 'A';
@@ -71,7 +71,7 @@ int main(int argc, char *argv[])
         if(parent[sink] == -1)
             break;
 
-        int flow = 99999999;
+        int flow = 999999999;
 
         for (char c = sink; c != source; c = parent[c]) {
             flow = min(flow, capacity[parent[c]][c] - f[parent[c]][c]);
