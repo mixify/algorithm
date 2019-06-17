@@ -78,7 +78,7 @@ int main(int argc, char *argv[])
 
     sort(scc.begin(), scc.end());
 
-    printf("%d\n", scc.size());
+    printf("%d\n", scc.size()-1);
     for(auto scs : scc)
     {
         scs.push_back(-1);
