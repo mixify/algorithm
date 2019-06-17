@@ -62,18 +62,23 @@ int main(int argc, char *argv[])
     memset(visited, 0, sizeof(visited));
 
     int i = 0;
+    scc.push_back(vector<int> ());
     while(!st.empty())
     {
-        scc.push_back(vector<int> ());
         int p = st.top();
         st.pop();
         rev_dfs(p,i);
-        sort(scc[i].begin(), scc[i].end());
-        i++;
+        if(scc[i].size() != 0)
+        {
+            sort(scc[i].begin(), scc[i].end());
+            scc.push_back(vector<int> ());
+            i++;
+        }
     }
 
     sort(scc.begin(), scc.end());
 
+    printf("%d\n", scc.size());
     for(auto scs : scc)
     {
         scs.push_back(-1);
