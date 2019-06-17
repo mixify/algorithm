@@ -58,7 +58,8 @@ int main(int argc, char *argv[])
         }
     }
     printf("%d\n", N-1);
-    for (int i = 2; i <= N; ++i) {
+    for (int i = 2; i <= N; ++i)
+    {
         if(path[i]!=0)
             printf("%d %d\n", path[i],i);
     }

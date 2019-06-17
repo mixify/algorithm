@@ -60,6 +60,7 @@ int between(point a, point b, point c)
         long long crossproduct = (c.y - a.y) * (b.x - a.x) - (c.x - a.x) * (b.y - a.y);
         long long dotproduct = (c.x - a.x) * (b.x - a.x) + (c.y - a.y)*(b.y - a.y);
         long long squaredlengthba = (b.x - a.x)*(b.x - a.x) + (b.y - a.y)*(b.y - a.y);
+
         if(abs(crossproduct) > 0) return false;
         if(dotproduct<0) return false;
         if(dotproduct>squaredlengthba) return false;

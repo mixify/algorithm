@@ -36,6 +36,7 @@ pair<int,int> swp(pair<int,int> *p1, pair<int,int> *p2)
     p1->first = tmp.first;
     p1->second = tmp.second;
 }
+
 int dis(pair<int,int> p1, pair<int,int> p2)
 {
     return (p1.first-p2.first)*(p1.first-p2.first) +
@@ -67,6 +68,7 @@ pair<int,int> before_top()
     st.push(tmp);
     return ret;
 }
+
 void graham_scan()
 {
     st.push(arrow[0]);
@@ -85,7 +87,9 @@ void graham_scan()
         // cout << "(" << t.first << ", " << t.second << ")" << endl;
         st.pop();
     }
+
     double max_dis = 0;
+
     for (int i = 0; i < hull.size()-1; ++i)
     {
         for (int j = i+1; j < hull.size(); ++j) {
@@ -112,6 +116,7 @@ int main(int argc, char *argv[])
             right_most = i;
         }
     }
+
     swp(arrow,arrow+right_most);
     // printf("%d %d haha\n", arrow[0].first, arrow[0].second);
     // for (int i = 0; i < N; ++i) {

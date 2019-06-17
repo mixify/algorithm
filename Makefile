@@ -1,8 +1,8 @@
-a.out :gangho.cpp 
-	g++ -g gangho.cpp
-run : gangho.cpp a.out
+a.out :bfs_dfs.cpp 
+	g++ -g bfs_dfs.cpp
+run : bfs_dfs.cpp a.out
 	./a.out < input
-gdb : gangho.cpp a.out
+gdb : bfs_dfs.cpp a.out
 	gdb a.out
-algo : gangho.cpp
-	algo gangho
+algo : bfs_dfs.cpp
+	algo bfs_dfs
