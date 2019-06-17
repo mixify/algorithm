@@ -52,6 +52,7 @@ int main(int argc, char *argv[])
         int from,to;
         cin>>from>>to;
         graph[from].push_back(to);
+        graph[to].push_back(from);
     }
 
     for (int i = 1; i <= N; ++i) {
