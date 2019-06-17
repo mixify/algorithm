@@ -33,15 +33,15 @@ int main(int argc, char *argv[])
     vector<int> visit = vector<int>(N+1,0);
     vector<int> dis = vector<int>(N+1,INF);
 
-    queue<int> q;
+    deque<int> q;
 
-    q.push(1);
+    q.push_front(1);
     dis[1] = 0;
 
     while(!q.empty())
     {
         int n = q.front();
-        q.pop();
+        q.pop_front();
         visit[n]++;
 
         if(visit[n] > N-1)
@@ -55,8 +55,13 @@ int main(int argc, char *argv[])
             int d= p.first;
             int to = p.second;
             if(dis[n] + d < dis[to])
-                q.push(to);
                 dis[to] = dis[n] + d;
+            bool in = false;
+            for(auto it : q)
+                if(it == to)
+                    in = true;
+            if(!in)
+                q.push_back(to);
         }
     }
     for (int i = 2; i <= N; ++i) {
