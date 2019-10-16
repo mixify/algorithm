@@ -1,8 +1,8 @@
-a.out :mst.cpp 
-	g++ -g mst.cpp
-run : mst.cpp a.out
+a.out :lunch_time.cpp 
+	g++ -g lunch_time.cpp
+run : lunch_time.cpp a.out
 	./a.out < input
-gdb : mst.cpp a.out
+gdb : lunch_time.cpp a.out
 	gdb a.out
-algo : mst.cpp
-	algo mst
+algo : lunch_time.cpp
+	algo lunch_time
