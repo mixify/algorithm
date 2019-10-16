@@ -1,8 +1,8 @@
-a.out :dessert_cafe.cpp 
-	g++ -g dessert_cafe.cpp
-run : dessert_cafe.cpp a.out
+a.out :cut_mountain.cpp 
+	g++ -g cut_mountain.cpp
+run : cut_mountain.cpp a.out
 	./a.out < input
-gdb : dessert_cafe.cpp a.out
+gdb : cut_mountain.cpp a.out
 	gdb a.out
-algo : dessert_cafe.cpp
-	algo dessert_cafe
+algo : cut_mountain.cpp
+	algo cut_mountain
