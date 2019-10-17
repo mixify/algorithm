@@ -1,8 +1,8 @@
-a.out :julgi_cells.cpp 
-	g++ -g julgi_cells.cpp
-run : julgi_cells.cpp a.out
+a.out :quantum_collision.cpp 
+	g++ -g quantum_collision.cpp
+run : quantum_collision.cpp a.out
 	./a.out < input
-gdb : julgi_cells.cpp a.out
+gdb : quantum_collision.cpp a.out
 	gdb a.out
-algo : julgi_cells.cpp
-	algo julgi_cells
+algo : quantum_collision.cpp
+	algo quantum_collision
