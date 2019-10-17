@@ -1,8 +1,8 @@
-a.out :quantum_collision.cpp 
-	g++ -g quantum_collision.cpp
-run : quantum_collision.cpp a.out
+a.out :wireless_charge.cpp 
+	g++ -g wireless_charge.cpp
+run : wireless_charge.cpp a.out
 	./a.out < input
-gdb : quantum_collision.cpp a.out
+gdb : wireless_charge.cpp a.out
 	gdb a.out
-algo : quantum_collision.cpp
-	algo quantum_collision
+algo : wireless_charge.cpp
+	algo wireless_charge
