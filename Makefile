@@ -1,8 +1,8 @@
-a.out :cut_mountain.cpp 
-	g++ -g cut_mountain.cpp
-run : cut_mountain.cpp a.out
+a.out :julgi_cells.cpp 
+	g++ -g julgi_cells.cpp
+run : julgi_cells.cpp a.out
 	./a.out < input
-gdb : cut_mountain.cpp a.out
+gdb : julgi_cells.cpp a.out
 	gdb a.out
-algo : cut_mountain.cpp
-	algo cut_mountain
+algo : julgi_cells.cpp
+	algo julgi_cells
