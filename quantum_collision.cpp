@@ -51,7 +51,6 @@ void solve_problem(int case_num)
     for (int i = 0; i < 4000; ++i) {
 
         map<pair<int,int> , vector<int> > next;
-        map<pair<int,int> , vector<int> > cur;
 
         for(int j = 0 ; j < qt.size() ; j++)
         {
@@ -86,7 +85,14 @@ void solve_problem(int case_num)
                 }
             }
         }
-        if(qt.size() == cnt) break;
+        vector<quntumn> tmp;
+        for(auto q : qt)
+        {
+            if(q.energy!=-1)
+                tmp.push_back(q);
+        }
+        qt = tmp;
+        if(qt.size() == 0) break;
     }
     printf("#%d %d\n", case_num+1, total_energy);
 
