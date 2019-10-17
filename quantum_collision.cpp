@@ -14,6 +14,8 @@ int N, M;
 int dy[4] = {1,-1,0,0};
 int dx[4] = {0,0,-1,1};
 
+int grid[4000][4000];
+
 struct atom{
     int x;
     int y;
@@ -21,10 +23,6 @@ struct atom{
     int energy;
 };
 
-struct grid{
-    int val;
-    int y;
-};
 void solve_problem(int case_num);
 int main(int argc, char *argv[])
 {
@@ -43,15 +41,14 @@ void solve_problem(int case_num)
     for (int i = 0; i < N; ++i) {
         int x,y,dir,energy;
         cin>>x>>y>>dir>>energy;
-        qt.push_back({x*2,y*2,dir,energy});
+        qt.push_back({x*2 + 2000,y*2 + 2000,dir,energy});
     }
 
+    memset(grid,0,sizeof(grid));
     int total_energy = 0;
     int cnt = 0;
     for (int i = 0; i < 4000; ++i)
     {
-
-        map<pair<int,int> , vector<int> > next;
 
         for(int j = 0 ; j < qt.size() ; j++)
         {
@@ -64,31 +61,39 @@ void solve_problem(int case_num)
 
             q.x = q.x + dx[q.dir];
             q.y = q.y + dy[q.dir];
-            if(q.x < -2000 || q.x > 2000 || q.y < -2000 || q.y > 2000)
+            if(q.x < 0 || q.x > 4000 || q.y < 0 || q.y > 4000)
             {
                 q.energy = -1;
                 cnt++;
                 continue;
             }
+            grid[q.x][q.y]++;
 
-            // next[make_pair(q.x,q.y)].push_back(j);
             // grid[q.x][q.y] = q.energy;
         }
-        // for(auto it : next)
-        // {
-        //     if(it.second.size() > 1)
-        //     {
-        //         for(int j : it.second)
-        //         {
-        //             total_energy += qt[j].energy;
-        //             qt[j].energy = -1;
-        //             cnt++;
-        //         }
-        //     }
-        // }
+
+        for(int j = 0 ; j < qt.size() ; j++)
+        {
+            atom &q = qt[j];
+            if(q.energy > 0)
+                if(grid[q.x][q.y] > 1)
+                {
+                    total_energy += q.energy;
+                    q.energy = -1;
+                }
+        }
+        for(int j = 0 ; j < qt.size() ; j++)
+        {
+            atom &q = qt[j];
+            if(q.x < 0 || q.x > 4000 || q.y < 0 || q.y > 4000)
+                ;
+            else
+                grid[q.x][q.y] = 0;
+        }
         // vector<atom> tmp;
         if(qt.size() == cnt) break;
     }
+
     printf("#%d %d\n", case_num+1, total_energy);
 
 }
