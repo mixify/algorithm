@@ -14,7 +14,7 @@ int N, M;
 int dy[4] = {1,-1,0,0};
 int dx[4] = {0,0,-1,1};
 
-struct quntumn{
+struct atom{
     int x;
     int y;
     int dir;
@@ -39,7 +39,7 @@ int main(int argc, char *argv[])
 void solve_problem(int case_num)
 {
     cin>>N;
-    vector<quntumn> qt;
+    vector<atom> qt;
     for (int i = 0; i < N; ++i) {
         int x,y,dir,energy;
         cin>>x>>y>>dir>>energy;
@@ -48,13 +48,14 @@ void solve_problem(int case_num)
 
     int total_energy = 0;
     int cnt = 0;
-    for (int i = 0; i < 4000; ++i) {
+    for (int i = 0; i < 4000; ++i)
+    {
 
         map<pair<int,int> , vector<int> > next;
 
         for(int j = 0 ; j < qt.size() ; j++)
         {
-            auto &q = qt[j];
+            atom &q = qt[j];
 
             // if(i<10)
             //     printf("%d %d\n", q.x,q.y);
@@ -70,29 +71,23 @@ void solve_problem(int case_num)
                 continue;
             }
 
-            next[make_pair(q.x,q.y)].push_back(j);
+            // next[make_pair(q.x,q.y)].push_back(j);
             // grid[q.x][q.y] = q.energy;
         }
-        for(auto it : next)
-        {
-            if(it.second.size() > 1)
-            {
-                for(int j : it.second)
-                {
-                    total_energy += qt[j].energy;
-                    qt[j].energy = -1;
-                    cnt++;
-                }
-            }
-        }
-        vector<quntumn> tmp;
-        for(auto q : qt)
-        {
-            if(q.energy!=-1)
-                tmp.push_back(q);
-        }
-        qt = tmp;
-        if(qt.size() == 0) break;
+        // for(auto it : next)
+        // {
+        //     if(it.second.size() > 1)
+        //     {
+        //         for(int j : it.second)
+        //         {
+        //             total_energy += qt[j].energy;
+        //             qt[j].energy = -1;
+        //             cnt++;
+        //         }
+        //     }
+        // }
+        // vector<atom> tmp;
+        if(qt.size() == cnt) break;
     }
     printf("#%d %d\n", case_num+1, total_energy);
 
