@@ -11,7 +11,7 @@
 
 using namespace std;
 int N, M;
-int dy[4] = {-1,1,0,0};
+int dy[4] = {1,-1,0,0};
 int dx[4] = {0,0,-1,1};
 
 struct quntumn{
@@ -43,7 +43,7 @@ void solve_problem(int case_num)
     for (int i = 0; i < N; ++i) {
         int x,y,dir,energy;
         cin>>x>>y>>dir>>energy;
-        qt.push_back({x+2+2000,y+2+2000,dir,energy});
+        qt.push_back({x*2,y*2,dir,energy});
     }
 
     int total_energy = 0;
@@ -55,13 +55,16 @@ void solve_problem(int case_num)
 
         for(int j = 0 ; j < qt.size() ; j++)
         {
-            auto q = qt[j];
+            auto &q = qt[j];
+
+            // if(i<10)
+            //     printf("%d %d\n", q.x,q.y);
             if(q.energy < 0)
                 continue;
 
             q.x = q.x + dx[q.dir];
             q.y = q.y + dy[q.dir];
-            if(q.x < 0 || q.x >= 4000 || q.y < 0 || q.y >=4000)
+            if(q.x < -2000 || q.x > 2000 || q.y < -2000 || q.y > 2000)
             {
                 q.energy = -1;
                 cnt++;
@@ -85,5 +88,6 @@ void solve_problem(int case_num)
         }
         if(qt.size() == cnt) break;
     }
+    printf("#%d %d\n", case_num+1, total_energy);
 
 }
