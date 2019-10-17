@@ -54,14 +54,12 @@ void solve_problem(int case_num)
         {
             atom &q = qt[j];
 
-            // if(i<10)
-            //     printf("%d %d\n", q.x,q.y);
             if(q.energy < 0)
                 continue;
 
             q.x = q.x + dx[q.dir];
             q.y = q.y + dy[q.dir];
-            if(q.x < 0 || q.x > 4000 || q.y < 0 || q.y > 4000)
+            if(q.x < 0 || q.x >= 4000 || q.y < 0 || q.y >= 4000)
             {
                 q.energy = -1;
                 cnt++;
@@ -85,7 +83,7 @@ void solve_problem(int case_num)
         for(int j = 0 ; j < qt.size() ; j++)
         {
             atom &q = qt[j];
-            if(q.x < 0 || q.x > 4000 || q.y < 0 || q.y > 4000)
+            if(q.x < 0 || q.x >= 4000 || q.y < 0 || q.y >= 4000)
                 ;
             else
                 grid[q.x][q.y] = 0;
