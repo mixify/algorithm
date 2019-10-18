@@ -61,7 +61,23 @@ void solve_problem(int case_num)
     int total_charge = 0;
     for (int i = -1; i < N; ++i) {
 
-        vector<int> p1b;
+        vector<int> p1b;                                      |+   24 10 1 3 240
+    96         {                                                                                   |+   25 10 5 3 360
+    97                                                                                             |+   26 10 9 3 350
+    98             for(int b1 : p1b)                                                               |+   27 9 6 2 10
+    99                 for(int b2 : p2b)                                                           |+   28 5 1 4 350
+   100                 {                                                                           |+   29 1 8 2 450
+   101                     if(b1==b2) charge = max(charge,batteries[b1].p);                        |+   30 100 8
+   102                     else charge = max(charge,batteries[b1].p+batteries[b2].p);              |+   31 2 2 3 2 0 2 0 3 3 1 2 2
+   103                 }                                                                           |+   32 4 4 4 0 4 1 1 4 1 1 1 1
+   104         }                                                                                   |+   33 3 4 2 340
+   105                                                                                             |+   34 10 1 1 430
+   106         // printf("%d\n", charge);                                                          |+   35 3 10 4 10
+   107                                                                                             |+   36 6 3 4 400
+   108         total_charge += charge;                                                             |+   37 7 4 1 80
+   109                                                                                             |+   38 4 5 1 420
+   110                                                                                             |+   39 4 1 2 350
+   111     }
         vector<int> p2b;
 
         if(i >= 0)
@@ -77,7 +93,23 @@ void solve_problem(int case_num)
         {
             bc b = batteries[j];
             int d1 = abs(b.x-p1x) + abs(b.y-p1y);
-            if(d1 <= b.c) p1b.push_back(j);
+            if(d1 <= b.c) p1b.push_                                      |+   24 10 1 3 240
+    96         {                                                                                   |+   25 10 5 3 360
+    97                                                                                             |+   26 10 9 3 350
+    98             for(int b1 : p1b)                                                               |+   27 9 6 2 10
+    99                 for(int b2 : p2b)                                                           |+   28 5 1 4 350
+   100                 {                                                                           |+   29 1 8 2 450
+   101                     if(b1==b2) charge = max(charge,batteries[b1].p);                        |+   30 100 8
+   102                     else charge = max(charge,batteries[b1].p+batteries[b2].p);              |+   31 2 2 3 2 0 2 0 3 3 1 2 2
+   103                 }                                                                           |+   32 4 4 4 0 4 1 1 4 1 1 1 1
+   104         }                                                                                   |+   33 3 4 2 340
+   105                                                                                             |+   34 10 1 1 430
+   106         // printf("%d\n", charge);                                                          |+   35 3 10 4 10
+   107                                                                                             |+   36 6 3 4 400
+   108         total_charge += charge;                                                             |+   37 7 4 1 80
+   109                                                                                             |+   38 4 5 1 420
+   110                                                                                             |+   39 4 1 2 350
+   111     }                                                      back(j);
             int d2 = abs(b.x-p2x) + abs(b.y-p2y);
             if(d2 <= b.c) p2b.push_back(j);
         }
