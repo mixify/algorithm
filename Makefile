@@ -1,8 +1,8 @@
-a.out :pin_ball.cpp 
-	g++ -g pin_ball.cpp
-run : pin_ball.cpp a.out
+a.out :protect_seal.cpp 
+	g++ -g protect_seal.cpp
+run : protect_seal.cpp a.out
 	./a.out < input
-gdb : pin_ball.cpp a.out
+gdb : protect_seal.cpp a.out
 	gdb a.out
-algo : pin_ball.cpp
-	algo pin_ball
+algo : protect_seal.cpp
+	algo protect_seal
