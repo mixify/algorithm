@@ -17,6 +17,7 @@ int dy[4] = {-1,1,0,0};
 int dx[4] = {0,0,1,-1};
 
 int D[101][101][4];
+// int trace[101][101][4];
 
 int dirc[4][7];
 
@@ -70,35 +71,27 @@ int main(int argc, char *argv[])
 }
 
 
-int get_score(int sy, int sx, int y, int x, int dir,int trace[101][101][4])
+int get_score(int sy, int sx, int y, int x, int dir)
 {
     int &ret = D[y][x][dir];
     int score = 0;
 
-    if(trace[y][x][dir] > 1) return -1000;
-    trace[y][x][dir]++;
-    if(ret != -1)
-    {
-        // printf("%d %d %d = %d\n", y, x, dir, ret);
-        return ret;
-    }
-    // int trace[101][101][4];
-    // memset(trace,0,sizeof(trace));
-    // trace_gl[y][x][dir]++;
+
     int next_y = y + dy[dir];
     int next_x = x + dx[dir];
 
-    // printf("%d %d %d\n", y, x, dir);
     if(next_y >= N || next_y < 0 || next_x >= N || next_x < 0)
     {
+        y = next_y;
+        x = next_x;
         score = 1;
-        if(y==sy && x==sx) return ret=score;
+        // if(y==sy && x==sx) return ret=score;
         dir = dirc[dir][5];
-        if(0 < game[y][x] && game[y][x] < 5)
-        {
-            dir = dirc[dir][game[y][x]];
-            score++;
-        }
+        // if(0 < game[y][x] && game[y][x] < 5)
+        // {
+        //     dir = dirc[dir][game[y][x]];
+        //     score++;
+        // }
     }
 
     else if(next_y == sy && next_x == sx) {
@@ -131,16 +124,13 @@ int get_score(int sy, int sx, int y, int x, int dir,int trace[101][101][4])
     }
     else
     {
-        score = 1;
+        score++;
         y = next_y;
         x = next_x;
         dir = dirc[dir][game[next_y][next_x]];
     }
 
-    ret = score + get_score(sy, sx, y, x, dir,trace);
-    // if(ret == 8)
-    //     printf("%d %d %d %d %d\n", y,x,dir,score,get_score(sy, sx, y, x, dir,trace));
-    return ret;
+    return ret = score + get_score(sy, sx, y, x, dir);
 }
 
 void solve_problem(int case_num)
@@ -157,13 +147,16 @@ void solve_problem(int case_num)
         }
     }
 
+
+    // printf("%d\n", get_score(13,13,13,13,2));
     for (int i = 0; i < N; ++i)
         for (int j = 0; j < N; ++j)
             if(game[i][j] == 0)
                 for (int k = 0; k < 4; ++k) {
-                    int trace[101][101][4];
-                    memset(trace,0,sizeof(trace));
-                    max_score = max(max_score,get_score(i,j,i,j,k,trace));
+                    // int trace[101][101][4];
+                    // memset(trace,0,sizeof(trace));
+                    // printf("%d %d %d\n", i,j,k);
+                    max_score = max(max_score,get_score(i,j,i,j,k));
                     // if(pre!=max_score) printf("%d %d %d\n", i,j,k);
                 }
     printf("#%d %d\n", case_num+1, max_score);
