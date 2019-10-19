@@ -16,20 +16,12 @@ int game[101][101];
 int dy[4] = {-1,1,0,0};
 int dx[4] = {0,0,1,-1};
 
+int D[101][101][4];
+
 int dirc[4][7];
 
 void solve_problem(int case_num);
 map<int,vector<pair<int, int> > > wormhall;
-
-int main(int argc, char *argv[])
-{
-    int cases;
-    cin>>cases;
-    for (int i = 0; i < cases; ++i) {
-        solve_problem(i);
-    }
-    return 0;
-}
 
 void set_dirc()
 {
@@ -66,86 +58,97 @@ void set_dirc()
     //     }
     // }
 }
-int get_score(int start_y, int start_x, int dir)
+int main(int argc, char *argv[])
 {
+    int cases;
+    cin>>cases;
+    set_dirc();
+    for (int i = 0; i < cases; ++i) {
+        solve_problem(i);
+    }
+    return 0;
+}
+
+
+int get_score(int sy, int sx, int y, int x, int dir,int trace[101][101][4])
+{
+    int &ret = D[y][x][dir];
     int score = 0;
-    int y = start_y;
-    int x = start_x;
-    int same_cnt = 0;
 
-    int trace[101][101][4];
-
-    memset(trace,0,sizeof(trace));
-
-    while(1)
+    if(trace[y][x][dir] > 1) return -1000;
+    trace[y][x][dir]++;
+    if(ret != -1)
     {
-        int next_y = y + dy[dir];
-        int next_x = x + dx[dir];
+        // printf("%d %d %d = %d\n", y, x, dir, ret);
+        return ret;
+    }
+    // int trace[101][101][4];
+    // memset(trace,0,sizeof(trace));
+    // trace_gl[y][x][dir]++;
+    int next_y = y + dy[dir];
+    int next_x = x + dx[dir];
 
-        // printf("%d %d %d\n", y, x, dir);
-        if(next_y >= N || next_y < 0 || next_x >= N || next_x < 0)
+    // printf("%d %d %d\n", y, x, dir);
+    if(next_y >= N || next_y < 0 || next_x >= N || next_x < 0)
+    {
+        score = 1;
+        if(y==sy && x==sx) return ret=score;
+        dir = dirc[dir][5];
+        if(0 < game[y][x] && game[y][x] < 5)
         {
+            dir = dirc[dir][game[y][x]];
             score++;
-            dir = dirc[dir][5];
         }
+    }
 
-        else if(next_y == start_y && next_x == start_x) {
+    else if(next_y == sy && next_x == sx) {
+        return ret = score;
+    }
 
-            // printf("return by first\n");
-            break;
-        }
+    else if(game[next_y][next_x] == -1) {
+        return ret = score;
+    }
 
-        else if(game[next_y][next_x] == -1) {
-            // printf("return by black\n");
-            break;
-        }
-
-        else if(game[next_y][next_x] == 0)
+    else if(game[next_y][next_x] == 0)
+    {
+        y = next_y;
+        x = next_x;
+    }
+    else if(game[next_y][next_x] > 5)
+    {
+        pair<int,int> w1 = wormhall[game[next_y][next_x]][0];
+        pair<int,int> w2 = wormhall[game[next_y][next_x]][1];
+        if(w1.first != next_y || w1.second !=next_x)
         {
-            y = next_y;
-            x = next_x;
-        }
-        else if(game[next_y][next_x] > 5)
-        {
-            pair<int,int> w1 = wormhall[game[next_y][next_x]][0];
-            pair<int,int> w2 = wormhall[game[next_y][next_x]][1];
-            if(w1.first != next_y || w1.second !=next_x)
-            {
-                y = w1.first;
-                x = w1.second;
-            }
-            else
-            {
-                y = w2.first;
-                x = w2.second;
-            }
-            //warp
+            y = w1.first;
+            x = w1.second;
         }
         else
         {
-            score++;
-            y = next_y;
-            x = next_x;
-            dir = dirc[dir][game[next_y][next_x]];
+            y = w2.first;
+            x = w2.second;
         }
-
-        if(trace[y][x][dir]>0)
-        {
-            // printf("return by loop\n");
-            return 0;
-        }
-
-        trace[y][x][dir]++;
-
+    }
+    else
+    {
+        score = 1;
+        y = next_y;
+        x = next_x;
+        dir = dirc[dir][game[next_y][next_x]];
     }
 
-    return score-1;
+    ret = score + get_score(sy, sx, y, x, dir,trace);
+    // if(ret == 8)
+    //     printf("%d %d %d %d %d\n", y,x,dir,score,get_score(sy, sx, y, x, dir,trace));
+    return ret;
 }
+
 void solve_problem(int case_num)
 {
     int max_score = 0;
     cin>>N;
-    set_dirc();
+    memset(D,-1,sizeof(D));
+    wormhall.clear();
     for (int i = 0; i < N; ++i) {
         for (int j = 0; j < N; ++j) {
             cin>>game[i][j];
@@ -154,12 +157,14 @@ void solve_problem(int case_num)
         }
     }
 
-    // get_score(2,3,2);
     for (int i = 0; i < N; ++i)
         for (int j = 0; j < N; ++j)
             if(game[i][j] == 0)
                 for (int k = 0; k < 4; ++k) {
-                    max_score = max(max_score,get_score(i,j,k));
+                    int trace[101][101][4];
+                    memset(trace,0,sizeof(trace));
+                    max_score = max(max_score,get_score(i,j,i,j,k,trace));
+                    // if(pre!=max_score) printf("%d %d %d\n", i,j,k);
                 }
     printf("#%d %d\n", case_num+1, max_score);
 }
