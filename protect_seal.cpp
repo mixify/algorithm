@@ -80,20 +80,14 @@ void solve_problem(int case_num)
             if(div!=0)
             {
                 cnt++;
-                for(int &s : applied_seal[j])
-                    s = div-1;
+                for(int k = 0 ; k < W ; k++)
+                    applied_seal[j][k] = div-1;
             }
             n/=3;
         }
+        if(cnt > min_apply) continue;
         if(check_seal(applied_seal))
-        {
-            // printf("true\n");
             min_apply = min(cnt,min_apply);
-        }
-        else
-        {
-            // printf("false\n");
-        }
 
         // printf("\n");
 
