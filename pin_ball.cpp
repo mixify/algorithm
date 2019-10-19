@@ -77,60 +77,64 @@ int get_score(int sy, int sx, int y, int x, int dir)
     int score = 0;
 
 
-    int next_y = y + dy[dir];
-    int next_x = x + dx[dir];
-
-    if(next_y >= N || next_y < 0 || next_x >= N || next_x < 0)
+    while(1)
     {
-        y = next_y;
-        x = next_x;
-        score = 1;
-        // if(y==sy && x==sx) return ret=score;
-        dir = dirc[dir][5];
-        // if(0 < game[y][x] && game[y][x] < 5)
-        // {
-        //     dir = dirc[dir][game[y][x]];
-        //     score++;
-        // }
-    }
+        int next_y = y + dy[dir];
+        int next_x = x + dx[dir];
 
-    else if(next_y == sy && next_x == sx) {
-        return ret = score;
-    }
-
-    else if(game[next_y][next_x] == -1) {
-        return ret = score;
-    }
-
-    else if(game[next_y][next_x] == 0)
-    {
-        y = next_y;
-        x = next_x;
-    }
-    else if(game[next_y][next_x] > 5)
-    {
-        pair<int,int> w1 = wormhall[game[next_y][next_x]][0];
-        pair<int,int> w2 = wormhall[game[next_y][next_x]][1];
-        if(w1.first != next_y || w1.second !=next_x)
+        if(next_y >= N || next_y < 0 || next_x >= N || next_x < 0)
         {
-            y = w1.first;
-            x = w1.second;
+            y = next_y;
+            x = next_x;
+            score++;
+            // if(y==sy && x==sx) return ret=score;
+            dir = dirc[dir][5];
+            // if(0 < game[y][x] && game[y][x] < 5)
+            // {
+            //     dir = dirc[dir][game[y][x]];
+            //     score++;
+            // }
+        }
+
+        else if(next_y == sy && next_x == sx) {
+            break;
+        }
+
+        else if(game[next_y][next_x] == -1) {
+            break;
+        }
+
+        else if(game[next_y][next_x] == 0)
+        {
+            y = next_y;
+            x = next_x;
+        }
+        else if(game[next_y][next_x] > 5)
+        {
+            pair<int,int> w1 = wormhall[game[next_y][next_x]][0];
+            pair<int,int> w2 = wormhall[game[next_y][next_x]][1];
+            if(w1.first != next_y || w1.second !=next_x)
+            {
+                y = w1.first;
+                x = w1.second;
+            }
+            else
+            {
+                y = w2.first;
+                x = w2.second;
+            }
         }
         else
         {
-            y = w2.first;
-            x = w2.second;
+            score++;
+            y = next_y;
+            x = next_x;
+            dir = dirc[dir][game[next_y][next_x]];
         }
     }
-    else
-    {
-        score++;
-        y = next_y;
-        x = next_x;
-        dir = dirc[dir][game[next_y][next_x]];
-    }
 
-    return ret = score + get_score(sy, sx, y, x, dir);
+
+    return score;
 }
 
 void solve_problem(int case_num)
