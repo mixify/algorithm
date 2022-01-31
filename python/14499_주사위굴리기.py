@@ -1,7 +1,3 @@
-'''
-https://www.acmicpc.net/problem/14499
-'''
-
 N, M, y, x, K = map(int,input().split())
 
 ary = []
